@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](docs/CONTRIBUTING.md)
-[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=nubscarson.solanaoasis)](https://github.com/NubsCarson/SolanaOasis-Layer2)
+![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FNubsCarson%2FSolanaOasis-Layer2&label=Visitors&labelColor=%23000000&countColor=%23263759)
 [![Made with Love](https://img.shields.io/badge/Made%20with-🖤-black.svg)](https://github.com/NubsCarson)
 [![Solana](https://img.shields.io/badge/Solana-black?style=flat&logo=solana)](https://solana.com)
 [![Rust](https://img.shields.io/badge/Rust-black?style=flat&logo=rust)](https://www.rust-lang.org)
@@ -48,7 +48,7 @@ Created by [@NubsCarson](https://github.com/NubsCarson)
 - 💬 Discord: @1gig
 - 📱 Telegram: @ChillWeb3Dev
 
-## 🌟 Overview
+## ��� Overview
 
 Solana Oasis is a groundbreaking Layer 2 solution that brings scalable AI computations to the Solana ecosystem. By combining optimistic rollups with a specialized AI computation layer, we enable developers to build AI-powered dApps that leverage heavy computational resources while maintaining the security and decentralization of Solana's L1.
 
@@ -82,8 +82,8 @@ graph TD
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/solana-oasis
-cd solana-oasis
+git clone https://github.com/NubsCarson/SolanaOasis-Layer2.git
+cd SolanaOasis-Layer2
 
 # Build the project
 cargo build
@@ -137,7 +137,7 @@ The project is in active development. Current focus areas:
 - SDK development
 - Testing infrastructure
 
-## 🤝 Contributing
+## �� Contributing
 
 We welcome contributions! Check out our [Contributing Guide](docs/CONTRIBUTING.md) to get started.
 
@@ -172,9 +172,9 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 <div align="center">
   
-[![Twitter Follow](https://img.shields.io/twitter/follow/SolanaOasis?style=social)](https://x.com/monerosolana)
+[![Twitter Follow](https://img.shields.io/twitter/follow/MoneroSolana?style=social)](https://twitter.com/MoneroSolana)
 [![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?style=social&label=Discord&logo=discord)](https://discord.gg/2DQ3jCpzNq)
-[![GitHub stars](https://img.shields.io/github/stars/your-org/solana-oasis?style=social)](https://github.com/NubsCarson/SolanaOasis-Layer2)
+[![GitHub stars](https://img.shields.io/github/stars/NubsCarson/SolanaOasis-Layer2?style=social)](https://github.com/NubsCarson/SolanaOasis-Layer2)
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
 
@@ -192,7 +192,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ### 🌟 Stargazers
 
-[![Stargazers over time](https://starchart.cc/NubsCarson/SolanaOasis-Layer2.svg)](https://starchart.cc/NubsCarson/SolanaOasis-Layer2)
+[![Star History Chart](https://api.star-history.com/svg?repos=NubsCarson/SolanaOasis-Layer2&type=Date)](https://star-history.com/#NubsCarson/SolanaOasis-Layer2&Date)
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
 
