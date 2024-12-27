@@ -4,6 +4,10 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](docs/CONTRIBUTING.md)
+[![Visitors](https://visitor-badge.laobi.icu/badge?page_id=nubscarson.solanaoasis)](https://github.com/NubsCarson/SolanaOasis-Layer2)
+[![Made with Love](https://img.shields.io/badge/Made%20with-🖤-black.svg)](https://github.com/NubsCarson)
+[![Solana](https://img.shields.io/badge/Solana-black?style=flat&logo=solana)](https://solana.com)
+[![Rust](https://img.shields.io/badge/Rust-black?style=flat&logo=rust)](https://www.rust-lang.org)
 
 > Building the bridge between Solana's lightning-fast L1 and cutting-edge AI computation 🚀
 
@@ -158,7 +162,7 @@ pip install -r requirements.txt
 
 ## 🔐 Security
 
-Found a security issue? Please report it confidentially to security@your-org.com.
+Found a security issue? Please report it confidentially to @ChillWeb3Dev on Telegram
 
 ## 📄 License
 
@@ -168,8 +172,30 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 <div align="center">
   
-[![Twitter Follow](https://img.shields.io/twitter/follow/SolanaOasis?style=social)](https://twitter.com/SolanaOasis)
-[![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?style=social&label=Discord&logo=discord)](https://discord.gg/your-invite)
-[![GitHub stars](https://img.shields.io/github/stars/your-org/solana-oasis?style=social)](https://github.com/your-org/solana-oasis)
+[![Twitter Follow](https://img.shields.io/twitter/follow/SolanaOasis?style=social)](https://x.com/monerosolana)
+[![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?style=social&label=Discord&logo=discord)](https://discord.gg/2DQ3jCpzNq)
+[![GitHub stars](https://img.shields.io/github/stars/your-org/solana-oasis?style=social)](https://github.com/NubsCarson/SolanaOasis-Layer2)
+
+<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
+
+### 📊 GitHub Stats
+
+<img src="https://github-readme-stats.vercel.app/api?username=NubsCarson&show_icons=true&theme=radical" alt="GitHub Stats" />
+
+### 🏆 GitHub Trophies
+
+[![trophy](https://github-profile-trophy.vercel.app/?username=NubsCarson&theme=darkhub&row=1)](https://github.com/NubsCarson)
+
+### 🔥 Contribution Streak
+
+[![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=NubsCarson&theme=dark)](https://github.com/NubsCarson)
+
+### 🌟 Stargazers
+
+[![Stargazers over time](https://starchart.cc/NubsCarson/SolanaOasis-Layer2.svg)](https://starchart.cc/NubsCarson/SolanaOasis-Layer2)
+
+<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" width="100%">
 
 </div> 
