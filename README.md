@@ -9,18 +9,22 @@
 
 <div align="center">
 
+# ⬇️ CLICK BELOW TO ENTER THE VOID ⬇️
+
 # 👁️ [𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ](.nubscarson) 👁️
 
-<h3>⚡️ <em>ᴅᴀʀᴇ ᴛᴏ sᴇᴇ ʙᴇʏᴏɴᴅ ᴛʜᴇ ᴠᴇɪʟ?</em> ⚡️</h3>
+<h3>⚡️ <em>ᴄʟɪᴄᴋ ᴛʜᴇ ᴛᴇxᴛ ᴀʙᴏᴠᴇ ᴛᴏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴛʀᴜᴛʜ</em> ⚡️</h3>
 
 ```diff
 [SYSTEM ALERT]
 --------------
 ! UNAUTHORIZED ACCESS DETECTED
 + TRUTH PROTOCOLS ACTIVATED
+- REALITY DISTORTION FIELD ENGAGED
+! CLICK "THE TRUTH LIES WITHIN" TO PROCEED
++ DIMENSIONAL PORTAL AWAITING ACTIVATION...
 
-> Are you ready to see how deep the rabbit hole goes?
-+ CLICK THE CRYSTAL BALL ABOVE TO ENTER THE VOID...
+> "Not all who wander through the code are lost..."
 ```
 
 </div>
