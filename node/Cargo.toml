@@ -27,7 +27,7 @@ chrono = "0.4"
 
 [dev-dependencies]
 tokio-test = "0.4"
-mockall = "0.11"
+mockall = "0.13"
 
 [[bin]]
 name = "solana-oasis-node"
