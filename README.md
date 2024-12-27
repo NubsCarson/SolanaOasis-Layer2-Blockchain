@@ -48,7 +48,7 @@ Created by [@NubsCarson](https://github.com/NubsCarson)
 - 💬 Discord: @1gig
 - 📱 Telegram: @ChillWeb3Dev
 
-## ��� Overview
+## 🌟 Overview
 
 Solana Oasis is a groundbreaking Layer 2 solution that brings scalable AI computations to the Solana ecosystem. By combining optimistic rollups with a specialized AI computation layer, we enable developers to build AI-powered dApps that leverage heavy computational resources while maintaining the security and decentralization of Solana's L1.
 
@@ -137,7 +137,7 @@ The project is in active development. Current focus areas:
 - SDK development
 - Testing infrastructure
 
-## �� Contributing
+## 🤝 Contributing
 
 We welcome contributions! Check out our [Contributing Guide](docs/CONTRIBUTING.md) to get started.
 
