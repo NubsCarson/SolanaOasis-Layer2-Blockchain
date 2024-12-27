@@ -1,0 +1,35 @@
+[package]
+name = "solana-oasis-contracts"
+version = "0.1.0"
+edition = "2021"
+description = "Smart contracts for Solana Oasis L2"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "solana_oasis_contracts"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+solana-program = { workspace = true }
+anchor-lang = { workspace = true }
+anchor-spl = "0.28"
+spl-token = { version = "4.0", features = ["no-entrypoint"] }
+spl-associated-token-account = { version = "2.0", features = ["no-entrypoint"] }
+
+# Serialization
+borsh = "0.10"
+bytemuck = { version = "1.13", features = ["derive"] }
+
+# Error handling
+thiserror = { workspace = true }
+
+[dev-dependencies]
+solana-program-test = "1.17"
+solana-sdk = { workspace = true }
+tokio = { workspace = true } 

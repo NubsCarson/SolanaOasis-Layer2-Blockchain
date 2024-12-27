@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "bridge",
+    "ai-layer",
+    "sdk",
+    "node",
+]
+
+resolver = "2" 

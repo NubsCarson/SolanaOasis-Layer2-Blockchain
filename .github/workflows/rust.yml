@@ -1,0 +1,62 @@
+name: 🦀 Rust CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+  ROCKSDB_LIB_DIR: /usr/lib/x86_64-linux-gnu
+  ROCKSDB_STATIC: 1
+  RUSTFLAGS: "-C target-cpu=native"
+
+jobs:
+  build:
+    name: 🏗️ Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: 🔧 Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y librocksdb-dev clang
+
+    - name: 🦀 Install Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        components: clippy, rustfmt
+
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: 📦 Cache Dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+    - name: 🔍 Check Format
+      run: cargo fmt -- --check
+
+    - name: 🔎 Clippy
+      run: cargo clippy -- -D warnings
+
+    - name: 🏗️ Build
+      run: cargo build --verbose
+
+    - name: 🧪 Run Tests
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+        ./tests/run_local_tests.sh 
