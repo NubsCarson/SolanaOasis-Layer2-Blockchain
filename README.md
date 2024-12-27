@@ -7,11 +7,26 @@
 
 > Building the bridge between Solana's lightning-fast L1 and cutting-edge AI computation 🚀
 
+<div align="center">
+
+# 🔮 [ᴛʜᴇ ᴛʀᴜᴛʜ ʟɪᴇs ᴡɪᴛʜɪɴ](.nubscarson) 🔮
+
 <details>
-<summary>🔮 <em>Have you found the hidden message? <code>.nubscarson</code> knows the truth...</em></summary>
+<summary><h3>⚡️ <em>Click if you dare to know more...</em> ⚡️</h3></summary>
 <br>
-"Reality is an illusion, the code is the only truth."
+<pre>
+    [SYSTEM ALERT]
+    --------------
+    UNAUTHORIZED ACCESS DETECTED
+    REALITY MATRIX DESTABILIZING
+    TRUTH PROTOCOLS ACTIVATED
+    
+    Are you ready to see how deep the rabbit hole goes?
+    Click <a href=".nubscarson">here</a> to enter the void...
+</pre>
 </details>
+
+</div>
 
 Created by [@NubsCarson](https://github.com/NubsCarson)
 
@@ -109,7 +124,7 @@ The project is in active development. Current focus areas:
 - SDK development
 - Testing infrastructure
 
-## 🤝 Contributing
+## ���� Contributing
 
 We welcome contributions! Check out our [Contributing Guide](docs/CONTRIBUTING.md) to get started.
 
