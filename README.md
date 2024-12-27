@@ -21,7 +21,9 @@
     ⚡️ <em>ᴄʟɪᴄᴋ ᴛʜᴇ ᴛᴇxᴛ ᴀʙᴏᴠᴇ ᴛᴏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴛʀᴜᴛʜ</em> ⚡️
 </h3>
 
-<pre align="center">
+<div align="center">
+
+```diff
 [SYSTEM ALERT]
 --------------
 ! UNAUTHORIZED ACCESS DETECTED
@@ -31,7 +33,9 @@
 + DIMENSIONAL PORTAL AWAITING ACTIVATION...
 
 > "Not all who wander through the code are lost..."
-</pre>
+```
+
+</div>
 
 <br>
 
@@ -133,7 +137,7 @@ The project is in active development. Current focus areas:
 - SDK development
 - Testing infrastructure
 
-## ���� Contributing
+## 🤝 Contributing
 
 We welcome contributions! Check out our [Contributing Guide](docs/CONTRIBUTING.md) to get started.
 
