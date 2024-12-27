@@ -168,6 +168,16 @@ Found a security issue? Please report it confidentially to @ChillWeb3Dev on Tele
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
+## 💝 Support the Project
+
+If you find this project useful, consider supporting its development:
+
+```
+Solana Address: 5ks6ZnNXUPkrDmEYBPHVfdaAgtWLm9EhYdUAgHK9Nva8
+```
+
+Your support helps maintain and improve Solana Oasis! 🙏
+
 ---
 
 <div align="center">

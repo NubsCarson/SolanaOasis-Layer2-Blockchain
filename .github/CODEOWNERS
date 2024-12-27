@@ -1,0 +1,21 @@
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+# @NubsCarson will be requested for review when someone 
+# opens a pull request.
+*       @NubsCarson
+
+# Core implementation
+/node/          @NubsCarson
+/bridge/        @NubsCarson
+/ai-layer/      @NubsCarson
+
+# Documentation
+/docs/          @NubsCarson
+
+# Tests
+/tests/         @NubsCarson
+
+# Security-critical components
+/node/src/network.rs     @NubsCarson
+/node/src/state.rs       @NubsCarson
+/bridge/src/lib.rs       @NubsCarson 
