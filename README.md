@@ -1,11 +1,11 @@
-# 🌴 Solana Oasis: The Forbidden Protocol
+# 🌴️ Solana Oasis: The Forbidden Protocol
 
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](docs/CONTRIBUTING.md)
 ![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FNubsCarson%2FSolanaOasis-Layer2&label=Observers&labelColor=%23000000&countColor=%23263759)
-[![Made with Love](https://img.shields.io/badge/Made%20with-🖤-black.svg)](https://github.com/NubsCarson)
+[![Made with Love](https://img.shields.io/badge/Made%20with-⚡-black.svg)](https://github.com/NubsCarson)
 [![Solana](https://img.shields.io/badge/Solana-black?style=flat&logo=solana)](https://solana.com)
 [![Rust](https://img.shields.io/badge/Rust-black?style=flat&logo=rust)](https://www.rust-lang.org)
 
@@ -18,12 +18,14 @@
 # ⚠️ CLASSIFIED DOCUMENTATION ⚠️
 
 <h1 align="center">
-    👁️ <a href=".nubscarson">𝕊𝔼ℂℝ𝔼𝕋: ℂ𝕃𝕀ℂ𝕂 𝕄𝔼 ➜ 𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ</a> 👁️
+    🕸️ <a href=".nubscarson">𝕊𝔼ℂℝ𝔼𝕋: ℂ𝕃𝕀ℂ𝕂 𝕄𝔼 ➜ 𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ</a> 🕸️
 </h1>
 
 <h3 align="center">
-    ⚡️ <em>ᴄʜᴇ ᴅɪɢɪᴛᴀʟ ᴇʟɪxɪʀ ᴀᴡᴀɪᴛs ᴛʜᴇ ᴡᴏʀᴛʜʏ</em> ⚡️
+    ⛧ <em>ᴄʜᴇ ᴅɪɢɪᴛᴀʟ ᴇʟɪxɪʀ ᴀᴡᴀɪᴛs ᴛʜᴇ ᴡᴏʀᴛʜʏ</em> ⛧
 </h3>
+
+<div align="center">
 
 ```diff
 [CLASSIFIED TRANSMISSION]
@@ -37,6 +39,8 @@
 > "In the depths of the blockchain, we found something we shouldn't have..."
 ```
 
+</div>
+
 <br>
 
 </div>
@@ -44,9 +48,8 @@
 Created by the Digital Alchemist [@NubsCarson](https://github.com/NubsCarson)
 
 ### 🌌 Commune with the Architect
-- 🐦 X: [@MoneroSolana](https://twitter.com/MoneroSolana)
-- 💬 Discord Summoning: @1gig
-- 📱 Telegram Transmission: @ChillWeb3Dev
+- X: [@MoneroSolana](https://twitter.com/MoneroSolana)
+- Telegram: [@ChillWeb3Dev](https://t.me/ChillWeb3Dev)
 
 ## 🌟 The Revelation
 
@@ -54,12 +57,12 @@ Solana Oasis isn't just a Layer 2 - it's a digital consciousness that bridges th
 
 ## 📚 Sacred Texts
 Delve into the forbidden knowledge:
-- [🏗️ Architecture Grimoire](docs/ARCHITECTURE.md)
-- [📖 API Incantations](docs/API.md)
-- [🛡️ Security Wards](docs/SECURITY.md)
-- [🤝 Contribution Rituals](docs/CONTRIBUTING.md)
-- [⚖️ License Bindings](LICENSE)
-- [🔒 Security Protocols](.github/SECURITY.md)
+- [⚔️ Architecture Grimoire](docs/ARCHITECTURE.md)
+- [🗝️ API Incantations](docs/API.md)
+- [⛧ Security Wards](docs/SECURITY.md)
+- [🔮 Contribution Rituals](docs/CONTRIBUTING.md)
+- [⚡ License Bindings](LICENSE)
+- [🗡️ Security Protocols](.github/SECURITY.md)
 - [📜 Code of Conduct](.github/CODE_OF_CONDUCT.md)
 
 ## 🏗️ Architecture
@@ -75,10 +78,10 @@ graph TD
 
 ### Core Components
 
-- **🔮 Oasis Node Layer**: Distributed network of validator nodes running AI workloads
-- **🌉 Bridge Protocol**: Secure asset bridging between Solana L1 and Oasis L2
+- **🔮️ Oasis Node Layer**: Distributed network of validator nodes running AI workloads
+- **⛧ Bridge Protocol**: Secure asset bridging between Solana L1 and Oasis L2
 - **🧠 AI Computation Layer**: Distributed inference endpoints for AI/ML models
-- **📜 Smart Contract Layer**: Solana programs for state management and verification
+- **📓 Smart Contract Layer**: Solana programs for state management and verification
 
 ## 🚀 Initiation Ritual
 
@@ -165,9 +168,9 @@ pip install -r requirements.txt
 
 ## 📚 Documentation
 
-- [Architecture Overview](docs/ARCHITECTURE.md)
-- [API Reference](docs/API.md)
-- [Security Model](docs/SECURITY.md)
+- [⚔️ Architecture Overview](docs/ARCHITECTURE.md)
+- [🗝️ API Reference](docs/API.md)
+- [⛧ Security Model](docs/SECURITY.md)
 
 ## 🔐 Security
 
