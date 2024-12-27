@@ -21,19 +21,23 @@
     ⚡️ <em>ᴄʟɪᴄᴋ ᴛʜᴇ ᴛᴇxᴛ ᴀʙᴏᴠᴇ ᴛᴏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴛʀᴜᴛʜ</em> ⚡️
 </h3>
 
-<div align="center">
+<div align="center" style="text-align: center !important;">
+
+<div style="display: inline-block; text-align: left;">
 
 ```diff
-[SYSTEM ALERT]
---------------
-! UNAUTHORIZED ACCESS DETECTED
-+ TRUTH PROTOCOLS ACTIVATED
-- REALITY DISTORTION FIELD ENGAGED
-! CLICK "THE TRUTH LIES WITHIN" TO PROCEED
-+ DIMENSIONAL PORTAL AWAITING ACTIVATION...
+                              [SYSTEM ALERT]
+                              --------------
+                    ! UNAUTHORIZED ACCESS DETECTED
+                    + TRUTH PROTOCOLS ACTIVATED
+                    - REALITY DISTORTION FIELD ENGAGED
+                    ! CLICK "THE TRUTH LIES WITHIN" TO PROCEED
+                    + DIMENSIONAL PORTAL AWAITING ACTIVATION...
 
-> "Not all who wander through the code are lost..."
+                    > "Not all who wander through the code are lost..."
 ```
+
+</div>
 
 </div>
 
