@@ -9,22 +9,19 @@
 
 <div align="center">
 
-# 🔮 [ᴛʜᴇ ᴛʀᴜᴛʜ ʟɪᴇs ᴡɪᴛʜɪɴ](.nubscarson) 🔮
+# 👁️ [𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ](.nubscarson) 👁️
 
-<details>
-<summary><h3>⚡️ <em>Click if you dare to know more...</em> ⚡️</h3></summary>
-<br>
-<pre>
-    [SYSTEM ALERT]
-    --------------
-    UNAUTHORIZED ACCESS DETECTED
-    REALITY MATRIX DESTABILIZING
-    TRUTH PROTOCOLS ACTIVATED
-    
-    Are you ready to see how deep the rabbit hole goes?
-    Click <a href=".nubscarson">here</a> to enter the void...
-</pre>
-</details>
+<h3>⚡️ <em>ᴅᴀʀᴇ ᴛᴏ sᴇᴇ ʙᴇʏᴏɴᴅ ᴛʜᴇ ᴠᴇɪʟ?</em> ⚡️</h3>
+
+```diff
+[SYSTEM ALERT]
+--------------
+! UNAUTHORIZED ACCESS DETECTED
++ TRUTH PROTOCOLS ACTIVATED
+
+> Are you ready to see how deep the rabbit hole goes?
++ CLICK THE CRYSTAL BALL ABOVE TO ENTER THE VOID...
+```
 
 </div>
 
