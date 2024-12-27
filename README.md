@@ -9,13 +9,19 @@
 
 <div align="center">
 
+<br>
+
 # ⬇️ CLICK BELOW TO ENTER THE VOID ⬇️
 
-# 👁️ [𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ](.nubscarson) 👁️
+<h1 align="center">
+    👁️ <a href=".nubscarson">𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ</a> 👁️
+</h1>
 
-<h3>⚡️ <em>ᴄʟɪᴄᴋ ᴛʜᴇ ᴛᴇxᴛ ᴀʙᴏᴠᴇ ᴛᴏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴛʀᴜᴛʜ</em> ⚡️</h3>
+<h3 align="center">
+    ⚡️ <em>ᴄʟɪᴄᴋ ᴛʜᴇ ᴛᴇxᴛ ᴀʙᴏᴠᴇ ᴛᴏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴛʀᴜᴛʜ</em> ⚡️
+</h3>
 
-```diff
+<pre align="center">
 [SYSTEM ALERT]
 --------------
 ! UNAUTHORIZED ACCESS DETECTED
@@ -25,7 +31,9 @@
 + DIMENSIONAL PORTAL AWAITING ACTIVATION...
 
 > "Not all who wander through the code are lost..."
-```
+</pre>
+
+<br>
 
 </div>
 
