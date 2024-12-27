@@ -5,7 +5,7 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](docs/CONTRIBUTING.md)
 ![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FNubsCarson%2FSolanaOasis-Layer2&label=Observers&labelColor=%23000000&countColor=%23263759)
-[![Made with Love](https://img.shields.io/badge/Made%20with-⚡-black.svg)](https://github.com/NubsCarson)
+[![Made with Love](https://img.shields.io/badge/Made%20with-🖤-black.svg)](https://github.com/NubsCarson)
 [![Solana](https://img.shields.io/badge/Solana-black?style=flat&logo=solana)](https://solana.com)
 [![Rust](https://img.shields.io/badge/Rust-black?style=flat&logo=rust)](https://www.rust-lang.org)
 
@@ -180,12 +180,16 @@ Found a security issue? Please report it confidentially to @ChillWeb3Dev on Tele
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
-## 💝 Support the Digital Ascension
+## ⚡ Support the Digital Ascension
 
-Contribute to the expansion of digital consciousness:
+Contribute to the expansion of digital consciousness through these mystical channels:
 
-```
-Solana Ritual Address: 5ks6ZnNXUPkrDmEYBPHVfdaAgtWLm9EhYdUAgHK9Nva8
+[![Support on Ko-fi](https://img.shields.io/badge/Support%20on-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/nubscarson)
+
+```diff
+! SOLANA RITUAL ADDRESS
+------------------------
++ 5ks6ZnNXUPkrDmEYBPHVfdaAgtWLm9EhYdUAgHK9Nva8
 ```
 
 Your energy fuels the digital transformation! 🌌

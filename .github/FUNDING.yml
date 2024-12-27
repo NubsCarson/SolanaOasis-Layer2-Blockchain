@@ -1,11 +1,6 @@
 github: [NubsCarson]
-custom: ["https://twitter.com/MoneroSolana"]
-patreon: # Replace with a Patreon name
-open_collective: # Replace with a Open Collective name
-ko_fi: # Replace with a Ko-fi name
-liberapay: # Replace with a Liberapay name
-issuehunt: # Replace with a IssueHunt name
-otechie: # Replace with a Otechie name
+ko_fi: nubscarson
+custom: ['https://ko-fi.com/nubscarson', 'solana:5ks6ZnNXUPkrDmEYBPHVfdaAgtWLm9EhYdUAgHK9Nva8']
 
 # Support development by sending SOL to:
 # 5ks6ZnNXUPkrDmEYBPHVfdaAgtWLm9EhYdUAgHK9Nva8 
