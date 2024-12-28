@@ -26,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Pin actions to full length commit SHA-1 hash for security
+    # Pin actions to specific versions for security
     - name: 🌒 Channel the Repository
-      uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9  # v4.1.0
+      uses: actions/checkout@v4.1.1
 
     - name: ⚔️ Install Mystical Dependencies
       run: |
@@ -36,18 +36,18 @@ jobs:
         sudo apt-get install -y librocksdb-dev clang
 
     - name: ⛧ Invoke Rust
-      uses: dtolnay/rust-toolchain@master
+      uses: dtolnay/rust-toolchain@stable
       with:
         toolchain: stable
         components: clippy, rustfmt
 
     - name: 🐍 Summon Python
-      uses: actions/setup-python@d27e3f3d7c64b4bbf8e4abfb9b63b83e846e0435  # v4.7.1
+      uses: actions/setup-python@v4.7.1
       with:
         python-version: '3.9'
 
     - name: 📓 Cache Ancient Knowledge
-      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8  # v3.3.1
+      uses: actions/cache@v3.3.2
       with:
         path: |
           ~/.cargo/registry
