@@ -1,136 +1,147 @@
-# 🤝 Contributing to Solana Oasis
+# ⚔️ Sacred Contribution Rituals
 
-First off, thank you for considering contributing to Solana Oasis! We're excited to have you join our community.
+## 🗝️ Joining the Circle
 
-## 🌟 Code of Conduct
+We welcome fellow digital alchemists to our sacred realm. Your contributions strengthen our collective power.
 
-By participating in this project, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it before contributing.
+## ⚡ Initiation Rites
 
-## 🚀 How Can I Contribute?
+1. Fork the Sacred Repository
+2. Clone your Sanctum: `git clone`
+3. Create a Branch of Power: `git checkout -b ritual/description`
+4. Perform your Transmutations
+5. Test your Enchantments: `./tests/run_local_tests.sh`
+6. Seal your Changes: `git commit -m 'type: description'`
+7. Channel to the Void: `git push origin ritual/description`
+8. Submit a Ritual Request (PR)
 
-### 🐛 Reporting Bugs
+## 🌒 Ritual Request Protocol
 
-1. **Check Existing Issues** - Search through our [issue tracker](https://github.com/NubsCarson/SolanaOasis-Layer2/issues) to make sure your issue hasn't already been reported.
-2. **Use the Bug Report Template** - When creating a new issue, use our bug report template to provide all necessary information.
-3. **Include Details** - The more information you can provide, the better we can help:
-   - Steps to reproduce
-   - Expected behavior
-   - Actual behavior
-   - Environment details (OS, Rust version, etc.)
-   - Relevant logs or screenshots
+1. Update the Sacred Texts (README.md) if needed
+2. Maintain the Ancient Documentation
+3. Forge Tests for New Powers
+4. Ensure All Rituals Pass
+5. Seek Wisdom from the Keepers
 
-### ✨ Suggesting Enhancements
+## ⚡ Code Manifestation
 
-1. **Check Existing Suggestions** - Review existing feature requests before making a new one.
-2. **Use the Feature Request Template** - This helps us understand your suggestion better.
-3. **Be Detailed** - Explain:
-   - Why this enhancement would be useful
-   - How it should work
-   - Any potential drawbacks
+### Sacred Patterns
+- Follow the Rust Grimoire
+- Bestow Meaningful Names
+- Inscribe Complex Logic
+- Maintain Focused Incantations
+- Forge Tests for New Powers
 
-### 💻 Pull Requests
+### Commit Seals
+- feat: New enchantment
+- fix: Seal breaches
+- docs: Sacred text updates
+- style: Aesthetic enhancement
+- refactor: Power restructuring
+- test: Trial forging
+- chore: Ritual maintenance
 
-1. **Fork the Repository**
-2. **Create a Branch**:
-   ```bash
-   git checkout -b feature/amazing-feature
-   # or
-   git checkout -b fix/bug-fix
-   ```
-3. **Make Your Changes**:
-   - Follow our coding style
-   - Add tests if applicable
-   - Update documentation as needed
+## 🕯️ Types of Offerings
 
-4. **Commit Your Changes**:
-   ```bash
-   git commit -m "✨ Add amazing feature"
-   # or
-   git commit -m "🐛 Fix critical bug"
-   ```
+### Breach Reports
+- Use the Sacred Template
+- Document the Summoning Steps
+- Describe your Sanctum
+- Provide Ritual Logs
 
-5. **Push and Create PR**:
-   ```bash
-   git push origin feature/amazing-feature
-   ```
+### Power Requests
+- Use the Sacred Template
+- Explain the Mystical Purpose
+- Describe Expected Manifestations
+- Share Vision Examples
 
-## 🎨 Style Guidelines
+### Sacred Texts
+- Fix Ancient Runes
+- Add Sacred Examples
+- Enhance Understanding
+- Update Aged Knowledge
 
-### 💫 Rust Code Style
+### Code Offerings
+- Seal Breaches
+- Forge New Powers
+- Enhance Performance
+- Expand Trial Coverage
 
-- Follow [Rust style guidelines](https://doc.rust-lang.org/1.0.0/style/README.html)
-- Use `cargo fmt` before committing
-- Run `cargo clippy` and address warnings
-- Add documentation for public APIs
-- Keep functions focused and small
+## 🧠 Trial Forging
 
-### 📝 Commit Messages
+- Craft Unit Trials
+- Update Existing Trials
+- Run the Complete Trial Suite
+- Add Integration Trials
 
-Use semantic emoji prefixes:
-- ✨ `:sparkles:` for new features
-- 🐛 `:bug:` for bug fixes
-- 📚 `:books:` for documentation
-- ♻️ `:recycle:` for refactoring
-- 🎨 `:art:` for formatting
-- ⚡ `:zap:` for performance improvements
+## 📓 Sacred Documentation
 
-## 🧪 Testing
+- Use Clear Incantations
+- Add Code Rituals
+- Update README Scrolls
+- Include Inline Wisdom
 
-- Write unit tests for new code
-- Ensure all tests pass locally
-- Add integration tests for new features
-- Run the full test suite:
-  ```bash
-  ./tests/run_local_tests.sh
-  ```
+## ⚡ Review Rituals
 
-## 📚 Documentation
+1. Keepers will Review your Offering
+2. Address the Sacred Feedback
+3. Obtain Keeper's Blessing
+4. Your Ritual will be Merged
 
-- Update README.md if needed
-- Add inline documentation
-- Update API documentation
-- Include examples for new features
+## 🌑 Development Setup
 
-## 🔄 Development Workflow
+### Prerequisites
+- Rust Toolchain
+- Node.js 16+
+- Python 3.9+
 
-1. **Setup Environment**:
-   ```bash
-   # Install dependencies
-   sudo apt-get update
-   sudo apt-get install -y librocksdb-dev clang
+### Sacred Installation
+```bash
+# Install core components
+sudo apt-get update
+sudo apt-get install -y librocksdb-dev clang
 
-   # Setup Python environment
-   python3 -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
-   ```
+# Setup Python sanctum
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-2. **Build and Test**:
-   ```bash
-   cargo build
-   cargo test
-   ```
+### Build Ritual
+```bash
+cargo build
+```
 
-3. **Run Local Tests**:
-   ```bash
-   ./tests/run_local_tests.sh
-   ```
+### Trial Ritual
+```bash
+cargo test
+./tests/run_local_tests.sh
+```
 
-## 🌟 Recognition
+## ⚔️ Project Structure
 
-Contributors will be:
-- Added to our Contributors list
-- Recognized in release notes
-- Eligible for maintainer status
+```
+solana-oasis/
+├── bridge/       # Bridge Contracts
+├── node/         # Node Implementation
+├── sdk/          # Sacred Client SDK
+├── tests/        # Trial Chambers
+└── docs/         # Ancient Texts
+```
 
-## ❓ Questions?
+## 🗝️ Seeking Guidance
 
-- Open a [Discussion](https://github.com/NubsCarson/SolanaOasis-Layer2/discussions)
-- Contact maintainers:
-  - X: [@MoneroSolana](https://twitter.com/MoneroSolana)
-  - Discord: @1gig
-  - Telegram: @ChillWeb3Dev
+- GitHub Discussions
+- Discord: `Coming Soon`
+- Ethereal Mail: `Coming Soon`
 
-## 📄 License
+## 🕯️ First Offerings
 
-By contributing, you agree that your contributions will be licensed under the Apache License 2.0. 
+Seek issues marked with:
+- `first-ritual`
+- `seeking-help`
+- `novice-friendly`
+
+## ⚡ Sacred License
+
+By contributing, you agree that your offerings will be bound under the Apache License 2.0. 
