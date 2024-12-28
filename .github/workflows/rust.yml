@@ -78,7 +78,7 @@ jobs:
         # Configure GitHub registry
         mkdir -p ~/.cargo
         echo '[registries.github]' >> ~/.cargo/config.toml
-        echo 'index = "sparse+https://github.com/NubsCarson/SolanaOasis-Layer2"' >> ~/.cargo/config.toml
+        echo 'index = "sparse+https://github.com/NubsCarson/SolanaOasis-Layer2/"' >> ~/.cargo/config.toml
         echo 'token = "${GITHUB_TOKEN}"' >> ~/.cargo/config.toml
         
         # Publish the core node package
