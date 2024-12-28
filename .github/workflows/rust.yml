@@ -78,25 +78,20 @@ jobs:
         # Configure GitHub registry
         mkdir -p ~/.cargo
         cat >> ~/.cargo/config.toml << EOF
-        [registry]
-        default = "github"
-
         [registries.github]
-        index = "https://github.com/rust-lang/crates.io-index"
+        index = "sparse+https://github.com/NubsCarson/SolanaOasis-Layer2.git"
+        registry = "https://api.github.com/orgs/NubsCarson/packages"
         EOF
         
         # Set up credentials
         cat >> ~/.cargo/credentials.toml << EOF
-        [registry]
-        token = "${CARGO_REGISTRY_TOKEN}"
-
         [registries.github]
         token = "${CARGO_REGISTRY_TOKEN}"
         EOF
         
         # Publish packages
         cd $GITHUB_WORKSPACE
-        for pkg in solana-oasis-node solana-oasis-sdk solana-oasis-bridge solana-oasis-ai; do
+        for pkg in solana-oasis-node solana-oasis-sdk solana-oasis-bridge; do
           cargo package -p ${pkg}
           cargo publish -p ${pkg} --registry github --no-verify --allow-dirty || true
         done
