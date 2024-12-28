@@ -36,9 +36,9 @@ jobs:
         sudo apt-get install -y librocksdb-dev clang
 
     - name: ⛧ Invoke Rust
-      uses: rust-lang/setup-rust@0a7b0e3ac5d3dd4f20dfd3c9a523c3394b82f4b8  # v1.5.0
+      uses: dtolnay/rust-toolchain@master
       with:
-        rust-version: stable
+        toolchain: stable
         components: clippy, rustfmt
 
     - name: 🐍 Summon Python
