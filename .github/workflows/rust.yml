@@ -79,7 +79,7 @@ jobs:
         mkdir -p ~/.cargo
         cat >> ~/.cargo/config.toml << EOF
         [registries.github]
-        index = "sparse+https://github.com/rust-lang/crates.io-index"
+        index = "sparse+https://github.com/rust-lang/crates.io-index/"
         registry = "https://github.com/NubsCarson/SolanaOasis-Layer2"
         token = "${GITHUB_TOKEN}"
 
