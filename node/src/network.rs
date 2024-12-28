@@ -43,10 +43,11 @@ impl NetworkBehaviourEventProcess<GossipsubEvent> for NetworkBehavior {
 
 impl NetworkBehaviourEventProcess<KademliaEvent> for NetworkBehavior {
     fn inject_event(&mut self, event: KademliaEvent) {
-        if let KademliaEvent::OutboundQueryCompleted { 
-            result: QueryResult::GetClosestPeers(Ok(peers)), 
-            .. 
-        } = event {
+        if let KademliaEvent::OutboundQueryCompleted {
+            result: QueryResult::GetClosestPeers(Ok(peers)),
+            ..
+        } = event
+        {
             for peer_id in peers.peers {
                 log::info!("Found peer: {}", peer_id);
             }
