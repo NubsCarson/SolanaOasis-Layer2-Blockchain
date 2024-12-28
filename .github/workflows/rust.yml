@@ -75,26 +75,23 @@ jobs:
     - name: 🌌 Channel to the Package Repository
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-        # Create registry directory
-        mkdir -p ~/.cargo/registry/index/github.com-1ecc6299db9ec823
-        cd ~/.cargo/registry/index/github.com-1ecc6299db9ec823
-        git init
-        git config user.email "actions@github.com"
-        git config user.name "GitHub Actions"
-        
         # Configure GitHub registry
         mkdir -p ~/.cargo
         cat >> ~/.cargo/config.toml << EOF
+        [registry]
+        default = "github"
+
         [registries.github]
-        index = "git://github.com/rust-lang/crates.io-index.git"
-        
-        [net]
-        git-fetch-with-cli = true
+        index = "https://github.com/rust-lang/crates.io-index"
         EOF
         
+        # Set up credentials
         cat >> ~/.cargo/credentials.toml << EOF
+        [registry]
+        token = "${CARGO_REGISTRY_TOKEN}"
+
         [registries.github]
-        token = "${GITHUB_TOKEN}"
+        token = "${CARGO_REGISTRY_TOKEN}"
         EOF
         
         # Publish packages
@@ -104,4 +101,4 @@ jobs:
           cargo publish -p ${pkg} --registry github --no-verify --allow-dirty || true
         done
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        CARGO_REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
