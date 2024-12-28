@@ -4,7 +4,7 @@ icon: circle-exclamation
 
 # README
 
-## ⚡ Official Rust Crate Link Below!
+## ⚡ Official Rust Link Below!
 
 [![🌟 Mystical Package](https://img.shields.io/crates/v/solana-oasis-node?style=for-the-badge\&logo=rust\&label=%F0%9F%8C%8C%20Arcane%20Crate\&labelColor=000000\&color=7f3ace)](https://crates.io/crates/solana-oasis-node)
 
