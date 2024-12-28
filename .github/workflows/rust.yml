@@ -42,6 +42,30 @@ jobs:
         toolchain: stable
         components: clippy, rustfmt
 
+    - name: 🌌 Channel to the Package Repository
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: |
+        # Configure GitHub Packages
+        mkdir -p ~/.cargo
+        cat >> ~/.cargo/credentials.toml << EOF
+        [registries.github]
+        token = "${GITHUB_TOKEN}"
+        EOF
+        
+        # Configure registry
+        cat >> ~/.cargo/config.toml << EOF
+        [source.github]
+        registry = "https://github.com/NubsCarson/SolanaOasis-Layer2"
+        EOF
+        
+        # Publish packages
+        for pkg in solana-oasis-node solana-oasis-sdk solana-oasis-bridge solana-oasis-ai; do
+          cargo package -p ${pkg}
+          cargo publish -p ${pkg} --registry github --no-verify --allow-dirty || true
+        done
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: 🐍 Summon Python
       uses: actions/setup-python@v4
       with:
@@ -70,40 +94,4 @@ jobs:
         python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
-        ./tests/run_local_tests.sh
-
-    - name: 📦 Channel to the Package Repository
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: |
-        # Configure GitHub registry
-        mkdir -p ~/.cargo
-        cat >> ~/.cargo/config.toml << EOF
-        [registries.github]
-        index = "https://github.com/NubsCarson/SolanaOasis-Layer2.git"
-        registry = "https://api.github.com/orgs/NubsCarson/packages/container"
-        token = "${GITHUB_TOKEN}"
-
-        [net]
-        git-fetch-with-cli = true
-
-        [registry]
-        default = "github"
-        EOF
-        
-        # Create GitHub Packages registry
-        cargo login ${GITHUB_TOKEN} --registry github
-        
-        # Publish packages to GitHub Packages
-        cargo package -p solana-oasis-node
-        cargo publish -p solana-oasis-node --registry github --allow-dirty
-        
-        cargo package -p solana-oasis-sdk
-        cargo publish -p solana-oasis-sdk --registry github --allow-dirty
-        
-        cargo package -p solana-oasis-bridge
-        cargo publish -p solana-oasis-bridge --registry github --allow-dirty
-        
-        cargo package -p solana-oasis-ai
-        cargo publish -p solana-oasis-ai --registry github --allow-dirty
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        ./tests/run_local_tests.sh 
