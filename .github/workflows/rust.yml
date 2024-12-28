@@ -27,7 +27,7 @@ jobs:
 
     steps:
     - name: 🌒 Channel the Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
 
     - name: ⚔️ Install Mystical Dependencies
       run: |
@@ -35,17 +35,17 @@ jobs:
         sudo apt-get install -y librocksdb-dev clang
 
     - name: ⛧ Invoke Rust
-      uses: dtolnay/rust-toolchain@stable
+      uses: dtolnay/rust-toolchain@b44cb146d03e8d870c57ab64b80f04586349ca5c
       with:
         components: clippy, rustfmt
 
     - name: 🐍 Summon Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236
       with:
         python-version: '3.9'
 
     - name: 📓 Cache Ancient Knowledge
-      uses: actions/cache@v3
+      uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84
       with:
         path: |
           ~/.cargo/registry
