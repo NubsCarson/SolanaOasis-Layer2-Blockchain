@@ -26,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Pin actions to specific versions for security
+    # Pin actions to specific commit hashes for security
     - name: 🌒 Channel the Repository
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 
     - name: ⚔️ Install Mystical Dependencies
       run: |
@@ -37,17 +37,14 @@ jobs:
 
     - name: ⛧ Invoke Rust
       uses: dtolnay/rust-toolchain@8089dbf93bc1df8a34165e17b5a078d60cdd9a46
-      with:
-        toolchain: stable
-        components: clippy, rustfmt
 
     - name: 🐍 Summon Python
-      uses: actions/setup-python@v4.7.1
+      uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236
       with:
         python-version: '3.9'
 
     - name: 📓 Cache Ancient Knowledge
-      uses: actions/cache@v3.3.2
+      uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84
       with:
         path: |
           ~/.cargo/registry
