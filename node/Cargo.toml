@@ -2,6 +2,13 @@
 name = "solana-oasis-node"
 version = "0.1.0"
 edition = "2021"
+description = "A Layer 2 solution bridging Solana's L1 with an AI enabled L2 with features like scalable neural network operations"
+authors = ["NubsCarson"]
+license = "MIT"
+repository = "https://github.com/NubsCarson/SolanaOasis-Layer2"
+readme = "../README.md"
+keywords = ["solana", "layer2", "blockchain", "ai", "neural-networks"]
+categories = ["cryptography::cryptocurrencies", "science", "web-programming"]
 
 [dependencies]
 solana-sdk = "=1.14.16"
