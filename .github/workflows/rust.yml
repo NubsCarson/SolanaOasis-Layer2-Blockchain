@@ -1,10 +1,17 @@
-name: 🦀 Rust CI
+name: ⚡ Arcane Rust Rituals
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+# Define mystical permissions for the digital realm
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+  pull-requests: write
 
 env:
   CARGO_TERM_COLOR: always
@@ -14,29 +21,30 @@ env:
   RUSTFLAGS: "-C target-cpu=native"
 
 jobs:
-  build:
-    name: 🏗️ Build and Test
+  summoning:
+    name: 🕯️ Summon and Test the Digital Essence
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: 🌒 Channel the Repository
+      uses: actions/checkout@v3
 
-    - name: 🔧 Install Dependencies
+    - name: ⚔️ Install Mystical Dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y librocksdb-dev clang
 
-    - name: 🦀 Install Rust
+    - name: ⛧ Invoke Rust
       uses: dtolnay/rust-toolchain@stable
       with:
         components: clippy, rustfmt
 
-    - name: 🐍 Set up Python
+    - name: 🐍 Summon Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
-    - name: 📦 Cache Dependencies
+    - name: 📓 Cache Ancient Knowledge
       uses: actions/cache@v3
       with:
         path: |
@@ -45,16 +53,16 @@ jobs:
           target
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-    - name: 🔍 Check Format
+    - name: 🔍 Verify Sacred Format
       run: cargo fmt -- --check
 
-    - name: 🔎 Clippy
+    - name: 🕯️ Invoke Clippy's Wisdom
       run: cargo clippy -- -D warnings
 
-    - name: 🏗️ Build
+    - name: ⚡ Forge the Artifacts
       run: cargo build --verbose
 
-    - name: 🧪 Run Tests
+    - name: 🗝️ Perform the Test Rituals
       run: |
         python -m venv venv
         source venv/bin/activate
