@@ -28,7 +28,7 @@ jobs:
     steps:
     # Pin actions to specific versions for security
     - name: 🌒 Channel the Repository
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4
 
     - name: ⚔️ Install Mystical Dependencies
       run: |
@@ -41,12 +41,12 @@ jobs:
         rustup default stable
 
     - name: 🐍 Summon Python
-      uses: actions/setup-python@v4.7.1
+      uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
     - name: 📓 Cache Ancient Knowledge
-      uses: actions/cache@v3.3.2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.cargo/registry
