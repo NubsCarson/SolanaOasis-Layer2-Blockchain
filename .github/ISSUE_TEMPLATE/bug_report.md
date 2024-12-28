@@ -1,45 +1,40 @@
 ---
-name: 🐛 Bug Report
-about: Create a report to help us improve
-title: '[BUG] '
-labels: 'bug'
+name: 🐛 Breach Report
+about: Create a report to help us seal vulnerabilities
+title: '[BREACH] '
+labels: breach
 assignees: ''
 ---
 
-# 🐛 Bug Report
+# ⚔️ Sacred Breach Report
 
-## 📝 Description
-A clear and concise description of what the bug is.
+## 🌒 Describe the Breach
+A clear and concise description of what the breach is.
 
-## 🔄 To Reproduce
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+## ⛧ Steps to Summon
+1. Navigate to '...'
+2. Channel energy into '....'
+3. Observe the dark manifestation
 
-## ✨ Expected Behavior
-A clear and concise description of what you expected to happen.
+## 🗝️ Expected Manifestation
+A clear and concise description of what you expected to manifest.
 
-## 📸 Screenshots
-If applicable, add screenshots to help explain your problem.
+## 🕯️ Actual Manifestation
+A clear and concise description of what actually manifested.
 
-## 🖥️ Environment
- - OS: [e.g. Ubuntu 20.04]
- - Rust Version: [e.g. 1.70.0]
- - Python Version: [e.g. 3.9.0]
- - Node Version: [e.g. 18.0.0]
- - Commit Hash: [e.g. abc123]
+## 📓 Screenshots
+If applicable, add screenshots to help explain the breach.
 
-## 📋 Additional Context
-Add any other context about the problem here.
+## 🧠 Environment
+- OS: [e.g. Ubuntu 20.04]
+- Rust Version: [e.g. 1.70.0]
+- Node Version: [e.g. 16.0.0]
+- Python Version: [e.g. 3.9.0]
 
-## 💻 Code Example
-```rust
-// Add code example if applicable
+## ⚡ Additional Context
+Add any other context about the breach here.
+
+## 🌑 Logs
 ```
-
-## 📜 Logs
-```
-Add relevant log output here
+Paste any relevant logs here
 ``` 

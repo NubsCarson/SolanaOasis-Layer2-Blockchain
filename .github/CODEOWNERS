@@ -1,21 +1,36 @@
-# These owners will be the default owners for everything in
-# the repo. Unless a later match takes precedence,
-# @NubsCarson will be requested for review when someone 
-# opens a pull request.
-*       @NubsCarson
+# ⚔️ Sacred Realm Keepers
 
-# Core implementation
-/node/          @NubsCarson
-/bridge/        @NubsCarson
-/ai-layer/      @NubsCarson
+# These Keepers will be requested for review when someone opens a ritual request (PR)
+# For more info, see: https://help.github.com/articles/about-codeowners/
 
-# Documentation
-/docs/          @NubsCarson
+# 🌒 Default Keepers for All
+*                    @NubsCarson
 
-# Tests
-/tests/         @NubsCarson
+# 🗝️ Core Protocol Keepers
+/src/core/           @NubsCarson
+/src/protocol/       @NubsCarson
 
-# Security-critical components
-/node/src/network.rs     @NubsCarson
-/node/src/state.rs       @NubsCarson
-/bridge/src/lib.rs       @NubsCarson 
+# ⛧ Bridge Keepers
+/src/bridge/         @NubsCarson
+
+# 🕯️ Node Keepers
+/src/node/           @NubsCarson
+
+# ⚡ SDK Keepers
+/sdk/                @NubsCarson
+
+# 🧠 AI Layer Keepers
+/src/ai/             @NubsCarson
+
+# 📓 Documentation Keepers
+/docs/               @NubsCarson
+*.md                 @NubsCarson
+
+# ⚔️ Security Keepers
+/security/           @NubsCarson
+/.github/SECURITY.md @NubsCarson
+
+# 🌑 Test Chamber Keepers
+/tests/              @NubsCarson
+*.test.ts            @NubsCarson
+*.spec.ts            @NubsCarson 
