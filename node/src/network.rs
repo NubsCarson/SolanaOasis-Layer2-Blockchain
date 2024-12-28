@@ -1,20 +1,18 @@
-use std::time::Duration;
 use anyhow::{anyhow, Result};
 use libp2p::{
     core::upgrade,
     gossipsub::{
-        Gossipsub, GossipsubConfigBuilder, GossipsubEvent, MessageAuthenticity, Topic,
-        IdentTopic,
+        Gossipsub, GossipsubConfigBuilder, GossipsubEvent, IdentTopic, MessageAuthenticity, Topic,
     },
     kad::{store::MemoryStore, Kademlia, KademliaEvent, QueryResult},
     mdns::{Mdns, MdnsConfig, MdnsEvent},
     noise,
+    swarm::NetworkBehaviourEventProcess,
     swarm::SwarmEvent,
     tcp::TokioTcpConfig,
-    yamux, Transport,
-    NetworkBehaviour,
-    swarm::NetworkBehaviourEventProcess,
+    yamux, NetworkBehaviour, Transport,
 };
+use std::time::Duration;
 
 use crate::config::NetworkConfig;
 use crate::types::{Block, Message, Transaction};
@@ -45,7 +43,11 @@ impl NetworkBehaviourEventProcess<GossipsubEvent> for NetworkBehavior {
 
 impl NetworkBehaviourEventProcess<KademliaEvent> for NetworkBehavior {
     fn inject_event(&mut self, event: KademliaEvent) {
-        if let KademliaEvent::QueryResult { result: QueryResult::GetClosestPeers(Ok(peers)), .. } = event {
+        if let KademliaEvent::QueryResult {
+            result: QueryResult::GetClosestPeers(Ok(peers)),
+            ..
+        } = event
+        {
             for peer_id in peers.peers {
                 log::info!("Found peer: {}", peer_id);
             }
@@ -133,10 +135,18 @@ impl Network {
         let state_topic = IdentTopic::new(STATE_TOPIC);
         let compute_topic = IdentTopic::new(COMPUTE_TOPIC);
 
-        gossipsub.subscribe(&transaction_topic).expect("Failed to subscribe to transaction topic");
-        gossipsub.subscribe(&block_topic).expect("Failed to subscribe to block topic");
-        gossipsub.subscribe(&state_topic).expect("Failed to subscribe to state topic");
-        gossipsub.subscribe(&compute_topic).expect("Failed to subscribe to compute topic");
+        gossipsub
+            .subscribe(&transaction_topic)
+            .expect("Failed to subscribe to transaction topic");
+        gossipsub
+            .subscribe(&block_topic)
+            .expect("Failed to subscribe to block topic");
+        gossipsub
+            .subscribe(&state_topic)
+            .expect("Failed to subscribe to state topic");
+        gossipsub
+            .subscribe(&compute_topic)
+            .expect("Failed to subscribe to compute topic");
 
         let store = MemoryStore::new(local_peer_id);
         let kademlia = Kademlia::new(local_peer_id, store);
@@ -195,15 +205,13 @@ impl Network {
             SwarmEvent::Behaviour(NetworkEvent::Gossipsub(GossipsubEvent::Message {
                 message,
                 ..
-            })) => {
-                match bincode::deserialize::<Message>(&message.data) {
-                    Ok(msg) => Ok(Some(msg)),
-                    Err(e) => {
-                        log::error!("Failed to deserialize message: {}", e);
-                        Ok(None)
-                    }
+            })) => match bincode::deserialize::<Message>(&message.data) {
+                Ok(msg) => Ok(Some(msg)),
+                Err(e) => {
+                    log::error!("Failed to deserialize message: {}", e);
+                    Ok(None)
                 }
-            }
+            },
             SwarmEvent::Behaviour(NetworkEvent::Kademlia(KademliaEvent::QueryResult {
                 result: QueryResult::GetClosestPeers(Ok(peers)),
                 ..
@@ -216,4 +224,4 @@ impl Network {
             _ => Ok(None),
         }
     }
-} 
+}

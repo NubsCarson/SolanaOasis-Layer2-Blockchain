@@ -54,4 +54,4 @@ mod tests {
         assert_eq!(config.bootstrap_peers.len(), 0);
         assert_eq!(config.state_db_path, "test_db");
     }
-} 
+}

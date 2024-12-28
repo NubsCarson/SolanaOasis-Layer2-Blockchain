@@ -1,10 +1,7 @@
-use anchor_lang::solana_program::{
-    account_info::AccountInfo,
-    entrypoint,
-    entrypoint::ProgramResult,
-    pubkey::Pubkey,
-};
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::{
+    account_info::AccountInfo, entrypoint, entrypoint::ProgramResult, pubkey::Pubkey,
+};
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -34,4 +31,4 @@ mod tests {
         let instruction_data = vec![];
         assert!(process_instruction(&program_id, &accounts, &instruction_data).is_ok());
     }
-} 
+}

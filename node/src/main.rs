@@ -1,7 +1,7 @@
 use anyhow::Result;
 use libp2p::identity::Keypair;
+use solana_oasis_node::{config::NetworkConfig, Node};
 use std::path::PathBuf;
-use solana_oasis_node::{Node, config::NetworkConfig};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -21,4 +21,4 @@ async fn main() -> Result<()> {
     node.start().await?;
 
     Ok(())
-} 
+}

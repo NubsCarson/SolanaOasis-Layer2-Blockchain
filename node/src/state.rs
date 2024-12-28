@@ -1,7 +1,7 @@
-use std::path::Path;
 use anyhow::Result;
-use rocksdb::{DB, ColumnFamilyDescriptor, Options};
+use rocksdb::{ColumnFamilyDescriptor, Options, DB};
 use serde;
+use std::path::Path;
 
 pub struct StateManager {
     db: DB,
@@ -33,10 +33,7 @@ impl StateManager {
             },
         };
 
-        Ok(Self {
-            db,
-            current_root,
-        })
+        Ok(Self { db, current_root })
     }
 
     pub async fn get_value(&self, key: &[u8]) -> Result<Option<Vec<u8>>> {
@@ -52,7 +49,8 @@ impl StateManager {
 
     pub async fn update_root(&mut self, root: StateRoot) -> Result<()> {
         let cf_roots = self.db.cf_handle("roots").unwrap();
-        self.db.put_cf(cf_roots, "current", bincode::serialize(&root)?)?;
+        self.db
+            .put_cf(cf_roots, "current", bincode::serialize(&root)?)?;
         self.current_root = root;
         Ok(())
     }
@@ -89,4 +87,4 @@ mod tests {
 
         Ok(())
     }
-} 
+}

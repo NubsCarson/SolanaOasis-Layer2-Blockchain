@@ -67,4 +67,4 @@ mod tests {
         let sdk = SolanaOasisSdk::with_client(Box::new(mock_client));
         assert!(sdk.get_version().is_ok());
     }
-} 
+}

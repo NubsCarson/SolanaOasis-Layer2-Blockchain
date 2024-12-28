@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use sha2::{Sha256, Digest};
+use sha2::{Digest, Sha256};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Block {
@@ -71,14 +71,9 @@ mod tests {
             amount: 100,
         }];
 
-        let block = Block::new(
-            1,
-            [0u8; 32],
-            transactions,
-            Utc::now().timestamp(),
-        );
+        let block = Block::new(1, [0u8; 32], transactions, Utc::now().timestamp());
 
         let hash = block.hash();
         assert_eq!(hash.len(), 32);
     }
-} 
+}
