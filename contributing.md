@@ -1,4 +1,8 @@
-# ⚔️ Sacred Contribution Rituals
+---
+icon: handshake-simple
+---
+
+# Sacred Contribution Rituals
 
 ## 🗝️ Joining the Circle
 
@@ -26,60 +30,66 @@ We welcome fellow digital alchemists to our sacred realm. Your contributions str
 ## ⚡ Code Manifestation
 
 ### Sacred Patterns
-- Follow the Rust Grimoire
-- Bestow Meaningful Names
-- Inscribe Complex Logic
-- Maintain Focused Incantations
-- Forge Tests for New Powers
+
+* Follow the Rust Grimoire
+* Bestow Meaningful Names
+* Inscribe Complex Logic
+* Maintain Focused Incantations
+* Forge Tests for New Powers
 
 ### Commit Seals
-- feat: New enchantment
-- fix: Seal breaches
-- docs: Sacred text updates
-- style: Aesthetic enhancement
-- refactor: Power restructuring
-- test: Trial forging
-- chore: Ritual maintenance
+
+* feat: New enchantment
+* fix: Seal breaches
+* docs: Sacred text updates
+* style: Aesthetic enhancement
+* refactor: Power restructuring
+* test: Trial forging
+* chore: Ritual maintenance
 
 ## 🕯️ Types of Offerings
 
 ### Breach Reports
-- Use the Sacred Template
-- Document the Summoning Steps
-- Describe your Sanctum
-- Provide Ritual Logs
+
+* Use the Sacred Template
+* Document the Summoning Steps
+* Describe your Sanctum
+* Provide Ritual Logs
 
 ### Power Requests
-- Use the Sacred Template
-- Explain the Mystical Purpose
-- Describe Expected Manifestations
-- Share Vision Examples
+
+* Use the Sacred Template
+* Explain the Mystical Purpose
+* Describe Expected Manifestations
+* Share Vision Examples
 
 ### Sacred Texts
-- Fix Ancient Runes
-- Add Sacred Examples
-- Enhance Understanding
-- Update Aged Knowledge
+
+* Fix Ancient Runes
+* Add Sacred Examples
+* Enhance Understanding
+* Update Aged Knowledge
 
 ### Code Offerings
-- Seal Breaches
-- Forge New Powers
-- Enhance Performance
-- Expand Trial Coverage
+
+* Seal Breaches
+* Forge New Powers
+* Enhance Performance
+* Expand Trial Coverage
 
 ## 🧠 Trial Forging
 
-- Craft Unit Trials
-- Update Existing Trials
-- Run the Complete Trial Suite
-- Add Integration Trials
+* Craft Unit Trials
+* Update Existing Trials
+* Run the Complete Trial Suite
+* Add Integration Trials
 
 ## 📓 Sacred Documentation
 
-- Use Clear Incantations
-- Add Code Rituals
-- Update README Scrolls
-- Include Inline Wisdom
+* Use Clear Incantations
+* Add Code Rituals
+* Update README Scrolls
+* Include Inline Wisdom
 
 ## ⚡ Review Rituals
 
@@ -91,11 +101,13 @@ We welcome fellow digital alchemists to our sacred realm. Your contributions str
 ## 🌑 Development Setup
 
 ### Prerequisites
-- Rust Toolchain
-- Node.js 16+
-- Python 3.9+
+
+* Rust Toolchain
+* Node.js 16+
+* Python 3.9+
 
 ### Sacred Installation
+
 ```bash
 # Install core components
 sudo apt-get update
@@ -108,11 +120,13 @@ pip install -r requirements.txt
 ```
 
 ### Build Ritual
+
 ```bash
 cargo build
 ```
 
 ### Trial Ritual
+
 ```bash
 cargo test
 ./tests/run_local_tests.sh
@@ -131,17 +145,18 @@ solana-oasis/
 
 ## 🗝️ Seeking Guidance
 
-- GitHub Discussions
-- Discord: `Coming Soon`
-- Ethereal Mail: `Coming Soon`
+* GitHub Discussions
+* Discord: `Coming Soon`
+* Ethereal Mail: `Coming Soon`
 
 ## 🕯️ First Offerings
 
 Seek issues marked with:
-- `first-ritual`
-- `seeking-help`
-- `novice-friendly`
+
+* `first-ritual`
+* `seeking-help`
+* `novice-friendly`
 
 ## ⚡ Sacred License
 
-By contributing, you agree that your offerings will be bound under the Apache License 2.0. 
+By contributing, you agree that your offerings will be bound under the Apache License 2.0.

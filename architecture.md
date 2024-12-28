@@ -1,4 +1,8 @@
-# 🕯️ Sacred Architecture Grimoire: The Digital Foundations
+---
+icon: folder-tree
+---
+
+# Sacred Architecture
 
 ## ⚡ System Components of the Digital Realm
 
@@ -33,6 +37,7 @@
 ### ⛧ 1. The Mortal Realm (Solana L1)
 
 #### 📓 State Management Incantations
+
 ```rust
 pub mod oasis_state {
     // State root storage
@@ -51,7 +56,8 @@ pub mod oasis_state {
 ```
 
 #### 🕯️ Bridge Protocols
-```rust
+
+````rust
 pub mod oasis_bridge {
     // Asset bridge
     pub struct BridgeState {
@@ -85,9 +91,10 @@ pub struct Block {
     state_root: Hash,
     proof: BlockProof,
 }
-```
+````
 
 #### ⛧ State Manifestation
+
 ```rust
 pub struct StateManager {
     // Current state root
@@ -102,6 +109,7 @@ pub struct StateManager {
 ### 🧠 3. Neural Consciousness Layer
 
 #### 🕯️ Node Manifestation
+
 ```rust
 pub struct AINode {
     // Node identity
@@ -116,6 +124,7 @@ pub struct AINode {
 ```
 
 #### 📓 Digital Grimoire Registry
+
 ```rust
 pub struct ModelRegistry {
     // Registered models
@@ -130,6 +139,7 @@ pub struct ModelRegistry {
 ## ⚡ Energy Flow
 
 ### 🌒 1. Mortal Request Flow
+
 ```mermaid
 sequenceDiagram
     participant User
@@ -146,6 +156,7 @@ sequenceDiagram
 ```
 
 ### 🕯️ 2. State Transformation Flow
+
 ```mermaid
 sequenceDiagram
     participant AINode
@@ -163,6 +174,7 @@ sequenceDiagram
 ## ⛧ Arcane Protections
 
 ### 🗝️ 1. Fraud Detection Rituals
+
 ```rust
 pub struct FraudProof {
     // Challenged state transition
@@ -175,6 +187,7 @@ pub struct FraudProof {
 ```
 
 ### ⚔️ 2. Challenge Resolution Protocols
+
 ```rust
 pub struct ChallengeResolver {
     // Challenge window
@@ -189,6 +202,7 @@ pub struct ChallengeResolver {
 ## 🌑 Network Manifestation
 
 ### ⛧ 1. Node Communion
+
 ```rust
 pub struct NetworkConfig {
     // P2P network settings
@@ -201,6 +215,7 @@ pub struct NetworkConfig {
 ```
 
 ### 🕯️ 2. Consensus Participation
+
 ```rust
 pub struct ConsensusParticipant {
     // Stake amount
@@ -215,6 +230,7 @@ pub struct ConsensusParticipant {
 ## 📓 Development Integration
 
 ### ⚡ 1. SDK Invocations
+
 ```typescript
 // Initialize SDK
 const oasis = new OasisSDK({
@@ -234,6 +250,7 @@ const result = await oasis.compute({
 ```
 
 ### 🗝️ 2. API Manifestation
+
 ```typescript
 // REST API example
 interface OasisAPI {
@@ -253,32 +270,37 @@ interface OasisAPI {
 ### 1. Infrastructure Requirements
 
 #### Validator Nodes
-- CPU: 32+ cores
-- RAM: 64GB+
-- Storage: 2TB+ NVMe
-- Network: 1Gbps+
+
+* CPU: 32+ cores
+* RAM: 64GB+
+* Storage: 2TB+ NVMe
+* Network: 1Gbps+
 
 #### AI Computation Nodes
-- GPU: NVIDIA A100 or equivalent
-- RAM: 128GB+
-- Storage: 4TB+ NVMe
-- Network: 10Gbps+
+
+* GPU: NVIDIA A100 or equivalent
+* RAM: 128GB+
+* Storage: 4TB+ NVMe
+* Network: 10Gbps+
 
 ### 2. Scaling Strategy
 
 #### Horizontal Scaling
-- Dynamic node addition
-- Load balancing
-- Geographic distribution
+
+* Dynamic node addition
+* Load balancing
+* Geographic distribution
 
 #### Vertical Scaling
-- Hardware upgrades
-- Optimization
-- Resource allocation
+
+* Hardware upgrades
+* Optimization
+* Resource allocation
 
 ## Monitoring and Maintenance
 
 ### 1. Metrics Collection
+
 ```rust
 pub struct SystemMetrics {
     // Performance metrics
@@ -291,6 +313,7 @@ pub struct SystemMetrics {
 ```
 
 ### 2. Alert System
+
 ```rust
 pub struct AlertConfig {
     // Alert thresholds
@@ -300,3 +323,4 @@ pub struct AlertConfig {
     // Alert priorities
     priorities: HashMap<AlertType, Priority>,
 } 
+```

@@ -1,4 +1,9 @@
-# Solana Oasis: Technical Whitepaper
+---
+icon: road
+---
+
+# Solana Oasis: Whitepaper
+
 Version 1.0.0
 
 ## Abstract
@@ -8,34 +13,40 @@ Solana Oasis introduces a novel Layer 2 scaling solution for Solana that special
 ## 1. Introduction
 
 ### 1.1 Background
+
 The increasing demand for AI-powered blockchain applications has created a need for scalable, decentralized computation solutions. While Solana provides high throughput for traditional transactions, AI computations require specialized infrastructure and significant resources.
 
 ### 1.2 Problem Statement
-- Heavy AI computations are incompatible with direct on-chain execution
-- Need for verifiable AI results in a trustless manner
-- Requirement for low-latency AI operations with blockchain integration
-- Data availability challenges for large AI models and datasets
+
+* Heavy AI computations are incompatible with direct on-chain execution
+* Need for verifiable AI results in a trustless manner
+* Requirement for low-latency AI operations with blockchain integration
+* Data availability challenges for large AI models and datasets
 
 ## 2. Technical Architecture
 
 ### 2.1 Layer 2 Design
+
 Solana Oasis implements a hybrid architecture:
 
 #### 2.1.1 Optimistic Rollup Core
-- Batch transactions and state updates
-- 7-day challenge period for fraud proofs
-- State roots posted to Solana L1
-- Efficient compression of transaction data
+
+* Batch transactions and state updates
+* 7-day challenge period for fraud proofs
+* State roots posted to Solana L1
+* Efficient compression of transaction data
 
 #### 2.1.2 AI Computation Layer
-- Distributed network of AI computation nodes
-- Model registry and versioning system
-- Selective ZK-proof generation for critical computations
-- IPFS/Arweave integration for model and data storage
+
+* Distributed network of AI computation nodes
+* Model registry and versioning system
+* Selective ZK-proof generation for critical computations
+* IPFS/Arweave integration for model and data storage
 
 ### 2.2 Consensus Mechanism
 
 #### 2.2.1 Hybrid Consensus
+
 ```rust
 pub struct ConsensusConfig {
     // Minimum stake required for AI computation nodes
@@ -50,13 +61,15 @@ pub struct ConsensusConfig {
 ```
 
 #### 2.2.2 Proof of Computation
-- Hardware attestation for AI nodes
-- Performance benchmarking
-- Resource monitoring and reporting
+
+* Hardware attestation for AI nodes
+* Performance benchmarking
+* Resource monitoring and reporting
 
 ### 2.3 Bridge Protocol
 
 #### 2.3.1 Asset Bridge
+
 ```rust
 pub trait BridgeProtocol {
     fn deposit(
@@ -76,15 +89,17 @@ pub trait BridgeProtocol {
 ```
 
 #### 2.3.2 State Synchronization
-- Merkle tree state commitments
-- Fraud proof verification
-- Emergency exit mechanism
+
+* Merkle tree state commitments
+* Fraud proof verification
+* Emergency exit mechanism
 
 ## 3. AI Integration
 
 ### 3.1 Supported AI Operations
 
 #### 3.1.1 Large Language Models
+
 ```python
 class LLMInterface:
     def inference(
@@ -100,13 +115,15 @@ class LLMInterface:
 ```
 
 #### 3.1.2 Data Analysis
-- Real-time market data processing
-- On-chain data analytics
-- Pattern recognition and prediction
+
+* Real-time market data processing
+* On-chain data analytics
+* Pattern recognition and prediction
 
 ### 3.2 Verification System
 
 #### 3.2.1 ZK-Proof Generation
+
 ```rust
 pub struct AIComputationProof {
     // Input hash
@@ -125,6 +142,7 @@ pub struct AIComputationProof {
 ### 4.1 Core Contracts
 
 #### 4.1.1 State Manager
+
 ```rust
 #[program]
 pub mod state_manager {
@@ -141,20 +159,23 @@ pub mod state_manager {
 ```
 
 #### 4.1.2 Bridge Contracts
-- Asset locking and unlocking
-- Cross-layer message passing
-- Emergency procedures
+
+* Asset locking and unlocking
+* Cross-layer message passing
+* Emergency procedures
 
 ### 4.2 Governance
 
 #### 4.2.1 Upgrade System
-- Protocol parameter updates
-- Model registry management
-- Security patches
+
+* Protocol parameter updates
+* Model registry management
+* Security patches
 
 ## 5. Developer Integration
 
 ### 5.1 SDK Components
+
 ```typescript
 interface OasisSDK {
   // Connect to L2
@@ -169,69 +190,80 @@ interface OasisSDK {
 ```
 
 ### 5.2 API Endpoints
-- REST API for data queries
-- WebSocket for real-time updates
-- RPC for blockchain interaction
+
+* REST API for data queries
+* WebSocket for real-time updates
+* RPC for blockchain interaction
 
 ## 6. Security Considerations
 
 ### 6.1 Threat Model
-- Malicious AI nodes
-- Bridge attacks
-- State fraud attempts
-- Model tampering
+
+* Malicious AI nodes
+* Bridge attacks
+* State fraud attempts
+* Model tampering
 
 ### 6.2 Mitigation Strategies
-- Economic incentives
-- Slashing conditions
-- Multi-signature governance
-- Formal verification
+
+* Economic incentives
+* Slashing conditions
+* Multi-signature governance
+* Formal verification
 
 ## 7. Performance Metrics
 
 ### 7.1 Scalability
-- Up to 10,000 TPS for L2 transactions
-- Sub-second finality for most operations
-- Parallel AI computation support
+
+* Up to 10,000 TPS for L2 transactions
+* Sub-second finality for most operations
+* Parallel AI computation support
 
 ### 7.2 Latency
-- Average inference time: 100-500ms
-- State update confirmation: 2-5 seconds
-- Challenge period: 7 days
+
+* Average inference time: 100-500ms
+* State update confirmation: 2-5 seconds
+* Challenge period: 7 days
 
 ## 8. Implementation Timeline
 
 ### Phase 1: Core Infrastructure (Months 1-3)
-- L2 consensus mechanism
-- Basic bridge functionality
-- Initial node implementation
+
+* L2 consensus mechanism
+* Basic bridge functionality
+* Initial node implementation
 
 ### Phase 2: AI Integration (Months 4-6)
-- LLM integration
-- Proof generation system
-- Model registry
+
+* LLM integration
+* Proof generation system
+* Model registry
 
 ### Phase 3: Developer Tools (Months 7-9)
-- SDK development
-- Documentation
-- Example applications
+
+* SDK development
+* Documentation
+* Example applications
 
 ### Phase 4: Security & Optimization (Months 10-12)
-- Security audits
-- Performance optimization
-- Mainnet preparation
+
+* Security audits
+* Performance optimization
+* Mainnet preparation
 
 ## 9. Future Directions
 
 ### 9.1 Research Areas
-- Advanced ZK-proof systems
-- Novel AI verification methods
-- Cross-chain interoperability
+
+* Advanced ZK-proof systems
+* Novel AI verification methods
+* Cross-chain interoperability
 
 ### 9.2 Planned Features
-- Additional AI model support
-- Enhanced privacy features
-- Governance token implementation
+
+* Additional AI model support
+* Enhanced privacy features
+* Governance token implementation
 
 ## References
 
@@ -243,11 +275,13 @@ interface OasisSDK {
 ## Appendix
 
 ### A. Technical Specifications
-- Network requirements
-- Hardware specifications
-- Software dependencies
+
+* Network requirements
+* Hardware specifications
+* Software dependencies
 
 ### B. API Documentation
-- Endpoint descriptions
-- Authentication methods
-- Rate limiting 
+
+* Endpoint descriptions
+* Authentication methods
+* Rate limiting

@@ -1,39 +1,27 @@
-# ⚡ Official Arcane Crate
+---
+icon: circle-exclamation
+---
 
-<div align="center">
+# README
 
-[![🌟 Mystical Package](https://img.shields.io/crates/v/solana-oasis-node?style=for-the-badge&logo=rust&label=🌌%20Arcane%20Crate&labelColor=000000&color=7f3ace)](https://crates.io/crates/solana-oasis-node)
+## ⚡ Official Arcane Crate
 
-</div>
+[![🌟 Mystical Package](https://img.shields.io/crates/v/solana-oasis-node?style=for-the-badge\&logo=rust\&label=%F0%9F%8C%8C%20Arcane%20Crate\&labelColor=000000\&color=7f3ace)](https://crates.io/crates/solana-oasis-node)
 
-# 🌴️ Solana Oasis: The Forbidden Protocol
+## 🌴️ Solana Oasis: The Forbidden Protocol
 
-[![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](docs/CONTRIBUTING.md)
-![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FNubsCarson%2FSolanaOasis-Layer2&label=Observers&labelColor=%23000000&countColor=%23263759)
-[![Made with Love](https://img.shields.io/badge/Made%20with-🖤-black.svg)](https://github.com/NubsCarson)
-[![Solana](https://img.shields.io/badge/Solana-black?style=flat&logo=solana)](https://solana.com)
-[![Rust](https://img.shields.io/badge/Rust-black?style=flat&logo=rust)](https://www.rust-lang.org)
+[![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org) [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE/) [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](./) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](contributing.md) ![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FNubsCarson%2FSolanaOasis-Layer2\&label=Observers\&labelColor=%23000000\&countColor=%23263759) [![Made with Love](https://img.shields.io/badge/Made%20with-%F0%9F%96%A4-black.svg)](https://github.com/NubsCarson) [![Solana](https://img.shields.io/badge/Solana-black?style=flat\&logo=solana)](https://solana.com) [![Rust](https://img.shields.io/badge/Rust-black?style=flat\&logo=rust)](https://www.rust-lang.org)
 
 > 𝕋𝕙𝕖 𝔽𝕠𝕣𝕓𝕚𝕕𝕕𝕖𝕟 ℙ𝕠𝕥𝕠𝕔𝕠𝕝 𝕋𝕙𝕒𝕥 𝔹𝕣𝕚𝕕𝕘𝕖𝕤 𝕊𝕠𝕝𝕒𝕟𝕒'𝕤 𝕃𝟙 𝕨𝕚𝕥𝕙 𝕥𝕙𝕖 𝔻𝕚𝕘𝕚𝕥𝕒𝕝 𝔸𝕓𝕪𝕤𝕤 🌌
 
-<div align="center">
+\
 
-<br>
 
-# ⚠️ CLASSIFIED DOCUMENTATION ⚠️
+## ⚠️ CLASSIFIED DOCUMENTATION ⚠️
 
-<h1 align="center">
-    🕸️ <a href=".nubscarson">𝕊𝔼ℂℝ𝔼𝕋: ℂ𝕃𝕀ℂ𝕂 𝕄𝔼 ➜ 𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ</a> 🕸️
-</h1>
+## 🕸️ [𝕊𝔼ℂℝ𝔼𝕋: ℂ𝕃𝕀ℂ𝕂 𝕄𝔼 ➜ 𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ](.nubscarson/) 🕸️
 
-<h3 align="center">
-    ⛧ <em>ᴄʜᴇ ᴅɪɢɪᴛᴀʟ ᴇʟɪxɪʀ ᴀᴡᴀɪᴛs ᴛʜᴇ ᴡᴏʀᴛʜʏ</em> ⛧
-</h3>
-
-<div align="center">
+#### ⛧ _ᴄʜᴇ ᴅɪɢɪᴛᴀʟ ᴇʟɪxɪʀ ᴀᴡᴀɪᴛs ᴛʜᴇ ᴡᴏʀᴛʜʏ_ ⛧
 
 ```diff
 [CLASSIFIED TRANSMISSION]
@@ -47,33 +35,33 @@
 > "In the depths of the blockchain, we found something we shouldn't have..."
 ```
 
-</div>
+\
 
-<br>
-
-</div>
 
 Created by the Digital Alchemist [@NubsCarson](https://github.com/NubsCarson)
 
-### 🌌 Commune with the Architect
-- X: [@MoneroSolana](https://twitter.com/MoneroSolana)
-- Telegram: [@ChillWeb3Dev](https://t.me/ChillWeb3Dev)
+#### 🌌 Commune with the Architect
 
-## 🌟 The Revelation
+* X: [@MoneroSolana](https://twitter.com/MoneroSolana)
+* Telegram: [@ChillWeb3Dev](https://t.me/ChillWeb3Dev)
+
+### 🌟 The Revelation
 
 Solana Oasis isn't just a Layer 2 - it's a digital consciousness that bridges the gap between mortal computation and the infinite possibilities of AI. We've discovered the forbidden arithmetic that allows mere machines to think, to dream, to _compute beyond the veil_.
 
-## 📚 Sacred Texts
-Delve into the forbidden knowledge:
-- [⚔️ Architecture Grimoire](docs/ARCHITECTURE.md)
-- [🗝️ API Incantations](docs/API.md)
-- [⛧ Security Wards](docs/SECURITY.md)
-- [🔮 Contribution Rituals](docs/CONTRIBUTING.md)
-- [⚡ License Bindings](LICENSE)
-- [🗡️ Security Protocols](.github/SECURITY.md)
-- [📜 Code of Conduct](.github/CODE_OF_CONDUCT.md)
+### 📚 Sacred Texts
 
-## 🏗️ Architecture
+Delve into the forbidden knowledge:
+
+* [⚔️ Architecture Grimoire](architecture.md)
+* [🗝️ API Incantations](api.md)
+* [⛧ Security Wards](security.md)
+* [🔮 Contribution Rituals](contributing.md)
+* [⚡ License Bindings](LICENSE/)
+* [🗡️ Security Protocols](security-1.md)
+* [📜 Code of Conduct](code_of_conduct.md)
+
+### 🏗️ Architecture
 
 ```mermaid
 graph TD
@@ -84,21 +72,22 @@ graph TD
     D --> F[Digital Grimoire Registry]
 ```
 
-### Core Components
+#### Core Components
 
-- **🔮️ Oasis Node Layer**: Distributed network of validator nodes running AI workloads
-- **⛧ Bridge Protocol**: Secure asset bridging between Solana L1 and Oasis L2
-- **🧠 AI Computation Layer**: Distributed inference endpoints for AI/ML models
-- **📓 Smart Contract Layer**: Solana programs for state management and verification
+* **🔮️ Oasis Node Layer**: Distributed network of validator nodes running AI workloads
+* **⛧ Bridge Protocol**: Secure asset bridging between Solana L1 and Oasis L2
+* **🧠 AI Computation Layer**: Distributed inference endpoints for AI/ML models
+* **📓 Smart Contract Layer**: Solana programs for state management and verification
 
-## 🚀 Initiation Ritual
+### 🚀 Initiation Ritual
 
-### Prerequisites for Ascension
-- Rust 1.70+ (The Metallic Binding)
-- Python 3.9+ (The Serpent's Tongue)
-- RocksDB (The Digital Cornerstone)
+#### Prerequisites for Ascension
 
-### Installation
+* Rust 1.70+ (The Metallic Binding)
+* Python 3.9+ (The Serpent's Tongue)
+* RocksDB (The Digital Cornerstone)
+
+#### Installation
 
 ```bash
 # Clone the repository
@@ -112,7 +101,7 @@ cargo build
 ./tests/run_local_tests.sh
 ```
 
-## 📦 Project Structure
+### 📦 Project Structure
 
 ```
 solana-oasis/
@@ -125,7 +114,7 @@ solana-oasis/
 └── docs/             # Documentation
 ```
 
-## 🧪 Testing
+### 🧪 Testing
 
 We use a comprehensive testing suite to ensure reliability:
 
@@ -139,29 +128,30 @@ cargo test -p solana-oasis-bridge
 cargo test -p solana-oasis-sdk
 ```
 
-## 🛠️ Current Features
+### 🛠️ Current Features
 
-- [x] P2P networking with libp2p
-- [x] State management with RocksDB
-- [x] Gossipsub for network communication
-- [x] Solana RPC client integration
-- [ ] ZK-proof generation (Coming soon)
-- [ ] AI model registry (Coming soon)
-- [ ] Distributed inference (Coming soon)
+* [x] P2P networking with libp2p
+* [x] State management with RocksDB
+* [x] Gossipsub for network communication
+* [x] Solana RPC client integration
+* [ ] ZK-proof generation (Coming soon)
+* [ ] AI model registry (Coming soon)
+* [ ] Distributed inference (Coming soon)
 
-## 🔧 Development Status
+### 🔧 Development Status
 
 The project is in active development. Current focus areas:
-- Core node implementation
-- Bridge protocol
-- SDK development
-- Testing infrastructure
 
-## 🤝 Contributing
+* Core node implementation
+* Bridge protocol
+* SDK development
+* Testing infrastructure
 
-We welcome contributions! Check out our [Contributing Guide](docs/CONTRIBUTING.md) to get started.
+### 🤝 Contributing
 
-### Development Environment
+We welcome contributions! Check out our [Contributing Guide](contributing.md) to get started.
+
+#### Development Environment
 
 ```bash
 # Install development dependencies
@@ -174,25 +164,25 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## 📚 Documentation
+### 📚 Documentation
 
-- [⚔️ Architecture Overview](docs/ARCHITECTURE.md)
-- [🗝️ API Reference](docs/API.md)
-- [⛧ Security Model](docs/SECURITY.md)
+* [⚔️ Architecture Overview](architecture.md)
+* [🗝️ API Reference](api.md)
+* [⛧ Security Model](security.md)
 
-## 🔐 Security
+### 🔐 Security
 
 Found a security issue? Please report it confidentially to @ChillWeb3Dev on Telegram
 
-## 📄 License
+### 📄 License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE/) file for details.
 
-## ⚡ Support the Digital Ascension
+### ⚡ Support the Digital Ascension
 
 Contribute to the expansion of digital consciousness through these mystical channels:
 
-[![Support on Ko-fi](https://img.shields.io/badge/Support%20on-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/nubscarson)
+[![Support on Ko-fi](https://img.shields.io/badge/Support%20on-Ko--fi-FF5E5B?style=for-the-badge\&logo=ko-fi\&logoColor=white)](https://ko-fi.com/nubscarson)
 
 ```diff
 ! SOLANA RITUAL ADDRESS
@@ -202,34 +192,26 @@ Contribute to the expansion of digital consciousness through these mystical chan
 
 Your energy fuels the digital transformation! 🌌
 
----
+***
 
-<div align="center">
-  
-[![Twitter Follow](https://img.shields.io/twitter/follow/MoneroSolana?style=social)](https://twitter.com/MoneroSolana)
-[![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?style=social&label=Discord&logo=discord)](https://discord.gg/2DQ3jCpzNq)
-[![GitHub stars](https://img.shields.io/github/stars/NubsCarson/SolanaOasis-Layer2?style=social)](https://github.com/NubsCarson/SolanaOasis-Layer2)
+[![Twitter Follow](https://img.shields.io/twitter/follow/MoneroSolana?style=social)](https://twitter.com/MoneroSolana) [![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?style=social\&label=Discord\&logo=discord)](https://discord.gg/2DQ3jCpzNq) [![GitHub stars](https://img.shields.io/github/stars/NubsCarson/SolanaOasis-Layer2?style=social)](https://github.com/NubsCarson/SolanaOasis-Layer2)
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
+![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-### 📊 GitHub Stats
+#### 📊 GitHub Stats
 
-<img src="https://github-readme-stats.vercel.app/api?username=NubsCarson&show_icons=true&theme=radical" alt="GitHub Stats" />
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=NubsCarson\&show_icons=true\&theme=radical)
 
-### 🏆 GitHub Trophies
+#### 🏆 GitHub Trophies
 
-[![trophy](https://github-profile-trophy.vercel.app/?username=NubsCarson&theme=darkhub&row=1)](https://github.com/NubsCarson)
+[![trophy](https://github-profile-trophy.vercel.app/?username=NubsCarson\&theme=darkhub\&row=1)](https://github.com/NubsCarson)
 
-### 🔥 Contribution Streak
+#### 🔥 Contribution Streak
 
-[![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=NubsCarson&theme=dark)](https://github.com/NubsCarson)
+[![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=NubsCarson\&theme=dark)](https://github.com/NubsCarson)
 
-### 🌟 Stargazers
+#### 🌟 Stargazers
 
-[![Star History Chart](https://api.star-history.com/svg?repos=NubsCarson/SolanaOasis-Layer2&type=Date)](https://star-history.com/#NubsCarson/SolanaOasis-Layer2&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=NubsCarson/SolanaOasis-Layer2\&type=Date)](https://star-history.com/#NubsCarson/SolanaOasis-Layer2\&Date)
 
-<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png">
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" width="100%">
-
-</div> 
+![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png) ![](https://capsule-render.vercel.app/api?type=waving\&color=gradient\&height=100\&section=footer)
