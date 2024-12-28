@@ -19,7 +19,7 @@ icon: circle-exclamation
 
 ## ⚠️ CLASSIFIED DOCUMENTATION ⚠️
 
-## 🕸️ [𝕊𝔼ℂℝ𝔼𝕋: ℂ𝕃𝕀ℂ𝕂 𝕄𝔼 ➜ 𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ](.nubscarson/) 🕸️
+## 🕸️ [𝕊𝔼ℂℝ𝔼𝕋: ℂ𝕃𝕀ℂ𝕂 𝕄𝔼 ➜ 𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ](.nubscarson) 🕸️
 
 #### ⛧ _ᴄʜᴇ ᴅɪɢɪᴛᴀʟ ᴇʟɪxɪʀ ᴀᴡᴀɪᴛs ᴛʜᴇ ᴡᴏʀᴛʜʏ_ ⛧
 
@@ -194,7 +194,7 @@ Your energy fuels the digital transformation! 🌌
 
 ***
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/MoneroSolana?style=social)](https://twitter.com/MoneroSolana) [![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?style=social\&label=Discord\&logo=discord)](https://discord.gg/2DQ3jCpzNq) [![GitHub stars](https://img.shields.io/github/stars/NubsCarson/SolanaOasis-Layer2?style=social)](https://github.com/NubsCarson/SolanaOasis-Layer2)
+[![Twitter Follow](https://img.shields.io/twitter/follow/MoneroSolana?style=social)](https://twitter.com/MoneroSolana) [![GitHub stars](https://img.shields.io/github/stars/NubsCarson/SolanaOasis-Layer2?style=social)](https://github.com/NubsCarson/SolanaOasis-Layer2)
 
 ![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
@@ -214,4 +214,4 @@ Your energy fuels the digital transformation! 🌌
 
 [![Star History Chart](https://api.star-history.com/svg?repos=NubsCarson/SolanaOasis-Layer2\&type=Date)](https://star-history.com/#NubsCarson/SolanaOasis-Layer2\&Date)
 
-![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png) ![](https://capsule-render.vercel.app/api?type=waving\&color=gradient\&height=100\&section=footer)
+&#x20;![](https://capsule-render.vercel.app/api?type=waving\&color=gradient\&height=100\&section=footer)
