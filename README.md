@@ -2,7 +2,7 @@
 
 ## ⚡ Official Rust Link Below!
 
-[![🌟 Solana Oasis](https://img.shields.io/crates/v/solana-oasis-node?style=for-the-badge\&logo=rust\&label=%F0%9F%8C%8C%20Arcane%20Crate\&labelColor=000000\&color=7f3ace)](https://crates.io/crates/solana-oasis-node)
+[![🌟 Solana Oasis](https://img.shields.io/crates/v/solana-oasis-node?style=for-the-badge\&logo=rust\&label=%F0%9F%8C%8C%20Solana%20Oasis\&labelColor=000000\&color=7f3ace)](https://crates.io/crates/solana-oasis-node)
 
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org) [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE/) [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](./) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](contributing.md) ![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FNubsCarson%2FSolanaOasis-Layer2\&label=Observers\&labelColor=%23000000\&countColor=%23263759) [![Made with Love](https://img.shields.io/badge/Made%20with-%F0%9F%96%A4-black.svg)](https://github.com/NubsCarson) [![Solana](https://img.shields.io/badge/Solana-black?style=flat\&logo=solana)](https://solana.com) [![Rust](https://img.shields.io/badge/Rust-black?style=flat\&logo=rust)](https://www.rust-lang.org)
 
