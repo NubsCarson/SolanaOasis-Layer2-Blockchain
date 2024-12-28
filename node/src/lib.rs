@@ -8,6 +8,7 @@ use config::NetworkConfig;
 use network::Network;
 use state::StateManager;
 
+#[allow(dead_code)]
 pub struct Node {
     network: Network,
     state: StateManager,

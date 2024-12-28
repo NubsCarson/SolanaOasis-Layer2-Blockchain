@@ -4,7 +4,7 @@ use libp2p::{
     gossipsub::{
         Gossipsub, GossipsubConfigBuilder, GossipsubEvent, IdentTopic, MessageAuthenticity,
     },
-    kad::{store::MemoryStore, GetClosestPeersOk, Kademlia, KademliaEvent, QueryResult},
+    kad::{store::MemoryStore, Kademlia, KademliaEvent, QueryResult},
     mdns::{Mdns, MdnsConfig, MdnsEvent},
     noise,
     swarm::NetworkBehaviourEventProcess,
@@ -43,14 +43,12 @@ impl NetworkBehaviourEventProcess<GossipsubEvent> for NetworkBehavior {
 
 impl NetworkBehaviourEventProcess<KademliaEvent> for NetworkBehavior {
     fn inject_event(&mut self, event: KademliaEvent) {
-        if let KademliaEvent::OutboundQueryCompleted { result, .. } = event {
-            match result {
-                QueryResult::GetClosestPeers(Ok(peers)) => {
-                    for peer_id in peers.peers {
-                        log::info!("Found peer: {}", peer_id);
-                    }
-                }
-                _ => {}
+        if let KademliaEvent::OutboundQueryCompleted { 
+            result: QueryResult::GetClosestPeers(Ok(peers)), 
+            .. 
+        } = event {
+            for peer_id in peers.peers {
+                log::info!("Found peer: {}", peer_id);
             }
         }
     }
@@ -98,6 +96,7 @@ impl From<MdnsEvent> for NetworkEvent {
     }
 }
 
+#[allow(dead_code)]
 pub struct Network {
     config: NetworkConfig,
     gossipsub: Gossipsub,
@@ -214,15 +213,13 @@ impl Network {
                 }
             },
             SwarmEvent::Behaviour(NetworkEvent::Kademlia(
-                KademliaEvent::OutboundQueryCompleted { result, .. },
+                KademliaEvent::OutboundQueryCompleted {
+                    result: QueryResult::GetClosestPeers(Ok(peers)),
+                    ..
+                },
             )) => {
-                match result {
-                    QueryResult::GetClosestPeers(Ok(peers)) => {
-                        for peer_id in peers.peers {
-                            log::info!("Found peer: {}", peer_id);
-                        }
-                    }
-                    _ => {}
+                for peer_id in peers.peers {
+                    log::info!("Found peer: {}", peer_id);
                 }
                 Ok(None)
             }

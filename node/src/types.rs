@@ -30,13 +30,13 @@ impl Block {
 
     pub fn update_transactions_root(&mut self) {
         let mut hasher = Sha256::new();
-        hasher.update(&bincode::serialize(&self.transactions).unwrap_or_default());
+        hasher.update(bincode::serialize(&self.transactions).unwrap_or_default());
         self.transactions_root = hasher.finalize().to_vec();
     }
 
     pub fn hash(&self) -> Vec<u8> {
         let mut hasher = Sha256::new();
-        hasher.update(&bincode::serialize(self).unwrap_or_default());
+        hasher.update(bincode::serialize(self).unwrap_or_default());
         hasher.finalize().to_vec()
     }
 }
