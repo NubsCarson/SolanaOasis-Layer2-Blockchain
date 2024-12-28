@@ -2,9 +2,9 @@ use anyhow::{anyhow, Result};
 use libp2p::{
     core::upgrade,
     gossipsub::{
-        Gossipsub, GossipsubConfigBuilder, GossipsubEvent, IdentTopic, MessageAuthenticity, Topic,
+        Gossipsub, GossipsubConfigBuilder, GossipsubEvent, IdentTopic, MessageAuthenticity,
     },
-    kad::{store::MemoryStore, Kademlia, KademliaEvent, QueryResult},
+    kad::{store::MemoryStore, Kademlia, KademliaEvent},
     mdns::{Mdns, MdnsConfig, MdnsEvent},
     noise,
     swarm::NetworkBehaviourEventProcess,
@@ -43,13 +43,11 @@ impl NetworkBehaviourEventProcess<GossipsubEvent> for NetworkBehavior {
 
 impl NetworkBehaviourEventProcess<KademliaEvent> for NetworkBehavior {
     fn inject_event(&mut self, event: KademliaEvent) {
-        if let KademliaEvent::QueryResult {
-            result: QueryResult::GetClosestPeers(Ok(peers)),
-            ..
-        } = event
-        {
-            for peer_id in peers.peers {
-                log::info!("Found peer: {}", peer_id);
+        if let KademliaEvent::OutboundQueryCompleted { result, .. } = event {
+            if let Ok(peers) = result {
+                for peer_id in peers.peers() {
+                    log::info!("Found peer: {}", peer_id);
+                }
             }
         }
     }
@@ -107,7 +105,7 @@ pub struct Network {
 impl Network {
     pub async fn new(config: NetworkConfig) -> Result<Self> {
         let local_key = config.identity.clone();
-        let local_peer_id = local_key.public().into_peer_id();
+        let local_peer_id = local_key.public().to_peer_id();
 
         let noise_keys = noise::Keypair::<noise::X25519Spec>::new()
             .into_authentic(&local_key)
@@ -212,12 +210,14 @@ impl Network {
                     Ok(None)
                 }
             },
-            SwarmEvent::Behaviour(NetworkEvent::Kademlia(KademliaEvent::QueryResult {
-                result: QueryResult::GetClosestPeers(Ok(peers)),
+            SwarmEvent::Behaviour(NetworkEvent::Kademlia(KademliaEvent::OutboundQueryCompleted {
+                result,
                 ..
             })) => {
-                for peer_id in peers.peers {
-                    log::info!("Found peer: {}", peer_id);
+                if let Ok(peers) = result {
+                    for peer_id in peers.peers() {
+                        log::info!("Found peer: {}", peer_id);
+                    }
                 }
                 Ok(None)
             }
