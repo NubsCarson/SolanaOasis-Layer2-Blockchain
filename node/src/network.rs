@@ -210,10 +210,9 @@ impl Network {
                     Ok(None)
                 }
             },
-            SwarmEvent::Behaviour(NetworkEvent::Kademlia(KademliaEvent::OutboundQueryCompleted {
-                result,
-                ..
-            })) => {
+            SwarmEvent::Behaviour(NetworkEvent::Kademlia(
+                KademliaEvent::OutboundQueryCompleted { result, .. },
+            )) => {
                 if let Ok(peers) = result {
                     for peer_id in peers.peers() {
                         log::info!("Found peer: {}", peer_id);
