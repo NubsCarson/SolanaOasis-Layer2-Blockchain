@@ -4,7 +4,7 @@ use libp2p::{
     gossipsub::{
         Gossipsub, GossipsubConfigBuilder, GossipsubEvent, IdentTopic, MessageAuthenticity,
     },
-    kad::{store::MemoryStore, Kademlia, KademliaEvent},
+    kad::{store::MemoryStore, GetClosestPeersOk, Kademlia, KademliaEvent, QueryResult},
     mdns::{Mdns, MdnsConfig, MdnsEvent},
     noise,
     swarm::NetworkBehaviourEventProcess,
@@ -44,10 +44,13 @@ impl NetworkBehaviourEventProcess<GossipsubEvent> for NetworkBehavior {
 impl NetworkBehaviourEventProcess<KademliaEvent> for NetworkBehavior {
     fn inject_event(&mut self, event: KademliaEvent) {
         if let KademliaEvent::OutboundQueryCompleted { result, .. } = event {
-            if let Ok(peers) = result {
-                for peer_id in peers.peers() {
-                    log::info!("Found peer: {}", peer_id);
+            match result {
+                QueryResult::GetClosestPeers(Ok(peers)) => {
+                    for peer_id in peers.peers {
+                        log::info!("Found peer: {}", peer_id);
+                    }
                 }
+                _ => {}
             }
         }
     }
@@ -213,10 +216,13 @@ impl Network {
             SwarmEvent::Behaviour(NetworkEvent::Kademlia(
                 KademliaEvent::OutboundQueryCompleted { result, .. },
             )) => {
-                if let Ok(peers) = result {
-                    for peer_id in peers.peers() {
-                        log::info!("Found peer: {}", peer_id);
+                match result {
+                    QueryResult::GetClosestPeers(Ok(peers)) => {
+                        for peer_id in peers.peers {
+                            log::info!("Found peer: {}", peer_id);
+                        }
                     }
+                    _ => {}
                 }
                 Ok(None)
             }
