@@ -1,8 +1,8 @@
-# 🌴 SolanaOasis
+# ⚡ Official Arcane Crate
 
 <div align="center">
 
-[![🌟 Arcane Crate](https://img.shields.io/crates/v/solana-oasis-node?style=for-the-badge&logo=rust&label=🌌%20Mystical%20Crate&labelColor=000000&color=7f3ace)](https://crates.io/crates/solana-oasis-node)
+[![🌟 Mystical Package](https://img.shields.io/crates/v/solana-oasis-node?style=for-the-badge&logo=rust&label=🌌%20Arcane%20Crate&labelColor=000000&color=7f3ace)](https://crates.io/crates/solana-oasis-node)
 
 </div>
 
