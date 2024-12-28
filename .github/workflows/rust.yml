@@ -79,7 +79,7 @@ jobs:
         mkdir -p ~/.cargo
         cat >> ~/.cargo/config.toml << EOF
         [registries.github]
-        index = "sparse+https://github.com/NubsCarson/SolanaOasis-Layer2.git"
+        index = "sparse+https://github.com/NubsCarson/SolanaOasis-Layer2.git/"
         registry = "https://api.github.com/orgs/NubsCarson/packages"
         EOF
         
