@@ -77,24 +77,27 @@ jobs:
       run: |
         # Configure GitHub registry
         mkdir -p ~/.cargo
-        echo '[registries.github]' >> ~/.cargo/config.toml
-        echo 'index = "https://github.com/NubsCarson/SolanaOasis-Layer2"' >> ~/.cargo/config.toml
+        cat >> ~/.cargo/config.toml << EOF
+        [registries.github]
+        index = "sparse+https://github.com/rust-lang/crates.io-index"
+        registry = "https://github.com/NubsCarson/SolanaOasis-Layer2"
+        token = "${GITHUB_TOKEN}"
+
+        [registry]
+        default = "github"
+        EOF
         
-        # Create .npmrc for GitHub Packages
-        echo "@NubsCarson:registry=https://npm.pkg.github.com" >> ~/.npmrc
-        echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> ~/.npmrc
-        
-        # Publish packages to GitHub Packages only
+        # Publish packages to GitHub Packages
         cargo package -p solana-oasis-node
-        cargo publish -p solana-oasis-node --no-verify --registry github
+        cargo publish -p solana-oasis-node --registry github
         
         cargo package -p solana-oasis-sdk
-        cargo publish -p solana-oasis-sdk --no-verify --registry github
+        cargo publish -p solana-oasis-sdk --registry github
         
         cargo package -p solana-oasis-bridge
-        cargo publish -p solana-oasis-bridge --no-verify --registry github
+        cargo publish -p solana-oasis-bridge --registry github
         
         cargo package -p solana-oasis-ai
-        cargo publish -p solana-oasis-ai --no-verify --registry github
+        cargo publish -p solana-oasis-ai --registry github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
