@@ -36,12 +36,9 @@ jobs:
         sudo apt-get install -y librocksdb-dev clang
 
     - name: ⛧ Invoke Rust
-      uses: actions-rs/toolchain@b2417cde72dcf2a5c610b91a1a14b297fbdaa51b
-      with:
-        profile: minimal
-        toolchain: stable
-        components: clippy, rustfmt
-        override: true
+      run: |
+        rustup toolchain install stable --profile minimal -c clippy rustfmt
+        rustup default stable
 
     - name: 🐍 Summon Python
       uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236
