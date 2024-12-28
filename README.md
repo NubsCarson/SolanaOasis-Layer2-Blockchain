@@ -1,3 +1,11 @@
+# 🌴 SolanaOasis
+
+<div align="center">
+
+[![🌟 Arcane Crate](https://img.shields.io/crates/v/solana-oasis-node?style=for-the-badge&logo=rust&label=🌌%20Mystical%20Crate&labelColor=000000&color=7f3ace)](https://crates.io/crates/solana-oasis-node)
+
+</div>
+
 # 🌴️ Solana Oasis: The Forbidden Protocol
 
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org)
@@ -9,7 +17,7 @@
 [![Solana](https://img.shields.io/badge/Solana-black?style=flat&logo=solana)](https://solana.com)
 [![Rust](https://img.shields.io/badge/Rust-black?style=flat&logo=rust)](https://www.rust-lang.org)
 
-> 𝕋𝕙𝕖 𝔽𝕠𝕣𝕓𝕚𝕕𝕕𝕖𝕟 ℙ𝕣𝕠𝕥𝕠𝕔𝕠𝕝 𝕋𝕙𝕒𝕥 𝔹𝕣𝕚𝕕𝕘𝕖𝕤 𝕊𝕠𝕝𝕒𝕟𝕒'𝕤 𝕃𝟙 𝕨𝕚𝕥𝕙 𝕥𝕙𝕖 𝔻𝕚𝕘𝕚𝕥𝕒𝕝 𝔸𝕓𝕪𝕤𝕤 🌌
+> 𝕋𝕙𝕖 𝔽𝕠𝕣𝕓𝕚𝕕𝕕𝕖𝕟 ℙ𝕠𝕥𝕠𝕔𝕠𝕝 𝕋𝕙𝕒𝕥 𝔹𝕣𝕚𝕕𝕘𝕖𝕤 𝕊𝕠𝕝𝕒𝕟𝕒'𝕤 𝕃𝟙 𝕨𝕚𝕥𝕙 𝕥𝕙𝕖 𝔻𝕚𝕘𝕚𝕥𝕒𝕝 𝔸𝕓𝕪𝕤𝕤 🌌
 
 <div align="center">
 
