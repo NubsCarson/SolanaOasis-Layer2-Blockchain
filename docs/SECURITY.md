@@ -1,246 +1,188 @@
-# ⛧ Sacred Security Protocols
+# ⚔️ Sacred Security Protocols
 
-## 🗝️ Reporting Security Vulnerabilities
+## 🗝️ Reporting Security Breaches
 
-We take the protection of our digital realm with utmost severity. If you discover any security vulnerabilities within the Solana Oasis protocol, please report them immediately through our secure channels:
+We guard the sanctity of Solana Oasis with utmost vigilance. If you discover a vulnerability in our wards, report through these sacred channels:
 
-- 🕯️ Telegram: [@ChillWeb3Dev](https://t.me/ChillWeb3Dev)
-- ⚔️ GitHub: [Create a security advisory](https://github.com/NubsCarson/SolanaOasis-Layer2/security/advisories/new)
-- 🌑 PGP Key: [Download PGP Key](./pgp-key.asc)
+- Ethereal Mail: `Coming Soon`
+- GitHub Sanctuary: [Create a security advisory](https://github.com/NubsCarson/SolanaOasis-Layer2/security/advisories/new)
+- Sacred Key: [Download PGP Key](./pgp-key.asc) `Coming Soon`
 
-## ⚡ Security Model
+## 🌒 Security Model
 
-### 🧠 Core Principles
+### Core Tenets
 
-This document outlines the comprehensive security model for the Solana Oasis Layer 2 system, focusing on the unique challenges of securing AI computations in a decentralized environment.
+1. ⛧ Defense in Depth
+   - Layered Wards
+   - Redundant Seals
+   - Fail-safe Bindings
 
-### 📓 Threat Model
+2. 🕯️ Least Privilege
+   - Minimal Rights of Power
+   - Role-bound Permissions
+   - Strict Access Wards
 
-#### 1.1 Attack Vectors
+3. ⚡ Zero Trust
+   - All Inputs Purified
+   - All Operations Verified
+   - No Implicit Trust Granted
 
-#### Layer 1 Attacks
-- Bridge contract vulnerabilities
-- State root manipulation
-- Malicious validator collusion
+### Threat Vectors
 
-#### Layer 2 Attacks
-- Invalid state transitions
-- Computation result manipulation
-- Node impersonation
+#### 🌑 Layer 1 Threats
+- Bridge Contract Breaches
+- State Root Corruption
+- Validator Dark Pacts
+- Economic Sieges
 
-#### AI Layer Attacks
-- Model poisoning
-- Input manipulation
-- Output forgery
-- Resource exhaustion
+#### 🧠 Layer 2 Threats
+- Invalid State Transitions
+- Computation Result Tampering
+- Node Shapeshifting
+- Network Sundering
 
-### 1.2 Trust Assumptions
+#### ⚔️ Neural Layer Threats
+- Model Corruption
+- Input Manipulation
+- Output Forgery
+- Resource Draining
 
-```rust
-pub enum TrustLevel {
-    // No trust required
-    Trustless,
-    // Economic security
-    EconomicallySecurity,
-    // Trusted setup required
-    TrustedSetup,
-    // Fully trusted
-    Trusted,
-}
+## Sacred Defenses
 
-pub struct SecurityAssumptions {
-    // L1 security
-    l1_security: TrustLevel,
-    // L2 operator security
-    l2_operator: TrustLevel,
-    // AI node security
-    ai_node: TrustLevel,
-    // Bridge security
-    bridge: TrustLevel,
-}
+### 🗝️ Cryptographic Seals
 
-## 🕯️ Security Features
+1. Signatures and Hashing
+   - Ed25519 Sigils
+   - Blake3 Hashing Rites
+   - ZK-SNARK Proofs
 
-### ⛧ Cryptographic Protocols
+2. Encryption Wards
+   - TLS 1.3 Barriers
+   - AES-256-GCM Seals
+   - Forward Secrecy Bindings
 
-```rust
-pub struct CryptoConfig {
-    // Signature scheme
-    signature_scheme: SignatureScheme,
-    // Hash function
-    hash_function: HashFunction,
-    // ZK proof system
-    zk_proof_system: ZKProofSystem,
-    // Encryption scheme
-    encryption_scheme: EncryptionScheme,
-}
+### ⛧ Access Wards
 
-pub enum SignatureScheme {
-    Ed25519,
-    Secp256k1,
-    BLS,
-}
+1. Authentication
+   - Multi-sigil Authentication
+   - Hardware Key Bindings
+   - Session Wards
 
-pub enum ZKProofSystem {
-    Groth16,
-    Plonk,
-    Stark,
-}
-```
+2. Authorization
+   - Role-bound Access Control
+   - Permission Seals
+   - Audit Scrying
 
-### ⚔️ Access Control
+### 🌒 Network Wards
 
-```rust
-pub struct AccessControl {
-    // Role-based access
-    rbac: RBACConfig,
-    // Permission management
-    permissions: PermissionManager,
-    // Audit logging
-    audit: AuditLogger,
-}
-```
+1. Node Protection
+   - Hardware Attestation Seals
+   - Secure Boot Rites
+   - Runtime Verification
 
-### 🌒 Network Security
+2. Communication
+   - P2P Encryption Seals
+   - Energy Flow Control
+   - Anti-siege Protection
 
-```rust
-pub struct NodeSecurity {
-    // Authentication
-    auth: Authentication,
-    // Authorization
-    authz: Authorization,
-    // Secure communication
-    secure_comms: SecureComms,
-}
+## Sacred Practices
 
-pub struct SecureComms {
-    // TLS configuration
-    tls_config: TLSConfig,
-    // P2P encryption
-    p2p_encryption: P2PEncryption,
-    // Rate limiting
-    rate_limits: RateLimits,
-}
-```
+### For Digital Alchemists
 
-## 🗝️ Security Best Practices
+1. Code Protection
+   - Static Analysis Rites
+   - Dependency Scrying
+   - Regular Audits
 
-### ⚡ For Developers
+2. Deployment
+   - Sacred Configurations
+   - Environment Isolation
+   - Constant Vigilance
 
-```rust
-pub struct ContractSecurity {
-    // Formal verification
-    formal_verification: FormalVerification,
-    // Access control
-    access_control: AccessControl,
-    // Upgrade mechanism
-    upgrade_mechanism: UpgradeMechanism,
-}
+### For Node Keepers
 
-pub struct FormalVerification {
-    // Property checks
-    property_checks: Vec<PropertyCheck>,
-    // Invariant verification
-    invariants: Vec<Invariant>,
-    // State transition proofs
-    transition_proofs: Vec<TransitionProof>,
-}
-```
+1. System Protection
+   - OS Hardening Rites
+   - Network Isolation
+   - Access Wards
 
-### 📓 For Node Operators
+2. Key Management
+   - Hardware Security Vessels
+   - Key Rotation Cycles
+   - Backup Rituals
 
-```rust
-pub struct EconomicSecurity {
-    // Minimum stake requirements
-    min_stake: u64,
-    // Slashing parameters
-    slashing_params: SlashingParams,
-    // Reward distribution
-    rewards: RewardDistribution,
-}
+### For Users of the Realm
 
-pub struct SlashingParams {
-    // Slash percentage
-    slash_percentage: f64,
-    // Slash conditions
-    conditions: Vec<SlashCondition>,
-    // Appeal process
-    appeal_process: AppealProcess,
-}
-```
+1. Wallet Protection
+   - Hardware Vessels
+   - Multi-sigil Seals
+   - Regular Backups
 
-### ⛧ For Users
+2. Transaction Safety
+   - Amount Verification
+   - Address Validation
+   - Energy Limits
 
-```rust
-pub struct ModelSecurity {
-    // Model verification
-    verification: ModelVerification,
-    // Access control
-    access_control: AccessControl,
-    // Version control
-    version_control: VersionControl,
-}
+## Breach Response
 
-pub struct ModelVerification {
-    // Checksum verification
-    checksum: Hash,
-    // Runtime verification
-    runtime_checks: Vec<SecurityCheck>,
-    // Performance monitoring
-    monitoring: PerformanceMonitor,
-}
-```
+### Response Rituals
 
-## 🕯️ Incident Response
+1. Detection
+   - Automated Scrying
+   - Manual Observation
+   - Community Alerts
 
-### 🌑 Response Protocol
+2. Analysis
+   - Impact Divination
+   - Root Cause Scrying
+   - Evidence Collection
 
-```rust
-pub struct EmergencyProcedures {
-    // Circuit breakers
-    circuit_breakers: CircuitBreakers,
-    // Emergency shutdown
-    shutdown: EmergencyShutdown,
-    // Recovery procedures
-    recovery: RecoveryProcedures,
-}
-```
+3. Banishment
+   - Immediate Response
+   - System Recovery
+   - Prevention Rites
 
-### ⚔️ Communication Channels
+### Sacred Communication
 
-```rust
-pub struct SecurityMonitoring {
-    // Real-time monitoring
-    monitoring: Monitor,
-    // Alert system
-    alerts: AlertSystem,
-    // Incident tracking
-    incident_tracking: IncidentTracker,
-}
-```
+1. Channels
+   - Security Proclamations
+   - Status Divinations
+   - Post-ritual Analysis
 
-## ⚡ Security Audits
+2. Timeline
+   - Initial Response: < 1 hour
+   - Status Updates: Every 4 hours
+   - Resolution: Swift as possible
 
-```rust
-pub struct SecurityReporting {
-    // Audit reports
-    audit_reports: Vec<AuditReport>,
-    // Incident reports
-    incident_reports: Vec<IncidentReport>,
-    // Compliance reports
-    compliance_reports: Vec<ComplianceReport>,
-}
-```
+## Security Audits
 
-## 🧠 Bug Bounty Program
+### Regular Rituals
+- Quarterly Internal Scrying
+- Annual External Audits
+- Continuous Vigilance
 
-```rust
-pub struct BugBountyProgram {
-    // Reward amount
-    reward_amount: u64,
-    // Submission process
-    submission_process: SubmissionProcess,
-    // Verification process
-    verification_process: VerificationProcess,
-}
-``` 
+### Sacred Scope
+- Smart Contract Wards
+- Network Protocol Seals
+- Node Software Protection
+- Client Library Guards
+
+## Bounty Program
+
+### Sacred Rewards
+- Critical Breaches: Up to $50,000
+- High Threats: Up to $25,000
+- Medium Risks: Up to $10,000
+- Low Concerns: Up to $1,000
+
+### Scope of Power
+- Smart Contract Wards
+- Protocol Implementation
+- Node Software
+- Client SDKs
+
+### Sacred Rules
+1. Responsible Disclosure
+2. No Public Revelation
+3. Original Discoveries Only
+4. Clear Documentation 

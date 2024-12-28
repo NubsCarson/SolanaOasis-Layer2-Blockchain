@@ -5,8 +5,8 @@
 The Sacred APIs of Solana Oasis provide a comprehensive interface for digital alchemists to commune with the Layer 2 Neural Network. This grimoire outlines all available incantations, their sacred usage, and example manifestations.
 
 ## 📓 Base Sanctuaries
-- Mainnet Realm: `Coming Soon to the Digital Void...`
-- Testnet Void: `Coming Soon to the Digital Void...`
+- Mainnet Realm: `Coming Soon`
+- Testnet Void: `Coming Soon`
 - Local Nexus: `http://localhost:8899`
 
 ## 🕯️ Node Communion API
@@ -16,30 +16,157 @@ The Sacred APIs of Solana Oasis provide a comprehensive interface for digital al
 GET /v1/health
 ```
 
-## 📓 Core Incantations
+Response:
+```json
+{
+    "status": "aligned",
+    "version": "1.0.0",
+    "uptime": 3600
+}
+```
 
-### 🕯️ State Queries
+### 🌒 State Queries
 
-### ⛧ Transaction Submission
+#### Scry Latest State
+```http
+GET /v1/state/latest
+```
 
-### 🌑 Proof Verification
+#### Commune with State Root
+```http
+GET /v1/state/{root_hash}
+```
 
-## ⚔️ AI Computation Interface
+### ⚔️ Transaction Alchemy
 
-### 🧠 Model Invocation
+#### Channel Transaction
+```http
+POST /v1/transaction
+Content-Type: application/json
 
-### 📓 Result Retrieval
+{
+    "type": "computation",
+    "payload": {
+        "model": "gpt-4",
+        "input": "Analyze this text...",
+        "params": {
+            "temperature": 0.7,
+            "maxTokens": 100
+        }
+    }
+}
+```
 
-## 🕯️ Bridge Operations
+#### Scry Transaction Status
+```http
+GET /v1/transaction/{tx_hash}
+```
 
-### ⛧ Asset Bridge
+### 🧠 Neural Operations
 
-### ⚡ Message Passing
+#### Model Registry
+```http
+GET /v1/models
+```
 
-## 🗝️ Node Management
+#### Computation Status
+```http
+GET /v1/computation/{computation_id}
+```
 
-### 🌒 Node Registration
+### ⛧ Bridge Rituals
 
-### ⛧ Status Updates
+#### Asset Channeling
+```http
+POST /v1/bridge/deposit
+Content-Type: application/json
 
-// ... rest of existing content with themed headers ... 
+{
+    "amount": "1000000000",
+    "token": "SOL",
+    "destination": "0x..."
+}
+```
+
+#### Asset Manifestation
+```http
+POST /v1/bridge/withdraw
+Content-Type: application/json
+
+{
+    "amount": "1000000000",
+    "token": "SOL",
+    "proof": "0x..."
+}
+```
+
+## 🌑 Error Manifestations
+
+All endpoints use sacred status codes:
+- 200: Alignment Achieved
+- 400: Ritual Malformed
+- 401: Unauthorized Invocation
+- 403: Forbidden Rite
+- 404: Void Not Found
+- 500: Internal Chaos
+
+Error Response Format:
+```json
+{
+    "error": {
+        "code": "invalid_invocation",
+        "message": "The ritual pattern is malformed",
+        "details": {
+            "field": "payload",
+            "issue": "missing sacred component"
+        }
+    }
+}
+```
+
+## ⚡ Energy Flow Control
+
+- Public Rites: 100 invocations per minute
+- Attuned Channels: 1000 invocations per minute
+- Neural Rites: 10 invocations per minute
+
+## 🗝️ SDK Integration
+
+```typescript
+import { OasisSDK } from '@solana-oasis/sdk';
+
+// Initialize the sacred connection
+const oasis = new OasisSDK({
+    endpoint: 'Coming Soon',
+    wallet: solanaWallet
+});
+
+// Channel computation request
+const result = await oasis.compute({
+    model: 'gpt-4',
+    input: 'Analyze this text...',
+    params: {
+        temperature: 0.7,
+        maxTokens: 100
+    }
+});
+```
+
+## 🕯️ Ethereal Streams
+
+Connect to the ethereal plane:
+```typescript
+const ws = new WebSocket('wss://api.solanaoasis.com/v1/ws');
+
+ws.onmessage = (event) => {
+    const manifestation = JSON.parse(event.data);
+    console.log('New manifestation:', manifestation);
+};
+```
+
+## ⚔️ Sacred Protections
+
+- All channels require HTTPS sealing
+- Authentication via sacred tokens
+- Energy flow control per key
+- Request signing for sacred operations 
