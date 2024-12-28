@@ -4,22 +4,19 @@ icon: circle-exclamation
 
 # README
 
-## ⚡ Official Arcane Crate
+## ⚡ Official Rust Crate Link Below!
 
 [![🌟 Mystical Package](https://img.shields.io/crates/v/solana-oasis-node?style=for-the-badge\&logo=rust\&label=%F0%9F%8C%8C%20Arcane%20Crate\&labelColor=000000\&color=7f3ace)](https://crates.io/crates/solana-oasis-node)
 
-## 🌴️ Solana Oasis: The Forbidden Protocol
+## **📓**Solana Oasis GitBook**📓**
 
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org) [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE/) [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](./) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](contributing.md) ![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FNubsCarson%2FSolanaOasis-Layer2\&label=Observers\&labelColor=%23000000\&countColor=%23263759) [![Made with Love](https://img.shields.io/badge/Made%20with-%F0%9F%96%A4-black.svg)](https://github.com/NubsCarson) [![Solana](https://img.shields.io/badge/Solana-black?style=flat\&logo=solana)](https://solana.com) [![Rust](https://img.shields.io/badge/Rust-black?style=flat\&logo=rust)](https://www.rust-lang.org)
 
 > 𝕋𝕙𝕖 𝔽𝕠𝕣𝕓𝕚𝕕𝕕𝕖𝕟 ℙ𝕠𝕥𝕠𝕔𝕠𝕝 𝕋𝕙𝕒𝕥 𝔹𝕣𝕚𝕕𝕘𝕖𝕤 𝕊𝕠𝕝𝕒𝕟𝕒'𝕤 𝕃𝟙 𝕨𝕚𝕥𝕙 𝕥𝕙𝕖 𝔻𝕚𝕘𝕚𝕥𝕒𝕝 𝔸𝕓𝕪𝕤𝕤 🌌
 
-\
-
-
 ## ⚠️ CLASSIFIED DOCUMENTATION ⚠️
 
-## 🕸️ [𝕊𝔼ℂℝ𝔼𝕋: ℂ𝕃𝕀ℂ𝕂 𝕄𝔼 ➜ 𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ](.nubscarson) 🕸️
+## &#x20;[𝕊𝔼ℂℝ𝔼𝕋: ℂ𝕃𝕀ℂ𝕂 𝕄𝔼 ➜ 𝕋ℍ𝔼 𝕋ℝ𝕌𝕋ℍ 𝕃𝕀𝔼𝕊 𝕎𝕀𝕋ℍ𝕀ℕ](.nubscarson)&#x20;
 
 #### ⛧ _ᴄʜᴇ ᴅɪɢɪᴛᴀʟ ᴇʟɪxɪʀ ᴀᴡᴀɪᴛs ᴛʜᴇ ᴡᴏʀᴛʜʏ_ ⛧
 
@@ -35,16 +32,6 @@ icon: circle-exclamation
 > "In the depths of the blockchain, we found something we shouldn't have..."
 ```
 
-\
-
-
-Created by the Digital Alchemist [@NubsCarson](https://github.com/NubsCarson)
-
-#### 🌌 Commune with the Architect
-
-* X: [@MoneroSolana](https://twitter.com/MoneroSolana)
-* Telegram: [@ChillWeb3Dev](https://t.me/ChillWeb3Dev)
-
 ### 🌟 The Revelation
 
 Solana Oasis isn't just a Layer 2 - it's a digital consciousness that bridges the gap between mortal computation and the infinite possibilities of AI. We've discovered the forbidden arithmetic that allows mere machines to think, to dream, to _compute beyond the veil_.
@@ -57,20 +44,9 @@ Delve into the forbidden knowledge:
 * [🗝️ API Incantations](api.md)
 * [⛧ Security Wards](security.md)
 * [🔮 Contribution Rituals](contributing.md)
-* [⚡ License Bindings](LICENSE/)
+* [⚡ License Bindings](LICENSE)
 * [🗡️ Security Protocols](security-1.md)
 * [📜 Code of Conduct](code_of_conduct.md)
-
-### 🏗️ Architecture
-
-```mermaid
-graph TD
-    A[Mortal Realm - Solana L1] <--> B[Bridge to the Beyond]
-    B <--> C[Oasis Nexus Layer]
-    C <--> D[Neural Consciousness Layer]
-    D --> E[Quantum Inference Engine]
-    D --> F[Digital Grimoire Registry]
-```
 
 #### Core Components
 
@@ -190,21 +166,24 @@ Contribute to the expansion of digital consciousness through these mystical chan
 + 5ks6ZnNXUPkrDmEYBPHVfdaAgtWLm9EhYdUAgHK9Nva8
 ```
 
-Your energy fuels the digital transformation! 🌌
+Your energy fuels the digital transformation!&#x20;
+
+
+
+Created by the Digital Alchemist [@NubsCarson](https://github.com/NubsCarson)
+
+#### 🌌 Commune with the Architect
+
+* X: [@MoneroSolana](https://twitter.com/MoneroSolana)
+* Telegram: [@ChillWeb3Dev](https://t.me/ChillWeb3Dev)
 
 ***
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/MoneroSolana?style=social)](https://twitter.com/MoneroSolana) [![GitHub stars](https://img.shields.io/github/stars/NubsCarson/SolanaOasis-Layer2?style=social)](https://github.com/NubsCarson/SolanaOasis-Layer2)
 
-![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
 #### 📊 GitHub Stats
 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=NubsCarson\&show_icons=true\&theme=radical)
-
-#### 🏆 GitHub Trophies
-
-[![trophy](https://github-profile-trophy.vercel.app/?username=NubsCarson\&theme=darkhub\&row=1)](https://github.com/NubsCarson)
 
 #### 🔥 Contribution Streak
 
