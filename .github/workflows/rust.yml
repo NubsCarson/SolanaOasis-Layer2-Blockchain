@@ -42,31 +42,7 @@ jobs:
         toolchain: stable
         components: clippy, rustfmt
 
-    - name: 🌌 Channel to the Package Repository
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: |
-        # Configure GitHub Packages
-        mkdir -p ~/.cargo
-        cat >> ~/.cargo/credentials.toml << EOF
-        [registries.github]
-        token = "${GITHUB_TOKEN}"
-        EOF
-        
-        # Configure registry
-        cat >> ~/.cargo/config.toml << EOF
-        [source.github]
-        registry = "https://github.com/NubsCarson/SolanaOasis-Layer2"
-        EOF
-        
-        # Publish packages
-        for pkg in solana-oasis-node solana-oasis-sdk solana-oasis-bridge solana-oasis-ai; do
-          cargo package -p ${pkg}
-          cargo publish -p ${pkg} --registry github --no-verify --allow-dirty || true
-        done
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: 🐍 Summon Python
+    - name: 🌌 Summon Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
@@ -94,4 +70,38 @@ jobs:
         python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
-        ./tests/run_local_tests.sh 
+        ./tests/run_local_tests.sh
+
+    - name: 🌌 Channel to the Package Repository
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: |
+        # Create registry directory
+        mkdir -p ~/.cargo/registry/index/github.com-1ecc6299db9ec823
+        cd ~/.cargo/registry/index/github.com-1ecc6299db9ec823
+        git init
+        git config user.email "actions@github.com"
+        git config user.name "GitHub Actions"
+        
+        # Configure GitHub registry
+        mkdir -p ~/.cargo
+        cat >> ~/.cargo/config.toml << EOF
+        [registries.github]
+        index = "git://github.com/rust-lang/crates.io-index.git"
+        
+        [net]
+        git-fetch-with-cli = true
+        EOF
+        
+        cat >> ~/.cargo/credentials.toml << EOF
+        [registries.github]
+        token = "${GITHUB_TOKEN}"
+        EOF
+        
+        # Publish packages
+        cd $GITHUB_WORKSPACE
+        for pkg in solana-oasis-node solana-oasis-sdk solana-oasis-bridge solana-oasis-ai; do
+          cargo package -p ${pkg}
+          cargo publish -p ${pkg} --registry github --no-verify --allow-dirty || true
+        done
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
