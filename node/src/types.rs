@@ -72,7 +72,6 @@ mod tests {
         }];
 
         let block = Block::new(1, [0u8; 32], transactions, Utc::now().timestamp());
-
         let hash = block.hash();
         assert_eq!(hash.len(), 32);
     }
