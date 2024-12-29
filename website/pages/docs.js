@@ -4,6 +4,7 @@ import { Stars, Text3D, Center } from '@react-three/drei';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Footer from '../components/Footer';
 
 const DocPortal = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -82,9 +83,9 @@ const DocPortal = () => {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="relative z-10"
+        className="relative z-10 min-h-screen flex flex-col"
       >
-        <div className="container mx-auto px-4 min-h-screen flex flex-col justify-center py-24">
+        <div className="container mx-auto px-4 flex-grow flex flex-col py-24">
           {/* Navigation */}
           <motion.nav 
             variants={contentAnimation}
@@ -246,6 +247,7 @@ const DocPortal = () => {
               </motion.div>
             </div>
           </motion.div>
+          <Footer />
         </div>
       </motion.div>
     </div>

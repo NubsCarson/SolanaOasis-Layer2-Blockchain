@@ -3,7 +3,8 @@ import { Canvas } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Footer from '../components/Footer';
 
 const Download = () => {
   const router = useRouter();
@@ -140,12 +141,15 @@ cargo clippy --all-targets --all-features`
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 flex-grow flex flex-col items-center justify-center w-full max-w-3xl px-4 py-16">
+      <motion.div
+        variants={containerVariants}
+        initial="initial"
+        animate="animate"
+        className="relative z-10 flex-grow flex flex-col items-center justify-center w-full max-w-3xl px-4 py-16"
+      >
         <motion.div
           variants={containerVariants}
-          initial="initial"
-          animate="animate"
-          className="w-full"
+          className="space-y-8 w-full"
         >
           <motion.h1 
             variants={itemVariants}
@@ -155,52 +159,48 @@ cargo clippy --all-targets --all-features`
           </motion.h1>
 
           {/* Installation Methods */}
-          <motion.div 
-            variants={containerVariants}
-            className="space-y-8 w-full"
-          >
-            {codeBlocks.map((block, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="w-full rounded-lg bg-black/50 border border-mystic-purple/20"
-              >
-                <div className="px-6 py-4 border-b border-mystic-purple/20">
-                  <h2 className="text-xl font-semibold text-purple-400">
-                    {block.title}
-                  </h2>
-                </div>
-                <div className="relative">
-                  <pre className="p-6 font-mono text-base overflow-x-auto">
-                    <code className="text-gray-300 whitespace-pre-wrap break-all">
-                      {block.code}
-                    </code>
-                  </pre>
-                  <button
-                    onClick={() => copyToClipboard(block.code, index)}
-                    className="absolute top-4 right-4 px-4 py-1.5 rounded bg-purple-800 hover:bg-purple-700 text-purple-100 text-sm transition-colors"
-                  >
-                    {copiedIndex === index ? "Copied!" : "Copy"}
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Navigation */}
-          <motion.div
-            variants={itemVariants}
-            className="flex justify-center mt-12"
-          >
-            <button 
-              onClick={() => router.push('/docs')}
-              className="px-8 py-3 rounded-lg bg-mystic-purple/20 border border-mystic-purple text-white hover:bg-mystic-purple/30 transition-colors text-base"
+          {codeBlocks.map((block, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="w-full rounded-lg bg-black/50 border border-mystic-purple/20"
             >
-              View Documentation
-            </button>
-          </motion.div>
+              <div className="px-6 py-4 border-b border-mystic-purple/20">
+                <h2 className="text-xl font-semibold text-purple-400">
+                  {block.title}
+                </h2>
+              </div>
+              <div className="relative">
+                <pre className="p-6 font-mono text-base overflow-x-auto">
+                  <code className="text-gray-300 whitespace-pre-wrap break-all">
+                    {block.code}
+                  </code>
+                </pre>
+                <button
+                  onClick={() => copyToClipboard(block.code, index)}
+                  className="absolute top-4 right-4 px-4 py-1.5 rounded bg-purple-800 hover:bg-purple-700 text-purple-100 text-sm transition-colors"
+                >
+                  {copiedIndex === index ? "Copied!" : "Copy"}
+                </button>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
-      </div>
+
+        {/* Navigation */}
+        <motion.div
+          variants={itemVariants}
+          className="flex justify-center mt-12"
+        >
+          <button 
+            onClick={() => router.push('/docs')}
+            className="px-8 py-3 rounded-lg bg-mystic-purple/20 border border-mystic-purple text-white hover:bg-mystic-purple/30 transition-colors text-base"
+          >
+            View Documentation
+          </button>
+        </motion.div>
+      </motion.div>
+      <Footer />
     </div>
   );
 };
