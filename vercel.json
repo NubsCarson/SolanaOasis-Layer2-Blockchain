@@ -1,5 +1,5 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "cd website && npm install && npm run build",
-  "outputDirectory": "website/.next"
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/website/$1" }
+  ]
 } 
