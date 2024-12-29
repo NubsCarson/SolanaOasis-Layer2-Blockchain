@@ -119,8 +119,11 @@ const DocPortal = () => {
                   <h2 className="text-2xl font-bold text-mystic-purple">Architecture</h2>
                 </div>
                 <p className="text-gray-400 mb-8 text-lg flex-grow">Explore the sacred foundations of our digital realm.</p>
-                <a href="/docs/architecture" className="inline-flex items-center text-purple-400 hover:text-purple-300 group-hover:gap-2 transition-all">
-                  Read more <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                <a href="/docs/architecture" className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-medium text-white bg-purple-900/50 rounded-lg hover:bg-purple-800/50 transition-all group">
+                  Read Documentation
+                  <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </a>
               </motion.div>
 
@@ -132,14 +135,17 @@ const DocPortal = () => {
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-purple-900/50 group-hover:bg-purple-800/50 transition-colors">
                     <svg className="w-6 h-6 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
                   <h2 className="text-2xl font-bold text-mystic-purple">Protocol</h2>
                 </div>
                 <p className="text-gray-400 mb-8 text-lg flex-grow">Understand the mystical protocols that power our network.</p>
-                <a href="/docs/protocol" className="inline-flex items-center text-purple-400 hover:text-purple-300 group-hover:gap-2 transition-all">
-                  Read more <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                <a href="/docs/protocol" className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-medium text-white bg-purple-900/50 rounded-lg hover:bg-purple-800/50 transition-all group">
+                  Read Documentation
+                  <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </a>
               </motion.div>
 
@@ -157,8 +163,11 @@ const DocPortal = () => {
                   <h2 className="text-2xl font-bold text-mystic-purple">API</h2>
                 </div>
                 <p className="text-gray-400 mb-8 text-lg flex-grow">Master the sacred incantations of our API.</p>
-                <a href="/docs/api" className="inline-flex items-center text-purple-400 hover:text-purple-300 group-hover:gap-2 transition-all">
-                  Read more <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                <a href="/docs/api" className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-medium text-white bg-purple-900/50 rounded-lg hover:bg-purple-800/50 transition-all group">
+                  Read Documentation
+                  <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </a>
               </motion.div>
 
@@ -176,8 +185,11 @@ const DocPortal = () => {
                   <h2 className="text-2xl font-bold text-mystic-purple">Bridge</h2>
                 </div>
                 <p className="text-gray-400 mb-8 text-lg flex-grow">Learn about the mystical bridge between realms.</p>
-                <a href="/docs/bridge" className="inline-flex items-center text-purple-400 hover:text-purple-300 group-hover:gap-2 transition-all">
-                  Read more <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                <a href="/docs/bridge" className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-medium text-white bg-purple-900/50 rounded-lg hover:bg-purple-800/50 transition-all group">
+                  Read Documentation
+                  <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </a>
               </motion.div>
 
@@ -195,8 +207,11 @@ const DocPortal = () => {
                   <h2 className="text-2xl font-bold text-mystic-purple">Security</h2>
                 </div>
                 <p className="text-gray-400 mb-8 text-lg flex-grow">Discover the wards that protect our digital sanctum.</p>
-                <a href="/docs/security" className="inline-flex items-center text-purple-400 hover:text-purple-300 group-hover:gap-2 transition-all">
-                  Read more <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                <a href="/docs/security" className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-medium text-white bg-purple-900/50 rounded-lg hover:bg-purple-800/50 transition-all group">
+                  Read Documentation
+                  <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </a>
               </motion.div>
 
@@ -214,8 +229,11 @@ const DocPortal = () => {
                   <h2 className="text-2xl font-bold text-mystic-purple">SDK</h2>
                 </div>
                 <p className="text-gray-400 mb-8 text-lg flex-grow">Wield the power of our development tools.</p>
-                <a href="/docs/sdk" className="inline-flex items-center text-purple-400 hover:text-purple-300 group-hover:gap-2 transition-all">
-                  Read more <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                <a href="/docs/sdk" className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-medium text-white bg-purple-900/50 rounded-lg hover:bg-purple-800/50 transition-all group">
+                  Read Documentation
+                  <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </a>
               </motion.div>
             </div>
