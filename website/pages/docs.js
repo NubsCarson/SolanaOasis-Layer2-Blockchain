@@ -127,7 +127,7 @@ const DocPortal = () => {
                   <h2 className="text-2xl font-bold text-mystic-purple">Architecture</h2>
                 </div>
                 <p className="text-gray-400 mb-8 text-lg flex-grow">Explore the sacred foundations of our digital realm.</p>
-                <a href="/docs/architecture" className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-medium text-white bg-purple-900/50 rounded-lg hover:bg-purple-800/50 transition-all group">
+                <a href="/docs/architecture" className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-medium text-white bg-purple-900/50 hover:bg-purple-800/60 rounded-lg transition-all duration-300 group">
                   Read Documentation
                   <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
