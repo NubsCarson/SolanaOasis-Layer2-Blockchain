@@ -4,7 +4,8 @@ const MetaHead = ({ title, description }) => {
   const defaultTitle = "Solana Oasis Layer2";
   const defaultDescription = "A high-performance Layer 2 solution for Solana, enabling scalable AI computation";
   const defaultImage = "/oasis.png";
-  const siteUrl = "https://solanaoasis.vercel.app";
+  const siteUrl = "https://solana-oasis.vercel.app";
+  const absoluteImageUrl = `${siteUrl}${defaultImage}`;
 
   return (
     <Head>
@@ -18,14 +19,16 @@ const MetaHead = ({ title, description }) => {
       <meta property="og:url" content={siteUrl} />
       <meta property="og:title" content={title || defaultTitle} />
       <meta property="og:description" content={description || defaultDescription} />
-      <meta property="og:image" content={`${siteUrl}${defaultImage}`} />
+      <meta property="og:image" content={absoluteImageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
 
       {/* Twitter */}
-      <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content={siteUrl} />
-      <meta property="twitter:title" content={title || defaultTitle} />
-      <meta property="twitter:description" content={description || defaultDescription} />
-      <meta property="twitter:image" content={`${siteUrl}${defaultImage}`} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={siteUrl} />
+      <meta name="twitter:title" content={title || defaultTitle} />
+      <meta name="twitter:description" content={description || defaultDescription} />
+      <meta name="twitter:image" content={absoluteImageUrl} />
       <meta name="twitter:creator" content="@MoneroSolana" />
 
       {/* Favicon */}
