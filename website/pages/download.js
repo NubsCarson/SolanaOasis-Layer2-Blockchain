@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
+import MetaHead from '../components/MetaHead';
 
 const Download = () => {
   const router = useRouter();
@@ -98,9 +98,10 @@ cargo clippy --all-targets --all-features`
 
   return (
     <div className="relative min-h-screen w-full bg-void-black overflow-hidden flex flex-col items-center">
-      <Head>
-        <title>Download | Solana Oasis</title>
-      </Head>
+      <MetaHead 
+        title="Download | Solana Oasis"
+        description="Download and install the Solana Oasis Layer 2 solution for high-performance AI computation"
+      />
 
       {/* Background */}
       <div className="absolute inset-0 z-0">

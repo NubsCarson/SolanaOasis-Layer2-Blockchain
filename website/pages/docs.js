@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Stars, Text3D, Center } from '@react-three/drei';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
+import MetaHead from '../components/MetaHead';
 
 const DocPortal = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,9 +47,10 @@ const DocPortal = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-void-black overflow-hidden">
-      <Head>
-        <title>Sacred Documentation | Solana Oasis</title>
-      </Head>
+      <MetaHead 
+        title="Sacred Documentation | Solana Oasis"
+        description="Explore the mystical knowledge of Solana Oasis through these sacred texts"
+      />
 
       {/* Portal Animation */}
       {isLoading && (
