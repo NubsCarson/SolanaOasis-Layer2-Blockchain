@@ -8,5 +8,11 @@
         "projectRoot": "website"
       }
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/website/$1"
+    }
   ]
 } 
