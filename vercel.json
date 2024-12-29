@@ -1,5 +1,12 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "cd website && npm install && npm run build",
-  "outputDirectory": "website/.next"
+  "version": 2,
+  "builds": [
+    {
+      "src": "website/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "projectRoot": "website"
+      }
+    }
+  ]
 } 
