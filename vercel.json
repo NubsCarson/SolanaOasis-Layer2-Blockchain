@@ -1,5 +1,8 @@
 {
   "version": 2,
+  "buildCommand": "cd website && npm install && npm run build",
+  "outputDirectory": "website/.next",
+  "installCommand": "cd website && npm install",
   "builds": [
     {
       "src": "website/package.json",
@@ -9,7 +12,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "website/$1"
+      "dest": "/website/$1"
     }
   ]
 } 
