@@ -14,5 +14,8 @@
       "src": "/(.*)",
       "dest": "/website/$1"
     }
-  ]
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "public": true
 } 
