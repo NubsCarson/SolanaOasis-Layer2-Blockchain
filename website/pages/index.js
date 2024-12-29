@@ -3,6 +3,8 @@ import { Canvas } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
 import { useRouter } from 'next/router';
 import MetaHead from '../components/MetaHead';
+import Footer from '../components/Footer';
+import Link from 'next/link';
 
 const Home = () => {
   const router = useRouter();
@@ -57,23 +59,23 @@ const Home = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex-grow flex flex-col items-center justify-center w-full max-w-6xl px-4">
+      <div className="relative z-10 flex-grow flex flex-col items-center justify-center w-full max-w-6xl px-4 py-6 md:py-0">
         {/* Hero Section */}
         <motion.div
           variants={containerVariants}
           initial="initial"
           animate="animate"
-          className="text-center"
+          className="text-center w-full"
         >
           <motion.h1 
             variants={itemVariants}
-            className="text-5xl md:text-7xl font-bold text-white mb-8 glow-text"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 md:mb-8 glow-text"
           >
             Solana Oasis Layer2
           </motion.h1>
           <motion.p
             variants={itemVariants}
-            className="text-xl md:text-2xl text-gray-400 mb-12"
+            className="text-lg sm:text-xl md:text-2xl text-gray-400 mb-8 md:mb-12 px-2"
           >
             A high-performance Layer 2 solution for Solana, enabling scalable AI computation.
           </motion.p>
@@ -81,7 +83,7 @@ const Home = () => {
           {/* Epic Repository Links */}
           <motion.div
             variants={containerVariants}
-            className="flex flex-col md:flex-row gap-8 justify-center items-center mb-16"
+            className="flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center mb-8 md:mb-16"
           >
             <motion.a
               href="https://github.com/NubsCarson/SolanaOasis-Layer2"
@@ -89,16 +91,16 @@ const Home = () => {
               rel="noopener noreferrer"
               variants={statsVariants}
               whileHover="hover"
-              className="group flex items-center gap-4 px-8 py-6 rounded-lg bg-black/40 backdrop-blur-sm border border-mystic-purple/30 hover:border-mystic-purple transition-all duration-300"
+              className="group flex items-center gap-4 px-6 md:px-8 py-4 md:py-6 rounded-lg bg-black/40 backdrop-blur-sm border border-mystic-purple/30 hover:border-mystic-purple transition-all duration-300 w-full md:w-auto"
             >
-              <div className="p-3 rounded-full bg-purple-900/50 group-hover:bg-purple-800/50 transition-colors">
-                <svg className="w-8 h-8 text-purple-300" fill="currentColor" viewBox="0 0 24 24">
+              <div className="p-2 md:p-3 rounded-full bg-purple-900/50 group-hover:bg-purple-800/50 transition-colors">
+                <svg className="w-6 h-6 md:w-8 md:h-8 text-purple-300" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
               </div>
               <div className="text-left">
-                <h3 className="text-xl font-bold text-purple-300 group-hover:text-purple-200">GitHub Repository</h3>
-                <p className="text-gray-400 group-hover:text-gray-300">Explore the Sacred Code</p>
+                <h3 className="text-lg md:text-xl font-bold text-purple-300 group-hover:text-purple-200">GitHub Repository</h3>
+                <p className="text-sm md:text-base text-gray-400 group-hover:text-gray-300">Explore the Sacred Code</p>
               </div>
             </motion.a>
 
@@ -108,16 +110,16 @@ const Home = () => {
               rel="noopener noreferrer"
               variants={statsVariants}
               whileHover="hover"
-              className="group flex items-center gap-4 px-8 py-6 rounded-lg bg-black/40 backdrop-blur-sm border border-mystic-purple/30 hover:border-mystic-purple transition-all duration-300"
+              className="group flex items-center gap-4 px-6 md:px-8 py-4 md:py-6 rounded-lg bg-black/40 backdrop-blur-sm border border-mystic-purple/30 hover:border-mystic-purple transition-all duration-300 w-full md:w-auto"
             >
-              <div className="p-3 rounded-full bg-purple-900/50 group-hover:bg-purple-800/50 transition-colors">
-                <svg className="w-8 h-8 text-purple-300" viewBox="0 0 512 512" fill="currentColor">
+              <div className="p-2 md:p-3 rounded-full bg-purple-900/50 group-hover:bg-purple-800/50 transition-colors">
+                <svg className="w-6 h-6 md:w-8 md:h-8 text-purple-300" viewBox="0 0 512 512" fill="currentColor">
                   <path d="M234.5 5.7c13.9-5 29.1-5 43.1 0l192 68.6C495 83.4 512 107.5 512 134.6V377.4c0 27-17 51.2-42.5 60.3l-192 68.6c-13.9 5-29.1 5-43.1 0l-192-68.6C17 428.6 0 404.5 0 377.4V134.6c0-27 17-51.2 42.5-60.3l192-68.6zM256 66L82.3 128 256 190l173.7-62L256 66zm32 368.6l160-57.1v-188L288 246.6v188z"/>
                 </svg>
               </div>
               <div className="text-left">
-                <h3 className="text-xl font-bold text-purple-300 group-hover:text-purple-200">Rust Package</h3>
-                <p className="text-gray-400 group-hover:text-gray-300">Install the Digital Elixir</p>
+                <h3 className="text-lg md:text-xl font-bold text-purple-300 group-hover:text-purple-200">Rust Package</h3>
+                <p className="text-sm md:text-base text-gray-400 group-hover:text-gray-300">Install the Digital Elixir</p>
               </div>
             </motion.a>
           </motion.div>
@@ -125,49 +127,49 @@ const Home = () => {
           {/* Stats Section */}
           <motion.div 
             variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-16 px-2"
           >
             <motion.div
               variants={statsVariants}
               whileHover="hover"
-              className="p-6 rounded-lg bg-black/30 backdrop-blur-sm border border-mystic-purple/20 transform transition-all duration-300"
+              className="p-4 md:p-6 rounded-lg bg-black/30 backdrop-blur-sm border border-mystic-purple/20 transform transition-all duration-300"
             >
-              <h3 className="text-4xl font-bold text-purple-400 mb-2 glow-text">500k+</h3>
-              <p className="text-lg text-gray-400">TPS</p>
-              <p className="text-sm text-gray-500 mt-2">Hyper-Speed Transaction Processing</p>
+              <h3 className="text-3xl md:text-4xl font-bold text-purple-400 mb-1 md:mb-2 glow-text">500k+</h3>
+              <p className="text-base md:text-lg text-gray-400">TPS</p>
+              <p className="text-xs md:text-sm text-gray-500 mt-1 md:mt-2">Hyper-Speed Transaction Processing</p>
             </motion.div>
 
             <motion.div
               variants={statsVariants}
               whileHover="hover"
-              className="p-6 rounded-lg bg-black/30 backdrop-blur-sm border border-mystic-purple/20 transform transition-all duration-300"
+              className="p-4 md:p-6 rounded-lg bg-black/30 backdrop-blur-sm border border-mystic-purple/20 transform transition-all duration-300"
             >
-              <h3 className="text-4xl font-bold text-purple-400 mb-2 glow-text">0.001ms</h3>
-              <p className="text-lg text-gray-400">Latency</p>
-              <p className="text-sm text-gray-500 mt-2">Near-Instant Response Time</p>
+              <h3 className="text-3xl md:text-4xl font-bold text-purple-400 mb-1 md:mb-2 glow-text">0.001ms</h3>
+              <p className="text-base md:text-lg text-gray-400">Latency</p>
+              <p className="text-xs md:text-sm text-gray-500 mt-1 md:mt-2">Near-Instant Response Time</p>
             </motion.div>
 
             <motion.div
               variants={statsVariants}
               whileHover="hover"
-              className="p-6 rounded-lg bg-black/30 backdrop-blur-sm border border-mystic-purple/20 transform transition-all duration-300"
+              className="p-4 md:p-6 rounded-lg bg-black/30 backdrop-blur-sm border border-mystic-purple/20 transform transition-all duration-300 sm:col-span-2 md:col-span-1"
             >
-              <h3 className="text-4xl font-bold text-purple-400 mb-2 glow-text">∞</h3>
-              <p className="text-lg text-gray-400">Potential</p>
-              <p className="text-sm text-gray-500 mt-2">Boundless AI Ascension</p>
+              <h3 className="text-3xl md:text-4xl font-bold text-purple-400 mb-1 md:mb-2 glow-text">∞</h3>
+              <p className="text-base md:text-lg text-gray-400">Potential</p>
+              <p className="text-xs md:text-sm text-gray-500 mt-1 md:mt-2">Boundless AI Ascension</p>
             </motion.div>
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* Main CTA Buttons */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col-reverse md:flex-row gap-6 justify-center items-center relative"
+            className="flex flex-col md:flex-row gap-4 justify-center items-center relative px-2"
           >
             <motion.button 
               onClick={() => router.push('/download')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 rounded-lg bg-purple-900/50 text-purple-200 hover:bg-purple-800/50 border border-purple-500/30 hover:border-purple-400/50 transition-all duration-300 backdrop-blur-sm flex items-center gap-3"
+              className="w-full md:w-auto px-6 md:px-8 py-3 rounded-lg bg-purple-900/50 text-purple-200 hover:bg-purple-800/50 border border-purple-500/30 hover:border-purple-400/50 transition-all duration-300 backdrop-blur-sm flex items-center gap-3 justify-center"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -175,25 +177,32 @@ const Home = () => {
               Download
             </motion.button>
 
-            <motion.button
-              onClick={() => router.push('/docs')}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative px-8 py-3 rounded-lg bg-purple-600/20 text-purple-300 hover:bg-purple-600/30 border border-purple-500/30 hover:border-purple-400/50 transition-all duration-300 backdrop-blur-sm"
+            {/* Documentation Button */}
+            <Link
+              href="/docs"
+              className="relative group inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-purple-900/90 hover:bg-purple-800 rounded-lg transition-all duration-300 transform hover:scale-105"
             >
-              <div className="relative flex items-center gap-3 text-lg font-semibold">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-                Explore Sacred Documentation
-                <span className="absolute -right-2 -top-2 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-300 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-purple-400"></span>
-                </span>
-              </div>
-            </motion.button>
+              <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-green-500"></span>
+              </span>
+              <svg
+                className="w-6 h-6 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              Explore Sacred Documentation
+            </Link>
 
-            {/* Wizard Character */}
+            {/* Wizard Character - Hide on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ 
@@ -203,7 +212,7 @@ const Home = () => {
                   delay: 1
                 }
               }}
-              className="absolute -right-4 top-1/2 -translate-y-1/2 block cursor-pointer"
+              className="absolute -right-4 top-1/2 -translate-y-1/2 hidden md:block cursor-pointer"
               onClick={() => router.push('/docs')}
             >
               <div className="relative">
@@ -239,17 +248,29 @@ const Home = () => {
             </motion.div>
           </motion.div>
         </motion.div>
+
+        {/* Build With Us Section - Separated and moved down */}
+        <motion.div
+          variants={containerVariants}
+          initial="initial"
+          animate="animate"
+          className="mt-32 md:mt-48 text-center max-w-2xl mx-auto"
+        >
+          <motion.div variants={itemVariants}>
+            <p className="text-gray-400 mb-8">Join us in building the next generation of Layer 2 solutions for Solana.</p>
+            <Link href="/build" className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-purple-900/50 hover:bg-purple-800/60 rounded-lg transition-all duration-300">
+              <span className="flex items-center">
+                <svg className="w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                Build with Us
+              </span>
+              <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600/0 via-purple-600/50 to-purple-600/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
-      {/* Footer */}
-      <div className="relative z-10 w-full text-center py-6 text-gray-400">
-        <p className="text-sm mb-2">
-          Made by <a href="https://github.com/NubsCarson" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 transition-colors">@NubsCarson</a> on GitHub • 
-          <a href="https://twitter.com/MoneroSolana" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 transition-colors ml-2">@MoneroSolana</a> on X
-        </p>
-        <p className="text-xs text-gray-500">
-          © 2024 Solana Oasis Layer2 All Rights Reserved • Last Updated: 12/29/24
-        </p>
-      </div>
+      <Footer />
     </div>
   );
 };

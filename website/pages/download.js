@@ -110,35 +110,22 @@ cargo clippy --all-targets --all-features`
         </Canvas>
       </div>
 
-      {/* Top Links */}
+      {/* Top Navigation */}
       <motion.div 
         variants={itemVariants}
         initial="initial"
         animate="animate"
-        className="relative z-10 w-full flex justify-center gap-8 py-6 bg-black/30 backdrop-blur-sm border-b border-mystic-purple/20"
+        className="relative z-10 w-full container mx-auto px-4 pt-8"
       >
-        <button
+        <motion.button
           onClick={() => router.push('/')}
-          className="text-purple-400 hover:text-purple-300 transition-colors"
+          className="text-sm md:text-base text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-2"
         >
-          Home
-        </button>
-        <a 
-          href="https://github.com/NubsCarson/SolanaOasis-Layer2" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="text-purple-400 hover:text-purple-300 transition-colors"
-        >
-          GitHub
-        </a>
-        <a 
-          href="https://crates.io/crates/solana-oasis-node" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="text-purple-400 hover:text-purple-300 transition-colors"
-        >
-          Rust Package
-        </a>
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Home
+        </motion.button>
       </motion.div>
 
       {/* Content */}
@@ -146,15 +133,15 @@ cargo clippy --all-targets --all-features`
         variants={containerVariants}
         initial="initial"
         animate="animate"
-        className="relative z-10 flex-grow flex flex-col items-center justify-center w-full max-w-3xl px-4 py-16"
+        className="relative z-10 flex-grow flex flex-col items-center justify-center w-full max-w-3xl px-4 py-8 md:py-16"
       >
         <motion.div
           variants={containerVariants}
-          className="space-y-8 w-full"
+          className="space-y-4 md:space-y-8 w-full"
         >
           <motion.h1 
             variants={itemVariants}
-            className="text-4xl md:text-6xl font-bold text-white mb-12"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6 md:mb-12 text-center"
           >
             Download & Installation
           </motion.h1>
@@ -166,23 +153,23 @@ cargo clippy --all-targets --all-features`
               variants={itemVariants}
               className="w-full rounded-lg bg-black/50 border border-mystic-purple/20"
             >
-              <div className="px-6 py-4 border-b border-mystic-purple/20">
-                <h2 className="text-xl font-semibold text-purple-400">
+              <div className="px-4 md:px-6 py-3 md:py-4 border-b border-mystic-purple/20 flex justify-between items-center">
+                <h2 className="text-lg md:text-xl font-semibold text-purple-400">
                   {block.title}
                 </h2>
-              </div>
-              <div className="relative">
-                <pre className="p-6 font-mono text-base overflow-x-auto">
-                  <code className="text-gray-300 whitespace-pre-wrap break-all">
-                    {block.code}
-                  </code>
-                </pre>
                 <button
                   onClick={() => copyToClipboard(block.code, index)}
-                  className="absolute top-4 right-4 px-4 py-1.5 rounded bg-purple-800 hover:bg-purple-700 text-purple-100 text-sm transition-colors"
+                  className="px-3 md:px-4 py-1 md:py-1.5 rounded bg-purple-800 hover:bg-purple-700 text-purple-100 text-xs md:text-sm transition-colors shadow-lg ml-4"
                 >
                   {copiedIndex === index ? "Copied!" : "Copy"}
                 </button>
+              </div>
+              <div className="relative">
+                <pre className="p-4 md:p-6 font-mono text-sm md:text-base overflow-x-auto">
+                  <code className="text-gray-300 whitespace-pre">
+                    {block.code}
+                  </code>
+                </pre>
               </div>
             </motion.div>
           ))}
@@ -191,11 +178,11 @@ cargo clippy --all-targets --all-features`
         {/* Navigation */}
         <motion.div
           variants={itemVariants}
-          className="flex justify-center mt-12"
+          className="flex justify-center mt-8 md:mt-12 w-full px-4"
         >
           <button 
             onClick={() => router.push('/docs')}
-            className="px-8 py-3 rounded-lg bg-mystic-purple/20 border border-mystic-purple text-white hover:bg-mystic-purple/30 transition-colors text-base"
+            className="w-full md:w-auto px-6 md:px-8 py-3 rounded-lg bg-mystic-purple/20 border border-mystic-purple text-white hover:bg-mystic-purple/30 transition-colors text-sm md:text-base"
           >
             View Documentation
           </button>
