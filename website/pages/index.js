@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
+import MetaHead from '../components/MetaHead';
 
 const Home = () => {
   const router = useRouter();
@@ -45,9 +45,9 @@ const Home = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-void-black overflow-hidden flex flex-col items-center">
-      <Head>
-        <title>Solana Oasis | Sacred Layer 2</title>
-      </Head>
+      <MetaHead
+        title="Solana Oasis | Sacred Layer 2"
+      />
 
       {/* Background */}
       <div className="absolute inset-0 z-0">

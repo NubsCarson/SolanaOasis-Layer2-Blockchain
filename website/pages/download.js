@@ -100,7 +100,7 @@ cargo clippy --all-targets --all-features`
     <div className="relative min-h-screen w-full bg-void-black overflow-hidden flex flex-col items-center">
       <MetaHead 
         title="Download | Solana Oasis"
-        description="Download and install the Solana Oasis Layer 2 solution for high-performance AI computation"
+        description="Download and install Solana Oasis Layer 2 - the high-performance solution for scalable AI computation on Solana."
       />
 
       {/* Background */}

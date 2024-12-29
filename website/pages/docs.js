@@ -49,7 +49,7 @@ const DocPortal = () => {
     <div className="relative min-h-screen w-full bg-void-black overflow-hidden">
       <MetaHead 
         title="Sacred Documentation | Solana Oasis"
-        description="Explore the mystical knowledge of Solana Oasis through these sacred texts"
+        description="Explore the sacred texts of Solana Oasis Layer 2 - comprehensive documentation for developers and users."
       />
 
       {/* Portal Animation */}
