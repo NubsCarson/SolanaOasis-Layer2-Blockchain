@@ -29,36 +29,44 @@ paths:
                   type: string
                   description: "Type of project (web, mobile, cli, etc.)"
                   enum: ["web", "mobile", "cli", "api", "game", "ai", "other"]
+              required: ["projectType"]
       responses:
         '200':
           description: "Project created successfully"
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  idea:
-                    type: string
-                    description: "The generated project idea"
-                  repositoryUrl:
-                    type: string
-                    description: "URL of the created GitHub repository"
-                  files:
-                    type: array
-                    description: "List of files created in the repository"
-                    items:
-                      type: object
-                      properties:
-                        path:
-                          type: string
-                        content:
-                          type: string
+                $ref: '#/components/schemas/ProjectResponse'
         '401':
           description: "Unauthorized"
         '500':
           description: "Server Error"
 
 components:
+  schemas:
+    ProjectResponse:
+      type: object
+      properties:
+        idea:
+          type: string
+          description: "The generated project idea"
+        repositoryUrl:
+          type: string
+          description: "URL of the created GitHub repository"
+        files:
+          type: array
+          description: "List of files created in the repository"
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+                description: "File path in the repository"
+              content:
+                type: string
+                description: "File content"
+            required: ["path", "content"]
+      required: ["idea", "repositoryUrl", "files"]
   securitySchemes:
     bearerAuth:
       type: http
