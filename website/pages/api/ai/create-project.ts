@@ -116,6 +116,17 @@ async function commitCode(repo: string, files: Array<{ path: string, content: st
   }
 }
 
+interface ProjectProposal {
+  projectIdea: string;
+  projectName: string;
+  projectDescription: string;
+  projectType: string;
+  proposalId: string;
+}
+
+// In-memory store for proposals (in production, use a proper database)
+const proposals = new Map<string, ProjectProposal>();
+
 export const config = {
   api: {
     bodyParser: {
@@ -155,63 +166,91 @@ export default async function handler(
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const { prompt, projectType = 'web' } = req.body;
-    if (!prompt || !projectType) {
-      return res.status(400).json({ error: 'Missing required parameters' });
-    }
+    const { prompt, projectType = 'web', action, proposalId } = req.body;
 
-    console.log('Processing request:', { prompt, projectType });
+    // Step 1: Generate project proposal
+    if (!action && prompt) {
+      console.log('Generating project idea...');
+      const ideaCompletion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content: `Generate a concise ${projectType} project idea in 30 words or less.`
+          },
+          {
+            role: "user",
+            content: prompt
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 50
+      });
 
-    // Generate project idea with shorter context and timeout
-    console.log('Generating project idea...');
-    const ideaPromise = openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content: `Generate a concise ${projectType} project idea in 30 words or less.`
+      const projectIdea = ideaCompletion.choices[0]?.message?.content;
+      if (!projectIdea) {
+        throw new Error('Failed to generate project idea');
+      }
+
+      const projectName = projectIdea
+        .split('\n')[0]
+        .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '')
+        .replace(/[^a-zA-Z0-9-]+/g, '-')
+        .toLowerCase()
+        .slice(0, 40);
+
+      const projectDescription = projectIdea
+        .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
+        .slice(0, 200);
+
+      const newProposalId = Math.random().toString(36).substring(2);
+      const proposal: ProjectProposal = {
+        projectIdea,
+        projectName,
+        projectDescription,
+        projectType,
+        proposalId: newProposalId
+      };
+
+      proposals.set(newProposalId, proposal);
+
+      return res.status(200).json({
+        message: "🎨 I've crafted a project idea for you!",
+        proposal: {
+          id: newProposalId,
+          title: projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+          description: projectIdea,
+          type: projectType,
+          preview: {
+            repositoryName: projectName,
+            owner: process.env.GITHUB_USERNAME
+          }
         },
-        {
-          role: "user",
-          content: prompt
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 50
-    });
-
-    const ideaCompletion = await Promise.race([
-      ideaPromise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Idea generation timeout')), 10000))
-    ]) as OpenAI.Chat.ChatCompletion;
-
-    const projectIdea = ideaCompletion.choices[0]?.message?.content;
-    if (!projectIdea) {
-      throw new Error('Failed to generate project idea');
+        nextSteps: [
+          "✨ Review the project details above",
+          "👍 If you like it, say 'Yes, create this project!'",
+          "🔄 If not, ask me to generate another idea"
+        ],
+        createdBy: "GPT AI Dev Team @ AIMade.fun",
+        timestamp: new Date().toISOString()
+      });
     }
 
-    // Extract name and description with shorter limits
-    const projectName = projectIdea
-      .split('\n')[0]
-      .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '')
-      .replace(/[^a-zA-Z0-9-]+/g, '-')
-      .toLowerCase()
-      .slice(0, 40); // Shorter name limit
+    // Step 2: Create repository if user approves
+    if (action === 'create' && proposalId) {
+      const proposal = proposals.get(proposalId);
+      if (!proposal) {
+        return res.status(404).json({ error: 'Proposal not found. Please generate a new project idea.' });
+      }
 
-    const projectDescription = projectIdea
-      .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
-      .slice(0, 200); // Shorter description limit
-
-    console.log('Generated:', { projectIdea, projectName, projectDescription });
-
-    // Generate project code with optimized parameters and timeout
-    console.log('Generating project code...');
-    const codePromise = openai.chat.completions.create({
-      model: "gpt-4-turbo-preview",
-      messages: [
-        {
-          role: "system",
-          content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${projectType} project with only essential files (max 3 files). 
+      // Generate code and create repository
+      console.log('Generating project code...');
+      const codePromise = openai.chat.completions.create({
+        model: "gpt-4-turbo-preview",
+        messages: [
+          {
+            role: "system",
+            content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${proposal.projectType} project with only essential files (max 3 files). 
 Your response must be a valid JSON object with this exact structure:
 {
   "files": [
@@ -222,73 +261,101 @@ Your response must be a valid JSON object with this exact structure:
   ]
 }
 Keep file contents minimal and focused on core functionality.`
-        },
-        {
-          role: "user",
-          content: `Create basic files for: ${projectIdea}\nProject name: ${projectName}\n\nRespond with a JSON object containing only essential files (max 3 files).`
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 1000,
-      response_format: { type: "json_object" }
-    });
+          },
+          {
+            role: "user",
+            content: `Create basic files for: ${proposal.projectIdea}\nProject name: ${proposal.projectName}\n\nRespond with a JSON object containing only essential files (max 3 files).`
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000,
+        response_format: { type: "json_object" }
+      });
 
-    const codeCompletion = await Promise.race([
-      codePromise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Code generation timeout')), 15000))
-    ]) as OpenAI.Chat.ChatCompletion;
+      const codeCompletion = await Promise.race([
+        codePromise,
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Code generation timeout')), 15000))
+      ]) as OpenAI.Chat.ChatCompletion;
 
-    const codeContent = codeCompletion.choices[0]?.message?.content;
-    if (!codeContent) {
-      throw new Error('Failed to generate project code');
-    }
-
-    console.log('Raw code content:', codeContent);
-    const generatedFiles = JSON.parse(codeContent);
-    console.log('Parsed files:', JSON.stringify(generatedFiles, null, 2));
-
-    if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
-      throw new Error('Invalid code generation response format');
-    }
-
-    // Validate and limit number of files
-    if (generatedFiles.files.length > 3) {
-      generatedFiles.files = generatedFiles.files.slice(0, 3);
-    }
-
-    generatedFiles.files.forEach((file, index) => {
-      if (!file.path || !file.content) {
-        console.error(`Invalid file at index ${index}:`, file);
-        throw new Error(`Invalid file at index ${index}: missing path or content`);
+      const codeContent = codeCompletion.choices[0]?.message?.content;
+      if (!codeContent) {
+        throw new Error('Failed to generate project code');
       }
-      // Limit file content size
-      file.content = file.content.slice(0, 3000);
-    });
 
-    console.log('Generated files:', generatedFiles.files.length);
+      console.log('Raw code content:', codeContent);
+      const generatedFiles = JSON.parse(codeContent);
+      console.log('Parsed files:', JSON.stringify(generatedFiles, null, 2));
 
-    // Create and populate repository with timeout
-    console.log('Creating GitHub repository...');
-    const repoPromise = createRepository(projectName, projectDescription);
-    const repoCreation = (await Promise.race([
-      repoPromise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Repository creation timeout')), 10000))
-    ])) as { html_url: string };
+      if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
+        throw new Error('Invalid code generation response format');
+      }
 
-    console.log('Created repository:', repoCreation.html_url);
+      // Validate and limit number of files
+      if (generatedFiles.files.length > 3) {
+        generatedFiles.files = generatedFiles.files.slice(0, 3);
+      }
 
-    console.log('Committing files...');
-    await Promise.race([
-      commitCode(projectName, generatedFiles.files),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Code commit timeout')), 15000))
-    ]);
-    console.log('Committed files to repository');
+      generatedFiles.files.forEach((file, index) => {
+        if (!file.path || !file.content) {
+          console.error(`Invalid file at index ${index}:`, file);
+          throw new Error(`Invalid file at index ${index}: missing path or content`);
+        }
+        // Limit file content size
+        file.content = file.content.slice(0, 3000);
+      });
 
-    return res.status(200).json({
-      idea: projectIdea,
-      repositoryUrl: repoCreation.html_url,
-      files: generatedFiles.files
-    });
+      console.log('Generated files:', generatedFiles.files.length);
+
+      // Create and populate repository with timeout
+      console.log('Creating GitHub repository...');
+      const repoPromise = createRepository(proposal.projectName, proposal.projectDescription);
+      const repoCreation = (await Promise.race([
+        repoPromise,
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Repository creation timeout')), 10000))
+      ])) as { html_url: string };
+
+      console.log('Created repository:', repoCreation.html_url);
+
+      console.log('Committing files...');
+      await Promise.race([
+        commitCode(proposal.projectName, generatedFiles.files),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Code commit timeout')), 15000))
+      ]);
+      console.log('Committed files to repository');
+
+      // Clean up the proposal
+      proposals.delete(proposalId);
+
+      return res.status(200).json({
+        message: "🎉 Project successfully created! Here's what I've done:",
+        steps: [
+          "1️⃣ Retrieved your approved project idea",
+          "2️⃣ Created a new GitHub repository",
+          "3️⃣ Set up the initial codebase",
+          "4️⃣ Committed all files"
+        ],
+        idea: {
+          title: proposal.projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+          description: proposal.projectIdea,
+          type: proposal.projectType
+        },
+        repository: {
+          name: proposal.projectName,
+          url: repoCreation.html_url,
+          owner: process.env.GITHUB_USERNAME,
+          files: generatedFiles.files.map(f => ({ name: f.path, type: f.path.split('.').pop() }))
+        },
+        nextSteps: [
+          "👉 Click the repository URL to view your code",
+          "👉 Clone the repository to start developing",
+          "👉 Feel free to ask me to add more features!"
+        ],
+        createdBy: "GPT AI Dev Team @ AIMade.fun",
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    return res.status(400).json({ error: 'Invalid action' });
   } catch (error) {
     console.error('Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
