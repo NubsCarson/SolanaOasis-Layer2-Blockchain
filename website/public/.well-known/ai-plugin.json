@@ -8,7 +8,7 @@
     "type": "service_http",
     "authorization_type": "header",
     "verification_tokens": {
-      "openai": "your-token-here"
+      "openai": "gpt_ai_project_generator_123"
     }
   },
   "api": {

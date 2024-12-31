@@ -100,14 +100,17 @@ export default async function handler(
   }
 
   try {
-    // Check for OpenAI's service token
-    const authHeader = req.headers['authorization'];
-    if (!authHeader || !process.env.OPENAI_VERIFICATION_TOKEN || 
-        authHeader !== `Bearer ${process.env.OPENAI_VERIFICATION_TOKEN}`) {
+    // Simplified authentication check
+    const token = req.headers.authorization?.replace('Bearer ', '') || '';
+    if (token !== process.env.OPENAI_VERIFICATION_TOKEN) {
+      console.log('Auth failed. Received token:', token);
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
     const { prompt, projectType = 'web' } = req.body;
+    if (!prompt || !projectType) {
+      return res.status(400).json({ error: 'Missing required parameters' });
+    }
 
     // Generate project idea
     const ideaCompletion = await openai.chat.completions.create({
@@ -119,7 +122,7 @@ export default async function handler(
         },
         {
           role: "user",
-          content: prompt || `Generate a creative ${projectType} project idea`
+          content: prompt
         }
       ],
       temperature: 0.8,
@@ -130,6 +133,9 @@ export default async function handler(
     const projectName = projectIdea.toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
+
+    console.log('Generated project idea:', projectIdea);
+    console.log('Project name:', projectName);
 
     // Generate project code
     const codeCompletion = await openai.chat.completions.create({
@@ -156,12 +162,15 @@ export default async function handler(
     });
 
     const generatedFiles = JSON.parse(codeCompletion.choices[0]?.message?.content || "{ \"files\": [] }");
+    console.log('Generated files:', generatedFiles.files.length);
 
     // Create GitHub repository
     const repo = await createRepository(projectName, projectIdea);
+    console.log('Created repository:', repo.html_url);
 
     // Commit files to repository
     await commitCode(projectName, generatedFiles.files);
+    console.log('Committed files to repository');
 
     res.status(200).json({
       idea: projectIdea,
@@ -170,6 +179,6 @@ export default async function handler(
     });
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to create project' });
+    res.status(500).json({ error: 'Failed to create project', details: error.message });
   }
 } 
