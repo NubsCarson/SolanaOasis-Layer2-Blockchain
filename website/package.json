@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@octokit/rest": "^21.0.2",
     "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "^8.15.12",
     "axios": "^1.4.0",
