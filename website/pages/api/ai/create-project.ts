@@ -188,14 +188,14 @@ export default async function handler(
       messages: [
         {
           role: "system",
-          content: `Generate a concise ${projectType} project idea in 30 words or less.`
+          content: `You are a specialized ${projectType} developer. Generate a concise project idea that EXACTLY matches this prompt: "${prompt}". Keep it under 30 words and make it highly specific to the user's request.`
         },
         {
           role: "user",
           content: prompt
         }
       ],
-      temperature: 0.7,
+      temperature: 0.3,
       max_tokens: 50
     });
 
@@ -217,92 +217,123 @@ export default async function handler(
       messages: [
         {
           role: "system",
-          content: `You are a professional full-stack developer creating a complete web project. Generate a modern, well-structured ${projectType} project with best practices and comprehensive features.
+          content: `You are a senior ${projectType} developer creating a professional-grade project that implements: "${projectIdea}". 
+Generate a comprehensive, production-ready application with advanced features.
+
 Your response must be a valid JSON object with this structure:
 {
   "files": [
     {
       "path": "README.md",
-      "content": "... detailed project documentation ..."
+      "content": "Detailed project documentation with setup, features, and advanced usage..."
     },
     {
       "path": "index.html",
-      "content": "... modern HTML5 with proper structure ..."
+      "content": "Modern HTML5 with semantic structure, meta tags, and proper SEO..."
     },
     {
       "path": "css/styles.css",
-      "content": "... comprehensive CSS with modern features ..."
-    },
-    {
-      "path": "js/app.js",
-      "content": "... well-structured JavaScript with complete functionality ..."
-    },
-    {
-      "path": "js/utils.js",
-      "content": "... utility functions and helpers ..."
+      "content": "Professional CSS with modern features, animations, and responsive design..."
     },
     {
       "path": "css/variables.css",
-      "content": "... CSS custom properties and themes ..."
+      "content": "Theme configuration, design tokens, and CSS custom properties..."
+    },
+    {
+      "path": "js/app.js",
+      "content": "Core application logic with modern ES6+ features..."
+    },
+    {
+      "path": "js/api.js",
+      "content": "API integration and data handling..."
+    },
+    {
+      "path": "js/utils.js",
+      "content": "Utility functions and helper methods..."
+    },
+    {
+      "path": "js/state.js",
+      "content": "State management and data persistence..."
     }
   ]
 }
 
 Requirements:
-1. README.md should include:
-   - Project title and description
-   - Features list
-   - Installation instructions
-   - Usage guide
-   - Technologies used
-   - Contributing guidelines
-   - License information
+1. Modern Features:
+   - ES6+ JavaScript with classes and modules
+   - CSS Grid and Flexbox layouts
+   - CSS animations and transitions
+   - Local storage for data persistence
+   - Service worker for offline support
+   - Advanced error handling
+   - Form validation
+   - Loading states and spinners
+   - Toast notifications
+   - Keyboard shortcuts
+   - Drag and drop functionality (if applicable)
+   - Search/filter capabilities
+   - Sorting options
+   - Export/import data
+   - User preferences
+   - Theme switching
+   - Responsive images
+   - Performance optimization
+   - SEO meta tags
+   - Social sharing
 
-2. HTML should include:
-   - Proper meta tags and SEO
-   - Responsive layout structure
-   - Semantic HTML elements
+2. Professional Code Structure:
+   - Modular architecture
+   - Clean code practices
+   - Comprehensive error handling
+   - Type checking and validation
+   - Performance optimizations
+   - Code comments and documentation
+   - Event delegation
+   - Debouncing/throttling
+   - Memory leak prevention
+   - Browser compatibility
    - Accessibility features
+   - Security best practices
+
+3. User Experience:
+   - Intuitive interface
    - Loading indicators
-   - Error states
-
-3. CSS should include:
-   - Modern CSS features (Grid, Flexbox)
+   - Error messages
+   - Success feedback
+   - Keyboard navigation
+   - Touch gestures
    - Responsive design
-   - Dark/Light theme support
-   - Animations and transitions
-   - CSS custom properties
-   - Mobile-first approach
-
-4. JavaScript should include:
-   - Modern ES6+ features
-   - Error handling
-   - Local storage integration
-   - Data validation
-   - State management
-   - Event handling
-   - Utility functions
-   - Type checking
-   - Performance optimizations`
+   - Offline support
+   - Data backup
+   - Undo/redo
+   - Quick actions
+   - Context menus
+   - Tooltips
+   - Help documentation`
         },
         {
           role: "user",
-          content: `Create a professional web app with this description: ${projectIdea}
+          content: `Create a professional web app that implements: ${projectIdea}
 
 Technical Requirements:
-1. Modern, responsive UI with clean design
+1. Modern UI with animations and transitions
 2. Complete CRUD functionality
-3. Data persistence using localStorage
-4. Error handling and validation
-5. Loading states and user feedback
-6. Accessibility features
+3. Advanced data persistence
+4. Comprehensive error handling
+5. Loading states and progress indicators
+6. Full responsive design
 7. Performance optimization
-8. Cross-browser compatibility
-9. Mobile-first design
-10. Dark/Light theme support`
+8. Keyboard shortcuts
+9. Drag and drop support
+10. Search and filter
+11. Export/import
+12. Theme switching
+13. Offline support
+14. User preferences
+15. Help documentation`
         }
       ],
-      temperature: 0.7,
+      temperature: 0.3,
       max_tokens: 4000,
       response_format: { type: "json_object" }
     });
@@ -347,46 +378,54 @@ Technical Requirements:
     console.log('Committed files to repository');
 
     return res.status(200).json({
-      message: `# ✨ Your Project is Ready!
-*Created by [aimade.fun](https://aimade.fun) | [@MoneroSolana](https://twitter.com/MoneroSolana)*
+      message: `# ✨ Project Created Successfully!
 
----
+## 📱 Project Overview
+A professional ${projectType} application: ${projectDescription}
 
-## 📱 Project Details
-**Project Name:** \`${projectName}\`
-**Description:** ${projectDescription}
-
-## 🔗 Repository
-Your project is live at: [View on GitHub](${repoCreation.html_url})
+## 🔗 GitHub Repository
+Your project is ready at: [${repoCreation.html_url}](${repoCreation.html_url})
 
 ## 📂 Project Structure
-${generatedFiles.files.map(f => `- \`${f.path}\`\n  ${getFileDescription(f.path)}`).join('\n')}
+${generatedFiles.files.map(f => `- \`${f.path}\`: ${getFileDescription(f.path)}`).join('\n')}
 
-## 🚀 Key Features
-- 📱 Responsive Design: Works on all devices
-- 💾 Data Persistence: Local storage integration
-- 🎨 Theme Support: Light/Dark mode
-- ⚡ Performance: Optimized for speed
-- ♿ Accessibility: WCAG compliant
-- 🔒 Validation: Error handling & feedback
+## ⚡ Key Features
+- 🎨 Modern, responsive design
+- 💾 Local data persistence
+- 🌓 Dark/Light theme support
+- ⚡ Performance optimized
+- ♿ Accessibility compliant
+- 🔒 Input validation & error handling
 
-## 🛠️ Quick Start
-1. Clone the repository:
-   \`\`\`bash
-   git clone ${repoCreation.html_url}
-   cd ${projectName}
-   \`\`\`
+## 🚀 Getting Started
 
-2. Open \`index.html\` in your browser or use a local server
+### Windows
+\`\`\`bash
+git clone ${repoCreation.html_url}
+cd ${projectName}
+# Open index.html in your browser
+# Or use Live Server in VS Code
+\`\`\`
+
+### macOS/Linux
+\`\`\`bash
+git clone ${repoCreation.html_url}
+cd ${projectName}
+python3 -m http.server 8000
+# Visit http://localhost:8000
+\`\`\`
+
+### Using VS Code
+1. Install Live Server extension
+2. Right-click index.html
+3. Select "Open with Live Server"
 
 ## 💡 Next Steps
-- Customize the design to match your brand
-- Add authentication for user accounts
-- Implement additional features
-- Deploy to your preferred hosting
-
----
-*Made with ❤️ by [aimade.fun](https://aimade.fun) | Follow [@MoneroSolana](https://twitter.com/MoneroSolana) on Twitter*
+- Customize styles in \`css/styles.css\`
+- Add new features in \`js/app.js\`
+- Deploy to GitHub Pages or your preferred host
+- Add user authentication
+- Implement data persistence
 
 Happy coding! 🎉`,
       repository: {
