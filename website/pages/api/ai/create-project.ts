@@ -125,13 +125,13 @@ export default async function handler(
   }
 
   try {
-    // Check for API key
-    const apiKey = req.headers['x-api-key'];
-    if (!apiKey || !process.env.OPENAI_VERIFICATION_TOKEN || 
-        apiKey !== process.env.OPENAI_VERIFICATION_TOKEN) {
+    // Check for bearer token
+    const authHeader = req.headers['authorization'];
+    if (!authHeader || !process.env.OPENAI_VERIFICATION_TOKEN || 
+        authHeader !== `Bearer ${process.env.OPENAI_VERIFICATION_TOKEN}`) {
       console.log('Auth failed:', { 
-        received: apiKey,
-        expected: process.env.OPENAI_VERIFICATION_TOKEN ? 'set' : 'not set'
+        received: authHeader,
+        expected: process.env.OPENAI_VERIFICATION_TOKEN ? 'Bearer <token>' : 'not set'
       });
       return res.status(401).json({ error: 'Unauthorized' });
     }
