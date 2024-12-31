@@ -100,10 +100,14 @@ export default async function handler(
   }
 
   try {
-    // Simplified authentication check
-    const token = req.headers.authorization?.replace('Bearer ', '') || '';
-    if (token !== process.env.OPENAI_VERIFICATION_TOKEN) {
-      console.log('Auth failed. Received token:', token);
+    // Check for OpenAI's service token
+    const authHeader = req.headers['authorization'];
+    if (!authHeader || !process.env.OPENAI_VERIFICATION_TOKEN || 
+        authHeader !== `Bearer ${process.env.OPENAI_VERIFICATION_TOKEN}`) {
+      console.log('Auth failed:', { 
+        received: authHeader,
+        expected: process.env.OPENAI_VERIFICATION_TOKEN ? 'set' : 'not set'
+      });
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
@@ -111,6 +115,8 @@ export default async function handler(
     if (!prompt || !projectType) {
       return res.status(400).json({ error: 'Missing required parameters' });
     }
+
+    console.log('Received request:', { prompt, projectType });
 
     // Generate project idea
     const ideaCompletion = await openai.chat.completions.create({
