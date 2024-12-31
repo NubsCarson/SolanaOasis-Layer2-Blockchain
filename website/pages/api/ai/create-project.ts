@@ -1,35 +1,26 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import OpenAI from 'openai';
-import { Octokit } from '@octokit/rest';
+/// <reference types="next" />
+import type { NextApiRequest, NextApiResponse } from 'next';
+import type OpenAI from 'openai';
+import type { Octokit } from '@octokit/rest';
+import { createOpenAI, createOctokit } from '../../../utils/api-clients';
 
-// Initialize OpenAI client with timeout
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  timeout: 30000, // 30 second timeout
-  maxRetries: 2,
-});
-
-// Initialize GitHub client
-const octokit = new Octokit({
-  auth: process.env.GITHUB_ACCESS_TOKEN,
-  request: {
-    timeout: 30000 // 30 second timeout
-  }
-});
+// Initialize clients
+const openai = createOpenAI();
+const octokit = createOctokit();
 
 // Validate environment variables
-if (!process.env.OPENAI_API_KEY) {
-  console.error('OPENAI_API_KEY is not set');
-}
-if (!process.env.GITHUB_ACCESS_TOKEN) {
-  console.error('GITHUB_ACCESS_TOKEN is not set');
-}
-if (!process.env.GITHUB_USERNAME) {
-  console.error('GITHUB_USERNAME is not set');
-}
-if (!process.env.OPENAI_VERIFICATION_TOKEN) {
-  console.error('OPENAI_VERIFICATION_TOKEN is not set');
-}
+const requiredEnvVars = {
+  OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
+  GITHUB_USERNAME: process.env.GITHUB_USERNAME,
+  OPENAI_VERIFICATION_TOKEN: process.env.OPENAI_VERIFICATION_TOKEN
+};
+
+Object.entries(requiredEnvVars).forEach(([key, value]) => {
+  if (!value) {
+    console.error(`${key} is not set`);
+  }
+});
 
 async function createRepository(name: string, description: string) {
   try {
@@ -40,9 +31,9 @@ async function createRepository(name: string, description: string) {
       private: false
     });
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating repository:', error);
-    throw error;
+    throw new Error(`Failed to create repository: ${error.message}`);
   }
 }
 
@@ -67,15 +58,15 @@ async function commitCode(repo: string, files: Array<{ path: string, content: st
     const fileBlobs = await Promise.all(
       files.map(async file => {
         if (!file.content) {
-          console.error('Missing content for file:', file.path);
           throw new Error(`Missing content for file: ${file.path}`);
         }
-        return octokit.git.createBlob({
+        const blob = await octokit.git.createBlob({
           owner: process.env.GITHUB_USERNAME!,
           repo,
           content: Buffer.from(file.content).toString('base64'),
           encoding: 'base64',
         });
+        return blob;
       })
     );
 
@@ -110,22 +101,11 @@ async function commitCode(repo: string, files: Array<{ path: string, content: st
     });
 
     return commit;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error committing code:', error);
-    throw error;
+    throw new Error(`Failed to commit code: ${error.message}`);
   }
 }
-
-interface ProjectProposal {
-  projectIdea: string;
-  projectName: string;
-  projectDescription: string;
-  projectType: string;
-  proposalId: string;
-}
-
-// In-memory store for proposals (in production, use a proper database)
-const proposals = new Map<string, ProjectProposal>();
 
 export const config = {
   api: {
@@ -134,24 +114,20 @@ export const config = {
     },
     responseLimit: false,
   },
-  maxDuration: 60, // Set maximum duration to 60 seconds (Vercel hobby plan limit)
+  maxDuration: 60,
 };
 
-// Helper to create a shorter, more concise project name
 function generateProjectName(idea: string): string {
-  // Extract key words and create a shorter name
   const words = idea.toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .split(/\s+/)
     .filter(word => !['a', 'an', 'the', 'and', 'or', 'but', 'for', 'with', 'using', 'that', 'this', 'to', 'in', 'on', 'at'].includes(word))
     .slice(0, 3);
   
-  // Add a random suffix to avoid name conflicts
   const randomSuffix = Math.random().toString(36).substring(2, 6);
   return `${words.join('-')}-${randomSuffix}`;
 }
 
-// Helper to generate a concise description
 function generateDescription(idea: string): string {
   return idea
     .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
@@ -164,7 +140,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // Set response timeout
   res.setHeader('Connection', 'keep-alive');
   res.setHeader('Keep-Alive', 'timeout=60');
 
@@ -182,20 +157,32 @@ export default async function handler(
   }
 
   try {
+    // Validate environment variables
+    const missingVars = Object.entries(requiredEnvVars)
+      .filter(([, value]) => !value)
+      .map(([key]) => key);
+    
+    if (missingVars.length > 0) {
+      throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
+    }
+
     // Check for API key
     const apiKey = req.headers['x-api-key'];
     if (!apiKey || apiKey !== process.env.OPENAI_VERIFICATION_TOKEN) {
-      console.log('Auth failed: Invalid or missing API key');
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
     const { prompt, projectType = 'web' } = req.body;
+    if (!prompt) {
+      return res.status(400).json({ error: 'Missing required field: prompt' });
+    }
+
     console.log('Processing request:', { prompt, projectType });
 
     // Generate project idea
     console.log('Generating project idea...');
     const ideaCompletion = await openai.chat.completions.create({
-      model: "gpt-4-turbo-preview",
+      model: "gpt-4-1106-preview",
       messages: [
         {
           role: "system",
@@ -222,10 +209,10 @@ DO NOT mention technologies unless specifically requested.`
     const projectName = generateProjectName(projectIdea);
     const projectDescription = generateDescription(projectIdea);
 
-    // Generate code with a more complete structure
+    // Generate code
     console.log('Generating project code...');
     const codeCompletion = await openai.chat.completions.create({
-      model: "gpt-4-turbo-preview",
+      model: "gpt-4-1106-preview",
       messages: [
         {
           role: "system",
@@ -236,169 +223,26 @@ Your response must be a valid JSON object with this structure:
 {
   "files": [
     {
-      "path": "README.md",
-      "content": "Detailed project documentation with setup, features, and advanced usage..."
-    },
-    {
-      "path": "index.html",
-      "content": "Complete HTML structure with all UI components..."
-    },
-    {
-      "path": "css/styles.css",
-      "content": "Complete CSS with all styles, animations, and responsive design..."
-    },
-    {
-      "path": "css/variables.css",
-      "content": "Complete theme configuration and design tokens..."
-    },
-    {
-      "path": "js/app.js",
-      "content": "Complete application logic with all features implemented..."
-    },
-    {
-      "path": "js/api.js",
-      "content": "Complete API integration with error handling..."
-    },
-    {
-      "path": "js/utils.js",
-      "content": "Complete utility functions and helper methods..."
-    },
-    {
-      "path": "js/state.js",
-      "content": "Complete state management and data persistence..."
+      "path": "string (relative file path)",
+      "content": "string (complete file content)"
     }
   ]
 }
 
-IMPORTANT: Each file must contain COMPLETE, WORKING code. Do not use placeholders or comments like "// Implement feature here".
+Include all necessary files for a complete, working application:
+- README.md with setup instructions and features
+- All source code files
+- Configuration files
+- Package management files
+- CSS/styling files
+- Any other required files
 
-Requirements for each file:
-
-1. README.md must include:
-   - Clear project title and description
-   - Features list with technical details
-   - Installation instructions
-   - Usage examples with code snippets
-   - API documentation if applicable
-   - Development setup guide
-   - Testing instructions
-   - Deployment guide
-   - License information
-
-2. index.html must include:
-   - Complete navigation bar with all links
-   - Main content area with all UI components
-   - Forms with proper validation attributes
-   - Loading indicators
-   - Error message containers
-   - Success message containers
-   - Modal dialogs
-   - Footer with links
-   - All required meta tags
-   - All required script and style links
-
-3. styles.css must include:
-   - Complete styling for all UI components
-   - Responsive design with media queries
-   - Animations and transitions
-   - Loading spinners
-   - Modal styles
-   - Form styles
-   - Error and success states
-   - Hover and active states
-   - Print styles
-   - Accessibility styles
-
-4. variables.css must include:
-   - Complete theme configuration
-   - Light and dark mode variables
-   - Spacing scales
-   - Typography scales
-   - Color palettes
-   - Animation durations
-   - Z-index scales
-   - Breakpoints
-   - Border radiuses
-   - Shadow definitions
-
-5. app.js must include:
-   - Complete initialization logic
-   - Event listeners for all interactions
-   - Form validation
-   - Data processing
-   - UI updates
-   - Error handling
-   - Loading states
-   - Success states
-   - Local storage
-   - Service worker registration
-
-6. api.js must include:
-   - Complete API integration
-   - Real-time data fetching
-   - Error handling
-   - Rate limiting
-   - Caching
-   - Retry logic
-   - Authentication
-   - Request/response interceptors
-   - Offline support
-   - WebSocket handling
-
-7. utils.js must include:
-   - Complete utility functions
-   - Data formatting
-   - Input validation
-   - Error logging
-   - Performance monitoring
-   - Browser compatibility checks
-   - Device detection
-   - Feature detection
-   - Date/time handling
-   - Number formatting
-
-8. state.js must include:
-   - Complete state management
-   - Data persistence
-   - State updates
-   - State subscriptions
-   - History tracking
-   - Undo/redo
-   - State validation
-   - State migration
-   - State backup
-   - State restoration
-
-The code should be production-ready, following best practices for:
-- Security (XSS prevention, input validation, etc.)
-- Performance (code splitting, lazy loading, etc.)
-- Accessibility (ARIA labels, keyboard navigation, etc.)
-- Browser compatibility (polyfills, feature detection, etc.)
-- Error handling (try/catch, error boundaries, etc.)
-- Documentation (JSDoc comments, type definitions, etc.)`
-        },
-        {
-          role: "user",
-          content: `Create a professional web app that implements: ${projectIdea}
-
-Technical Requirements:
-1. Modern UI with animations and transitions
-2. Complete CRUD functionality
-3. Advanced data persistence
-4. Comprehensive error handling
-5. Loading states and progress indicators
-6. Full responsive design
-7. Performance optimization
-8. Keyboard shortcuts
-9. Drag and drop support
-10. Search and filter
-11. Export/import
-12. Theme switching
-13. Offline support
-14. User preferences
-15. Help documentation
-
-The code must be complete and production-ready. Do not use placeholders or TODO comments.`
+Make sure the application:
+1. Is production-ready and follows best practices
+2. Has proper error handling
+3. Is responsive and well-styled
+4. Has clear documentation
+5. Uses modern development practices`
         }
       ],
       temperature: 0.2,
@@ -406,129 +250,29 @@ The code must be complete and production-ready. Do not use placeholders or TODO 
       response_format: { type: "json_object" }
     });
 
-    const codeContent = codeCompletion.choices[0]?.message?.content;
-    if (!codeContent) {
-      throw new Error('Failed to generate project code');
+    const generatedFiles = JSON.parse(codeCompletion.choices[0]?.message?.content || '{}');
+    if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
+      throw new Error('Invalid code generation response format');
     }
 
-    console.log('Raw code content:', codeContent);
-    let generatedFiles;
-    try {
-      generatedFiles = JSON.parse(codeContent);
-      if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
-        throw new Error('Invalid response format: missing files array');
-      }
-      if (generatedFiles.files.length === 0) {
-        throw new Error('No files generated');
-      }
-      generatedFiles.files.forEach((file, index) => {
-        if (!file.path || typeof file.path !== 'string') {
-          throw new Error(`Invalid file at index ${index}: missing or invalid path`);
-        }
-        if (!file.content || typeof file.content !== 'string') {
-          throw new Error(`Invalid file at index ${index}: missing or invalid content`);
-        }
-      });
-    } catch (error) {
-      console.error('Failed to parse or validate generated code:', error);
-      throw new Error('Failed to generate valid project files');
-    }
-
-    console.log('Generated files:', generatedFiles.files.length);
-
-    // Create and populate repository
-    console.log('Creating GitHub repository...');
-    const repoCreation = await createRepository(projectName, projectDescription);
-    console.log('Created repository:', repoCreation.html_url);
-
-    console.log('Committing files...');
-    await commitCode(projectName, generatedFiles.files);
-    console.log('Committed files to repository');
+    // Create repository and commit code
+    const repo = await createRepository(projectName, projectDescription);
+    await commitCode(repo.name, generatedFiles.files);
 
     return res.status(200).json({
-      message: `# ✨ Project Created Successfully!
-
-## 📱 Project Overview
-A professional ${projectType} application: ${projectDescription}
-
-## 🔗 GitHub Repository
-Your project is ready at: [${repoCreation.html_url}](${repoCreation.html_url})
-
-## 📂 Project Structure
-${generatedFiles.files.map(f => `- \`${f.path}\`: ${getFileDescription(f.path)}`).join('\n')}
-
-## ⚡ Key Features
-- 🎨 Modern, responsive design
-- 💾 Local data persistence
-- 🌓 Dark/Light theme support
-- ⚡ Performance optimized
-- ♿ Accessibility compliant
-- 🔒 Input validation & error handling
-
-## 🚀 Getting Started
-
-### Windows
-\`\`\`bash
-git clone ${repoCreation.html_url}
-cd ${projectName}
-# Open index.html in your browser
-# Or use Live Server in VS Code
-\`\`\`
-
-### macOS/Linux
-\`\`\`bash
-git clone ${repoCreation.html_url}
-cd ${projectName}
-python3 -m http.server 8000
-# Visit http://localhost:8000
-\`\`\`
-
-### Using VS Code
-1. Install Live Server extension
-2. Right-click index.html
-3. Select "Open with Live Server"
-
-## 💡 Next Steps
-- Customize styles in \`css/styles.css\`
-- Add new features in \`js/app.js\`
-- Deploy to GitHub Pages or your preferred host
-- Add user authentication
-- Implement data persistence
-
-Made by [aimade.fun](https://aimade.fun) | Follow [@MoneroSolana](https://twitter.com/MoneroSolana) 🎉`,
+      success: true,
       repository: {
-        name: projectName,
-        url: repoCreation.html_url,
-        owner: process.env.GITHUB_USERNAME,
-        files: generatedFiles.files.map(f => ({ 
-          name: f.path, 
-          type: f.path.split('.').pop(),
-          description: getFileDescription(f.path)
-        }))
+        name: repo.name,
+        url: repo.html_url,
+        description: projectDescription
       }
     });
 
-  } catch (error) {
-    console.error('Error:', error);
+  } catch (error: any) {
+    console.error('Error handling request:', error);
     return res.status(500).json({
-      error: 'Failed to create project',
-      message: error instanceof Error ? error.message : 'Unknown error'
+      error: 'An error occurred while processing your request',
+      details: error.message
     });
   }
-}
-
-// Helper function to get file descriptions
-function getFileDescription(path: string): string {
-  const descriptions: { [key: string]: string } = {
-    'README.md': 'Project documentation and setup guide',
-    'index.html': 'Main HTML structure with responsive layout',
-    'css/styles.css': 'Modern CSS styling with responsive design',
-    'css/variables.css': 'CSS custom properties and theme configuration',
-    'js/app.js': 'Core application logic and functionality',
-    'js/api.js': 'API integration and data fetching',
-    'js/utils.js': 'Utility functions and helper methods',
-    'js/state.js': 'State management and data persistence'
-  };
-  
-  return descriptions[path] || 'Project file';
 } 
