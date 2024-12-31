@@ -137,6 +137,18 @@ export const config = {
   maxDuration: 60, // Set maximum duration to 60 seconds (Vercel hobby plan limit)
 };
 
+// Helper to create a shorter, more concise project name
+function generateProjectName(idea: string): string {
+  // Extract key words and create a shorter name
+  const words = idea.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .split(/\s+/)
+    .filter(word => !['a', 'an', 'the', 'and', 'or', 'but', 'for', 'with'].includes(word))
+    .slice(0, 3);
+  
+  return words.join('-');
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -192,58 +204,106 @@ export default async function handler(
       throw new Error('Failed to generate project idea');
     }
 
-    const projectName = projectIdea
-      .split('\n')[0]
-      .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '')
-      .replace(/[^a-zA-Z0-9-]+/g, '-')
-      .toLowerCase()
-      .slice(0, 40);
+    const projectName = generateProjectName(projectIdea);
 
     const projectDescription = projectIdea
       .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
       .slice(0, 200);
 
-    // Generate code
+    // Generate code with a more complete structure
     console.log('Generating project code...');
     const codeCompletion = await openai.chat.completions.create({
       model: "gpt-4-turbo-preview",
       messages: [
         {
           role: "system",
-          content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${projectType} project.
-Your response must be a valid JSON object with this exact structure:
+          content: `You are a professional full-stack developer creating a complete web project. Generate a modern, well-structured ${projectType} project with best practices and comprehensive features.
+Your response must be a valid JSON object with this structure:
 {
   "files": [
     {
+      "path": "README.md",
+      "content": "... detailed project documentation ..."
+    },
+    {
       "path": "index.html",
-      "content": "... HTML content ..."
+      "content": "... modern HTML5 with proper structure ..."
     },
     {
-      "path": "style.css",
-      "content": "... CSS content ..."
+      "path": "css/styles.css",
+      "content": "... comprehensive CSS with modern features ..."
     },
     {
-      "path": "script.js",
-      "content": "... JavaScript content ..."
+      "path": "js/app.js",
+      "content": "... well-structured JavaScript with complete functionality ..."
+    },
+    {
+      "path": "js/utils.js",
+      "content": "... utility functions and helpers ..."
+    },
+    {
+      "path": "css/variables.css",
+      "content": "... CSS custom properties and themes ..."
     }
   ]
 }
-Include all necessary HTML, CSS, and JavaScript code. Keep the code minimal but functional.`
+
+Requirements:
+1. README.md should include:
+   - Project title and description
+   - Features list
+   - Installation instructions
+   - Usage guide
+   - Technologies used
+   - Contributing guidelines
+   - License information
+
+2. HTML should include:
+   - Proper meta tags and SEO
+   - Responsive layout structure
+   - Semantic HTML elements
+   - Accessibility features
+   - Loading indicators
+   - Error states
+
+3. CSS should include:
+   - Modern CSS features (Grid, Flexbox)
+   - Responsive design
+   - Dark/Light theme support
+   - Animations and transitions
+   - CSS custom properties
+   - Mobile-first approach
+
+4. JavaScript should include:
+   - Modern ES6+ features
+   - Error handling
+   - Local storage integration
+   - Data validation
+   - State management
+   - Event handling
+   - Utility functions
+   - Type checking
+   - Performance optimizations`
         },
         {
           role: "user",
-          content: `Create a web app with this description: ${projectIdea}
+          content: `Create a professional web app with this description: ${projectIdea}
 
-Requirements:
-1. index.html should include proper HTML5 structure and necessary elements
-2. style.css should include basic styling for a clean look
-3. script.js should include core functionality
-4. All files must work together without external dependencies
-5. Keep the code simple and focused on core features`
+Technical Requirements:
+1. Modern, responsive UI with clean design
+2. Complete CRUD functionality
+3. Data persistence using localStorage
+4. Error handling and validation
+5. Loading states and user feedback
+6. Accessibility features
+7. Performance optimization
+8. Cross-browser compatibility
+9. Mobile-first design
+10. Dark/Light theme support`
         }
       ],
-      temperature: 0.5,
-      max_tokens: 2000,
+      temperature: 0.7,
+      max_tokens: 4000,
       response_format: { type: "json_object" }
     });
 
