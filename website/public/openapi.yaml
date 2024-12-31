@@ -70,4 +70,5 @@ components:
   securitySchemes:
     service_http:
       type: http
-      scheme: bearer 
+      scheme: bearer
+      bearerFormat: "gpt_ai_project_generator_123" 
