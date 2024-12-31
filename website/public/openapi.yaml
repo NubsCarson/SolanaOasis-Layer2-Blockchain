@@ -14,7 +14,7 @@ paths:
       summary: Generate and implement a project
       description: Generates a project idea, creates a GitHub repository, and implements the code
       security:
-        - service_http: []
+        - apiKeyAuth: []
       requestBody:
         required: true
         content:
@@ -68,7 +68,7 @@ components:
             required: ["path", "content"]
       required: ["idea", "repositoryUrl", "files"]
   securitySchemes:
-    service_http:
-      type: http
-      scheme: bearer
-      bearerFormat: "gpt_ai_project_generator_123" 
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key 
