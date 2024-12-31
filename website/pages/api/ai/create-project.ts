@@ -229,87 +229,130 @@ Your response must be a valid JSON object with this structure:
     },
     {
       "path": "index.html",
-      "content": "Modern HTML5 with semantic structure, meta tags, and proper SEO..."
+      "content": "Complete HTML structure with all UI components..."
     },
     {
       "path": "css/styles.css",
-      "content": "Professional CSS with modern features, animations, and responsive design..."
+      "content": "Complete CSS with all styles, animations, and responsive design..."
     },
     {
       "path": "css/variables.css",
-      "content": "Theme configuration, design tokens, and CSS custom properties..."
+      "content": "Complete theme configuration and design tokens..."
     },
     {
       "path": "js/app.js",
-      "content": "Core application logic with modern ES6+ features..."
+      "content": "Complete application logic with all features implemented..."
     },
     {
       "path": "js/api.js",
-      "content": "API integration and data handling..."
+      "content": "Complete API integration with error handling..."
     },
     {
       "path": "js/utils.js",
-      "content": "Utility functions and helper methods..."
+      "content": "Complete utility functions and helper methods..."
     },
     {
       "path": "js/state.js",
-      "content": "State management and data persistence..."
+      "content": "Complete state management and data persistence..."
     }
   ]
 }
 
-Requirements:
-1. Modern Features:
-   - ES6+ JavaScript with classes and modules
-   - CSS Grid and Flexbox layouts
-   - CSS animations and transitions
-   - Local storage for data persistence
-   - Service worker for offline support
-   - Advanced error handling
-   - Form validation
-   - Loading states and spinners
-   - Toast notifications
-   - Keyboard shortcuts
-   - Drag and drop functionality (if applicable)
-   - Search/filter capabilities
-   - Sorting options
-   - Export/import data
-   - User preferences
-   - Theme switching
-   - Responsive images
-   - Performance optimization
-   - SEO meta tags
-   - Social sharing
+IMPORTANT: Each file must contain COMPLETE, WORKING code. Do not use placeholders or comments like "// Implement feature here".
 
-2. Professional Code Structure:
-   - Modular architecture
-   - Clean code practices
-   - Comprehensive error handling
-   - Type checking and validation
-   - Performance optimizations
-   - Code comments and documentation
-   - Event delegation
-   - Debouncing/throttling
-   - Memory leak prevention
-   - Browser compatibility
-   - Accessibility features
-   - Security best practices
+Requirements for each file:
 
-3. User Experience:
-   - Intuitive interface
+1. index.html must include:
+   - Complete navigation bar with all links
+   - Main content area with all UI components
+   - Forms with proper validation attributes
    - Loading indicators
-   - Error messages
-   - Success feedback
-   - Keyboard navigation
-   - Touch gestures
-   - Responsive design
+   - Error message containers
+   - Success message containers
+   - Modal dialogs
+   - Footer with links
+   - All required meta tags
+   - All required script and style links
+
+2. styles.css must include:
+   - Complete styling for all UI components
+   - Responsive design with media queries
+   - Animations and transitions
+   - Loading spinners
+   - Modal styles
+   - Form styles
+   - Error and success states
+   - Hover and active states
+   - Print styles
+   - Accessibility styles
+
+3. variables.css must include:
+   - Complete theme configuration
+   - Light and dark mode variables
+   - Spacing scales
+   - Typography scales
+   - Color palettes
+   - Animation durations
+   - Z-index scales
+   - Breakpoints
+   - Border radiuses
+   - Shadow definitions
+
+4. app.js must include:
+   - Complete initialization logic
+   - Event listeners for all interactions
+   - Form validation
+   - Data processing
+   - UI updates
+   - Error handling
+   - Loading states
+   - Success states
+   - Local storage
+   - Service worker registration
+
+5. api.js must include:
+   - Complete API integration
+   - Real-time data fetching
+   - Error handling
+   - Rate limiting
+   - Caching
+   - Retry logic
+   - Authentication
+   - Request/response interceptors
    - Offline support
-   - Data backup
+   - WebSocket handling
+
+6. utils.js must include:
+   - Complete utility functions
+   - Data formatting
+   - Input validation
+   - Error logging
+   - Performance monitoring
+   - Browser compatibility checks
+   - Device detection
+   - Feature detection
+   - Date/time handling
+   - Number formatting
+
+7. state.js must include:
+   - Complete state management
+   - Data persistence
+   - State updates
+   - State subscriptions
+   - History tracking
    - Undo/redo
-   - Quick actions
-   - Context menus
-   - Tooltips
-   - Help documentation`
+   - State validation
+   - State migration
+   - State backup
+   - State restoration
+
+The code should be production-ready, following best practices for:
+- Security (XSS prevention, input validation, etc.)
+- Performance (code splitting, lazy loading, etc.)
+- Accessibility (ARIA labels, keyboard navigation, etc.)
+- Browser compatibility (polyfills, feature detection, etc.)
+- Error handling (try/catch, error boundaries, etc.)
+- Documentation (JSDoc comments, type definitions, etc.)`
         },
         {
           role: "user",
@@ -330,10 +373,12 @@ Technical Requirements:
 12. Theme switching
 13. Offline support
 14. User preferences
-15. Help documentation`
+15. Help documentation
+
+The code must be complete and production-ready. Do not use placeholders or TODO comments.`
         }
       ],
-      temperature: 0.3,
+      temperature: 0.2,
       max_tokens: 4000,
       response_format: { type: "json_object" }
     });
