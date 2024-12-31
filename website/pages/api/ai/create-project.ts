@@ -347,19 +347,56 @@ Technical Requirements:
     console.log('Committed files to repository');
 
     return res.status(200).json({
-      message: `I've created a project for you: ${projectIdea}
+      message: `# 🚀 Project Created Successfully!
 
-The repository has been created at: ${repoCreation.html_url}
+## 🎯 Project Details
+**Name:** ${projectName}
+**Description:** ${projectDescription}
 
-Files created:
-${generatedFiles.files.map(f => `- ${f.path}`).join('\n')}
+## 📂 Repository Information
+Your project has been created at: [${repoCreation.html_url}](${repoCreation.html_url})
 
-You can now clone the repository and start developing!`,
+## 📁 Files Generated
+${generatedFiles.files.map(f => `- \`${f.path}\`: ${getFileDescription(f.path)}`).join('\n')}
+
+## 🛠️ Getting Started
+1. Clone the repository:
+   \`\`\`bash
+   git clone ${repoCreation.html_url}
+   cd ${projectName}
+   \`\`\`
+
+2. Open \`index.html\` in your browser or set up a local server
+
+## ✨ Features
+- Modern, responsive UI with clean design
+- Complete CRUD functionality
+- Data persistence using localStorage
+- Error handling and validation
+- Loading states and user feedback
+- Accessibility features
+- Dark/Light theme support
+
+## 🤝 Need Help?
+Let me know if you need help with:
+- Setting up the development environment
+- Adding new features
+- Customizing the design
+- Implementing additional functionality
+
+---
+*Made with ❤️ by [aimade.fun](https://aimade.fun) | Follow [@MoneroSolana](https://twitter.com/MoneroSolana) on Twitter*
+
+Happy coding! 🎉`,
       repository: {
         name: projectName,
         url: repoCreation.html_url,
         owner: process.env.GITHUB_USERNAME,
-        files: generatedFiles.files.map(f => ({ name: f.path, type: f.path.split('.').pop() }))
+        files: generatedFiles.files.map(f => ({ 
+          name: f.path, 
+          type: f.path.split('.').pop(),
+          description: getFileDescription(f.path)
+        }))
       }
     });
 
@@ -370,4 +407,18 @@ You can now clone the repository and start developing!`,
       message: error instanceof Error ? error.message : 'Unknown error'
     });
   }
+}
+
+// Helper function to get file descriptions
+function getFileDescription(path: string): string {
+  const descriptions: { [key: string]: string } = {
+    'README.md': 'Project documentation and setup guide',
+    'index.html': 'Main HTML structure with responsive layout',
+    'css/styles.css': 'Modern CSS styling with responsive design',
+    'css/variables.css': 'CSS custom properties and theme configuration',
+    'js/app.js': 'Core application logic and functionality',
+    'js/utils.js': 'Utility functions and helper methods',
+  };
+  
+  return descriptions[path] || 'Project file';
 } 
