@@ -143,10 +143,21 @@ function generateProjectName(idea: string): string {
   const words = idea.toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .split(/\s+/)
-    .filter(word => !['a', 'an', 'the', 'and', 'or', 'but', 'for', 'with'].includes(word))
+    .filter(word => !['a', 'an', 'the', 'and', 'or', 'but', 'for', 'with', 'using', 'that', 'this', 'to', 'in', 'on', 'at'].includes(word))
     .slice(0, 3);
   
-  return words.join('-');
+  // Add a random suffix to avoid name conflicts
+  const randomSuffix = Math.random().toString(36).substring(2, 6);
+  return `${words.join('-')}-${randomSuffix}`;
+}
+
+// Helper to generate a concise description
+function generateDescription(idea: string): string {
+  return idea
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 200);
 }
 
 export default async function handler(
@@ -184,19 +195,23 @@ export default async function handler(
     // Generate project idea
     console.log('Generating project idea...');
     const ideaCompletion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4-turbo-preview",
       messages: [
         {
           role: "system",
-          content: `You are a specialized ${projectType} developer. Generate a concise project idea that EXACTLY matches this prompt: "${prompt}". Keep it under 30 words and make it highly specific to the user's request.`
+          content: `You are a specialized ${projectType} developer. Generate a concise project idea that EXACTLY matches this prompt: "${prompt}". 
+Keep it under 50 words and make it highly specific to the user's request.
+Focus on the core functionality and key features.
+DO NOT add any branding or marketing language.
+DO NOT mention technologies unless specifically requested.`
         },
         {
           role: "user",
           content: prompt
         }
       ],
-      temperature: 0.3,
-      max_tokens: 50
+      temperature: 0.2,
+      max_tokens: 100
     });
 
     const projectIdea = ideaCompletion.choices[0]?.message?.content;
@@ -205,10 +220,7 @@ export default async function handler(
     }
 
     const projectName = generateProjectName(projectIdea);
-
-    const projectDescription = projectIdea
-      .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
-      .slice(0, 200);
+    const projectDescription = generateDescription(projectIdea);
 
     // Generate code with a more complete structure
     console.log('Generating project code...');
@@ -262,7 +274,18 @@ IMPORTANT: Each file must contain COMPLETE, WORKING code. Do not use placeholder
 
 Requirements for each file:
 
-1. index.html must include:
+1. README.md must include:
+   - Clear project title and description
+   - Features list with technical details
+   - Installation instructions
+   - Usage examples with code snippets
+   - API documentation if applicable
+   - Development setup guide
+   - Testing instructions
+   - Deployment guide
+   - License information
+
+2. index.html must include:
    - Complete navigation bar with all links
    - Main content area with all UI components
    - Forms with proper validation attributes
@@ -274,7 +297,7 @@ Requirements for each file:
    - All required meta tags
    - All required script and style links
 
-2. styles.css must include:
+3. styles.css must include:
    - Complete styling for all UI components
    - Responsive design with media queries
    - Animations and transitions
@@ -286,7 +309,7 @@ Requirements for each file:
    - Print styles
    - Accessibility styles
 
-3. variables.css must include:
+4. variables.css must include:
    - Complete theme configuration
    - Light and dark mode variables
    - Spacing scales
@@ -298,7 +321,7 @@ Requirements for each file:
    - Border radiuses
    - Shadow definitions
 
-4. app.js must include:
+5. app.js must include:
    - Complete initialization logic
    - Event listeners for all interactions
    - Form validation
@@ -310,7 +333,7 @@ Requirements for each file:
    - Local storage
    - Service worker registration
 
-5. api.js must include:
+6. api.js must include:
    - Complete API integration
    - Real-time data fetching
    - Error handling
@@ -322,7 +345,7 @@ Requirements for each file:
    - Offline support
    - WebSocket handling
 
-6. utils.js must include:
+7. utils.js must include:
    - Complete utility functions
    - Data formatting
    - Input validation
@@ -334,7 +357,7 @@ Requirements for each file:
    - Date/time handling
    - Number formatting
 
-7. state.js must include:
+8. state.js must include:
    - Complete state management
    - Data persistence
    - State updates
@@ -472,7 +495,7 @@ python3 -m http.server 8000
 - Add user authentication
 - Implement data persistence
 
-Happy coding! 🎉`,
+Made by [aimade.fun](https://aimade.fun) | Follow [@MoneroSolana](https://twitter.com/MoneroSolana) 🎉`,
       repository: {
         name: projectName,
         url: repoCreation.html_url,
@@ -502,7 +525,9 @@ function getFileDescription(path: string): string {
     'css/styles.css': 'Modern CSS styling with responsive design',
     'css/variables.css': 'CSS custom properties and theme configuration',
     'js/app.js': 'Core application logic and functionality',
+    'js/api.js': 'API integration and data fetching',
     'js/utils.js': 'Utility functions and helper methods',
+    'js/state.js': 'State management and data persistence'
   };
   
   return descriptions[path] || 'Project file';
