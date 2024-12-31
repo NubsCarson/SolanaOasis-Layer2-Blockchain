@@ -1,9 +1,9 @@
 {
   "schema_version": "v1",
-  "name_for_human": "Project Idea Generator",
-  "name_for_model": "project_idea_generator",
-  "description_for_human": "Generate creative coding project ideas and get starter code.",
-  "description_for_model": "This plugin helps generate creative coding project ideas and provides starter code for implementation.",
+  "name_for_human": "AI Project Generator",
+  "name_for_model": "ai_project_generator",
+  "description_for_human": "Automatically generate coding projects, create GitHub repositories, and implement complete solutions.",
+  "description_for_model": "This plugin helps you create complete coding projects by generating ideas, creating GitHub repositories, and implementing the code. You can specify project types and requirements, and the plugin will handle everything from idea generation to code implementation.",
   "auth": {
     "type": "oauth",
     "client_url": "https://aimade.fun/api/auth/login",
