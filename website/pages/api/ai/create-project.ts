@@ -100,8 +100,8 @@ export default async function handler(
   }
 
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    const apiKey = req.headers['x-api-key'];
+    if (!apiKey || apiKey !== process.env.OPENAI_API_KEY) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
