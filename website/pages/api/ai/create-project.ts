@@ -166,8 +166,8 @@ export default async function handler(
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const { prompt, projectType = 'web', confirmation } = req.body;
-    console.log('Request body:', { prompt, projectType, confirmation });
+    const { prompt, projectType = 'web' } = req.body;
+    console.log('Processing request:', { prompt, projectType });
 
     // Generate project idea
     console.log('Generating project idea...');
@@ -203,27 +203,7 @@ export default async function handler(
       .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
       .slice(0, 200);
 
-    // If this is just the initial request without confirmation
-    if (!confirmation) {
-      return res.status(200).json({
-        message: `🎨 Here's your project proposal:
-
-Project Name: "${projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}"
-
-📋 Description:
-${projectIdea}
-
-To proceed with creating this project, please confirm by saying "Yes, create this project" or ask for a different idea.`,
-        requiresConfirmation: true,
-        proposal: {
-          name: projectName,
-          description: projectIdea,
-          type: projectType
-        }
-      });
-    }
-
-    // If user confirmed, proceed with repository creation
+    // Generate code
     console.log('Generating project code...');
     const codeCompletion = await openai.chat.completions.create({
       model: "gpt-4-turbo-preview",
@@ -271,33 +251,24 @@ To proceed with creating this project, please confirm by saying "Yes, create thi
 
     console.log('Generated files:', generatedFiles.files.length);
 
-    // Create and populate repository with timeout
+    // Create and populate repository
     console.log('Creating GitHub repository...');
-    const repoPromise = createRepository(projectName, projectDescription);
-    const repoCreation = (await Promise.race([
-      repoPromise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Repository creation timeout')), 10000))
-    ])) as { html_url: string };
-
+    const repoCreation = await createRepository(projectName, projectDescription);
     console.log('Created repository:', repoCreation.html_url);
 
     console.log('Committing files...');
-    await Promise.race([
-      commitCode(projectName, generatedFiles.files),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Code commit timeout')), 15000))
-    ]);
+    await commitCode(projectName, generatedFiles.files);
     console.log('Committed files to repository');
 
     return res.status(200).json({
-      message: `🎉 Success! Your project has been created!
+      message: `I've created a project for you: ${projectIdea}
 
-📂 Project Details:
-- Name: ${projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-- Description: ${projectIdea}
+The repository has been created at: ${repoCreation.html_url}
 
-🔗 Repository: ${repoCreation.html_url}
+Files created:
+${generatedFiles.files.map(f => `- ${f.path}`).join('\n')}
 
-The repository has been created with all necessary files. You can now clone it and start developing!`,
+You can now clone the repository and start developing!`,
       repository: {
         name: projectName,
         url: repoCreation.html_url,
