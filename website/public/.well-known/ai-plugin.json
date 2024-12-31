@@ -1,0 +1,21 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Project Idea Generator",
+  "name_for_model": "project_idea_generator",
+  "description_for_human": "Generate creative coding project ideas and get starter code.",
+  "description_for_model": "This plugin helps generate creative coding project ideas and provides starter code for implementation.",
+  "auth": {
+    "type": "oauth",
+    "client_url": "https://aimade.fun/api/auth/login",
+    "scope": "",
+    "authorization_url": "https://aimade.fun/api/auth/callback",
+    "authorization_content_type": "application/json"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://aimade.fun/openapi.yaml"
+  },
+  "logo_url": "https://aimade.fun/logo.png",
+  "contact_email": "support@aimade.fun",
+  "legal_info_url": "https://aimade.fun/legal"
+} 
