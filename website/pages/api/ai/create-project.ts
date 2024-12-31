@@ -123,7 +123,7 @@ export const config = {
     },
     responseLimit: false,
   },
-  maxDuration: 300, // Set maximum duration to 300 seconds (5 minutes)
+  maxDuration: 60, // Set maximum duration to 60 seconds (Vercel hobby plan limit)
 };
 
 export default async function handler(
@@ -132,7 +132,7 @@ export default async function handler(
 ) {
   // Set response timeout
   res.setHeader('Connection', 'keep-alive');
-  res.setHeader('Keep-Alive', 'timeout=300');
+  res.setHeader('Keep-Alive', 'timeout=60');
 
   console.log('Received request:', {
     method: req.method,
@@ -169,7 +169,7 @@ export default async function handler(
       messages: [
         {
           role: "system",
-          content: `Generate a concise ${projectType} project idea in 50 words or less.`
+          content: `Generate a concise ${projectType} project idea in 30 words or less.`
         },
         {
           role: "user",
@@ -177,12 +177,12 @@ export default async function handler(
         }
       ],
       temperature: 0.7,
-      max_tokens: 75
+      max_tokens: 50
     });
 
     const ideaCompletion = await Promise.race([
       ideaPromise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Idea generation timeout')), 15000))
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Idea generation timeout')), 10000))
     ]) as OpenAI.Chat.ChatCompletion;
 
     const projectIdea = ideaCompletion.choices[0]?.message?.content;
@@ -211,7 +211,7 @@ export default async function handler(
       messages: [
         {
           role: "system",
-          content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${projectType} project with only essential files. 
+          content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${projectType} project with only essential files (max 3 files). 
 Your response must be a valid JSON object with this exact structure:
 {
   "files": [
@@ -225,17 +225,17 @@ Keep file contents minimal and focused on core functionality.`
         },
         {
           role: "user",
-          content: `Create basic files for: ${projectIdea}\nProject name: ${projectName}\n\nRespond with a JSON object containing only essential files (max 5 files).`
+          content: `Create basic files for: ${projectIdea}\nProject name: ${projectName}\n\nRespond with a JSON object containing only essential files (max 3 files).`
         }
       ],
       temperature: 0.7,
-      max_tokens: 1500,
+      max_tokens: 1000,
       response_format: { type: "json_object" }
     });
 
     const codeCompletion = await Promise.race([
       codePromise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Code generation timeout')), 25000))
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Code generation timeout')), 15000))
     ]) as OpenAI.Chat.ChatCompletion;
 
     const codeContent = codeCompletion.choices[0]?.message?.content;
@@ -252,8 +252,8 @@ Keep file contents minimal and focused on core functionality.`
     }
 
     // Validate and limit number of files
-    if (generatedFiles.files.length > 5) {
-      generatedFiles.files = generatedFiles.files.slice(0, 5); // Keep only first 5 files
+    if (generatedFiles.files.length > 3) {
+      generatedFiles.files = generatedFiles.files.slice(0, 3);
     }
 
     generatedFiles.files.forEach((file, index) => {
@@ -262,7 +262,7 @@ Keep file contents minimal and focused on core functionality.`
         throw new Error(`Invalid file at index ${index}: missing path or content`);
       }
       // Limit file content size
-      file.content = file.content.slice(0, 5000); // Limit each file to 5KB
+      file.content = file.content.slice(0, 3000);
     });
 
     console.log('Generated files:', generatedFiles.files.length);
@@ -272,7 +272,7 @@ Keep file contents minimal and focused on core functionality.`
     const repoPromise = createRepository(projectName, projectDescription);
     const repoCreation = (await Promise.race([
       repoPromise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Repository creation timeout')), 15000))
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Repository creation timeout')), 10000))
     ])) as { html_url: string };
 
     console.log('Created repository:', repoCreation.html_url);
@@ -280,7 +280,7 @@ Keep file contents minimal and focused on core functionality.`
     console.log('Committing files...');
     await Promise.race([
       commitCode(projectName, generatedFiles.files),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Code commit timeout')), 20000))
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Code commit timeout')), 15000))
     ]);
     console.log('Committed files to repository');
 
