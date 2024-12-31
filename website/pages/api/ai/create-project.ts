@@ -215,7 +215,25 @@ export default async function handler(
       proposals.set(newProposalId, proposal);
 
       return res.status(200).json({
-        message: "🎨 I've crafted a project idea for you!",
+        message: `🎨 Exciting Project Proposal!
+
+Project Name: "${projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}"
+
+📋 Project Description:
+${projectIdea}
+
+🛠️ Technical Details:
+- Type: ${projectType.toUpperCase()} Application
+- Repository Name: ${projectName}
+- Created By: GPT AI Dev Team @ AIMade.fun
+
+Would you like me to create this project? 
+Reply with:
+✅ "Yes, create this project!" to proceed
+🔄 "Generate another idea" for a different concept
+🔧 "Modify this idea" to adjust the current proposal
+
+Your project will be created at: https://github.com/${process.env.GITHUB_USERNAME}/${projectName}`,
         proposal: {
           id: newProposalId,
           title: projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
@@ -226,11 +244,6 @@ export default async function handler(
             owner: process.env.GITHUB_USERNAME
           }
         },
-        nextSteps: [
-          "✨ Review the project details above",
-          "👍 If you like it, say 'Yes, create this project!'",
-          "🔄 If not, ask me to generate another idea"
-        ],
         createdBy: "GPT AI Dev Team @ AIMade.fun",
         timestamp: new Date().toISOString()
       });
@@ -327,30 +340,35 @@ Keep file contents minimal and focused on core functionality.`
       proposals.delete(proposalId);
 
       return res.status(200).json({
-        message: "🎉 Project successfully created! Here's what I've done:",
-        steps: [
-          "1️⃣ Retrieved your approved project idea",
-          "2️⃣ Created a new GitHub repository",
-          "3️⃣ Set up the initial codebase",
-          "4️⃣ Committed all files"
-        ],
-        idea: {
-          title: proposal.projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-          description: proposal.projectIdea,
-          type: proposal.projectType
-        },
+        message: `🎉 Project Successfully Created!
+
+1️⃣ Retrieved your approved project idea
+2️⃣ Created GitHub repository
+3️⃣ Set up initial codebase
+4️⃣ Committed all files
+
+📂 Project Details:
+- Name: ${proposal.projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+- Description: ${proposal.projectIdea}
+- Type: ${proposal.projectType.toUpperCase()} Application
+
+🔗 Repository URL: ${repoCreation.html_url}
+
+📁 Generated Files:
+${generatedFiles.files.map(f => `- ${f.path}`).join('\n')}
+
+Next Steps:
+1. Click the repository URL above to view your code
+2. Clone the repository to start developing
+3. Feel free to ask me to add more features!
+
+Created by GPT AI Dev Team @ AIMade.fun`,
         repository: {
           name: proposal.projectName,
           url: repoCreation.html_url,
           owner: process.env.GITHUB_USERNAME,
           files: generatedFiles.files.map(f => ({ name: f.path, type: f.path.split('.').pop() }))
         },
-        nextSteps: [
-          "👉 Click the repository URL to view your code",
-          "👉 Clone the repository to start developing",
-          "👉 Feel free to ask me to add more features!"
-        ],
-        createdBy: "GPT AI Dev Team @ AIMade.fun",
         timestamp: new Date().toISOString()
       });
     }
