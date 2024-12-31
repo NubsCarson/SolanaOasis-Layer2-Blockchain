@@ -347,42 +347,43 @@ Technical Requirements:
     console.log('Committed files to repository');
 
     return res.status(200).json({
-      message: `# 🚀 Project Created Successfully!
+      message: `# ✨ Your Project is Ready!
+*Created by [aimade.fun](https://aimade.fun) | [@MoneroSolana](https://twitter.com/MoneroSolana)*
 
-## 🎯 Project Details
-**Name:** ${projectName}
+---
+
+## 📱 Project Details
+**Project Name:** \`${projectName}\`
 **Description:** ${projectDescription}
 
-## 📂 Repository Information
-Your project has been created at: [${repoCreation.html_url}](${repoCreation.html_url})
+## 🔗 Repository
+Your project is live at: [View on GitHub](${repoCreation.html_url})
 
-## 📁 Files Generated
-${generatedFiles.files.map(f => `- \`${f.path}\`: ${getFileDescription(f.path)}`).join('\n')}
+## 📂 Project Structure
+${generatedFiles.files.map(f => `- \`${f.path}\`\n  ${getFileDescription(f.path)}`).join('\n')}
 
-## 🛠️ Getting Started
+## 🚀 Key Features
+- 📱 Responsive Design: Works on all devices
+- 💾 Data Persistence: Local storage integration
+- 🎨 Theme Support: Light/Dark mode
+- ⚡ Performance: Optimized for speed
+- ♿ Accessibility: WCAG compliant
+- 🔒 Validation: Error handling & feedback
+
+## 🛠️ Quick Start
 1. Clone the repository:
    \`\`\`bash
    git clone ${repoCreation.html_url}
    cd ${projectName}
    \`\`\`
 
-2. Open \`index.html\` in your browser or set up a local server
+2. Open \`index.html\` in your browser or use a local server
 
-## ✨ Features
-- Modern, responsive UI with clean design
-- Complete CRUD functionality
-- Data persistence using localStorage
-- Error handling and validation
-- Loading states and user feedback
-- Accessibility features
-- Dark/Light theme support
-
-## 🤝 Need Help?
-Let me know if you need help with:
-- Setting up the development environment
-- Adding new features
-- Customizing the design
-- Implementing additional functionality
+## 💡 Next Steps
+- Customize the design to match your brand
+- Add authentication for user accounts
+- Implement additional features
+- Deploy to your preferred hosting
 
 ---
 *Made with ❤️ by [aimade.fun](https://aimade.fun) | Follow [@MoneroSolana](https://twitter.com/MoneroSolana) on Twitter*
