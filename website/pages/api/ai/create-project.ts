@@ -100,8 +100,10 @@ export default async function handler(
   }
 
   try {
-    const apiKey = req.headers['x-api-key'];
-    if (!apiKey || apiKey !== process.env.OPENAI_API_KEY) {
+    // Check for OpenAI's service token
+    const authHeader = req.headers['authorization'];
+    if (!authHeader || !process.env.OPENAI_VERIFICATION_TOKEN || 
+        authHeader !== `Bearer ${process.env.OPENAI_VERIFICATION_TOKEN}`) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 

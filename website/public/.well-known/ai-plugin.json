@@ -5,11 +5,11 @@
   "description_for_human": "Automatically generate coding projects, create GitHub repositories, and implement complete solutions.",
   "description_for_model": "This plugin helps you create complete coding projects by generating ideas, creating GitHub repositories, and implementing the code. You can specify project types and requirements, and the plugin will handle everything from idea generation to code implementation.",
   "auth": {
-    "type": "oauth",
-    "client_url": "https://aimade.fun/api/auth/login",
-    "scope": "",
-    "authorization_url": "https://aimade.fun/api/auth/callback",
-    "authorization_content_type": "application/json"
+    "type": "service_http",
+    "authorization_type": "header",
+    "verification_tokens": {
+      "openai": "your-token-here"
+    }
   },
   "api": {
     "type": "openapi",
