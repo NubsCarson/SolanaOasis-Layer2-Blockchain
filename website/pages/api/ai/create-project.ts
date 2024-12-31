@@ -2,14 +2,19 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
 import { Octokit } from '@octokit/rest';
 
-// Initialize OpenAI client
+// Initialize OpenAI client with timeout
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+  timeout: 30000, // 30 second timeout
+  maxRetries: 2,
 });
 
 // Initialize GitHub client
 const octokit = new Octokit({
-  auth: process.env.GITHUB_ACCESS_TOKEN
+  auth: process.env.GITHUB_ACCESS_TOKEN,
+  request: {
+    timeout: 30000 // 30 second timeout
+  }
 });
 
 // Validate environment variables
@@ -60,14 +65,18 @@ async function commitCode(repo: string, files: Array<{ path: string, content: st
 
     // Create blobs for each file
     const fileBlobs = await Promise.all(
-      files.map(file =>
-        octokit.git.createBlob({
+      files.map(async file => {
+        if (!file.content) {
+          console.error('Missing content for file:', file.path);
+          throw new Error(`Missing content for file: ${file.path}`);
+        }
+        return octokit.git.createBlob({
           owner: process.env.GITHUB_USERNAME!,
           repo,
           content: Buffer.from(file.content).toString('base64'),
           encoding: 'base64',
-        })
-      )
+        });
+      })
     );
 
     // Create tree
@@ -107,10 +116,23 @@ async function commitCode(repo: string, files: Array<{ path: string, content: st
   }
 }
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+    responseLimit: false,
+  },
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  // Set response timeout
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Keep-Alive', 'timeout=60');
+
   console.log('Received request:', {
     method: req.method,
     headers: {
@@ -123,6 +145,10 @@ export default async function handler(
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  const requestTimeout = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('Request timeout')), 50000)
+  );
 
   try {
     // Check for API key
@@ -139,122 +165,134 @@ export default async function handler(
 
     console.log('Processing request:', { prompt, projectType });
 
-    // Generate project idea
-    console.log('Generating project idea...');
-    const ideaCompletion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [
-        {
-          role: "system",
-          content: `You are a creative AI that generates interesting and innovative ${projectType} project ideas. Focus on projects that are feasible for a skilled developer to complete within a few weeks.`
-        },
-        {
-          role: "user",
-          content: prompt
+    // Use Promise.race to implement timeout
+    const result = await Promise.race([
+      (async () => {
+        // Generate project idea with shorter context
+        console.log('Generating project idea...');
+        const ideaCompletion = await openai.chat.completions.create({
+          model: "gpt-3.5-turbo", // Using faster model for initial idea
+          messages: [
+            {
+              role: "system",
+              content: `Generate a concise ${projectType} project idea. Keep it under 100 words.`
+            },
+            {
+              role: "user",
+              content: prompt
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 100
+        });
+
+        const projectIdea = ideaCompletion.choices[0]?.message?.content;
+        if (!projectIdea) {
+          throw new Error('Failed to generate project idea');
         }
-      ],
-      temperature: 0.8,
-      max_tokens: 150
-    });
 
-    const projectIdea = ideaCompletion.choices[0]?.message?.content;
-    if (!projectIdea) {
-      throw new Error('Failed to generate project idea');
+        // Extract name and description
+        const projectName = projectIdea
+          .split('\n')[0]
+          .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '')
+          .replace(/[^a-zA-Z0-9-]+/g, '-')
+          .toLowerCase()
+          .slice(0, 50);
+
+        const projectDescription = projectIdea
+          .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
+          .slice(0, 300);
+
+        console.log('Generated:', { projectIdea, projectName, projectDescription });
+
+        // Generate project code with optimized parameters
+        console.log('Generating project code...');
+        const codeCompletion = await openai.chat.completions.create({
+          model: "gpt-4-turbo-preview",
+          messages: [
+            {
+              role: "system",
+              content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${projectType} project. 
+Your response must be a valid JSON object with this exact structure:
+{
+  "files": [
+    {
+      "path": "string (required, file path)",
+      "content": "string (required, file content)"
     }
+  ]
+}`
+            },
+            {
+              role: "user",
+              content: `Create basic files for: ${projectIdea}\nProject name: ${projectName}\n\nRespond with a JSON object containing the files array. Each file must have a path and content.`
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 2000,
+          response_format: { type: "json_object" }
+        });
 
-    // Extract the first line or first 50 characters for the name
-    const projectName = projectIdea
-      .split('\n')[0]
-      .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '') // Remove non-alphanumeric chars from start/end
-      .replace(/[^a-zA-Z0-9-]+/g, '-') // Replace non-alphanumeric chars with hyphens
-      .toLowerCase()
-      .slice(0, 50); // Limit to 50 chars
+        const codeContent = codeCompletion.choices[0]?.message?.content;
+        if (!codeContent) {
+          throw new Error('Failed to generate project code');
+        }
 
-    // Extract a clean description (first 300 characters, no control chars)
-    const projectDescription = projectIdea
-      .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
-      .slice(0, 300); // Limit to 300 chars
+        console.log('Raw code content:', codeContent);
+        const generatedFiles = JSON.parse(codeContent);
+        console.log('Parsed files:', JSON.stringify(generatedFiles, null, 2));
 
-    console.log('Generated:', { projectIdea, projectName, projectDescription });
+        if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
+          throw new Error('Invalid code generation response format');
+        }
 
-    // Generate project code
-    console.log('Generating project code...');
-    const codeCompletion = await openai.chat.completions.create({
-      model: "gpt-4-turbo-preview",
-      messages: [
-        {
-          role: "system",
-          content: `You are an expert developer that generates high-quality, production-ready code. Generate a complete project structure and code files for the following ${projectType} project idea. 
-          You must respond with ONLY a JSON object in the following format:
-          {
-            "files": [
-              {
-                "path": "path/to/file",
-                "content": "file content"
-              }
-            ]
+        // Validate file contents
+        generatedFiles.files.forEach((file, index) => {
+          if (!file.path || !file.content) {
+            console.error(`Invalid file at index ${index}:`, file);
+            throw new Error(`Invalid file at index ${index}: missing path or content`);
           }
-          Include:
-          - README.md with setup instructions
-          - package.json or relevant dependency file
-          - Main source code files
-          - Basic project structure`
-        },
-        {
-          role: "user",
-          content: `Generate a complete project structure and code for: ${projectIdea}\nProject name: ${projectName}`
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 4000,
-      response_format: { type: "json_object" }
-    });
+        });
 
-    const codeContent = codeCompletion.choices[0]?.message?.content;
-    if (!codeContent) {
-      throw new Error('Failed to generate project code');
-    }
+        console.log('Generated files:', generatedFiles.files.length);
 
-    let generatedFiles;
-    try {
-      generatedFiles = JSON.parse(codeContent);
-    } catch (error) {
-      console.error('Failed to parse generated code as JSON:', codeContent);
-      throw new Error('Invalid code generation response format');
-    }
+        // Create and populate repository
+        console.log('Creating GitHub repository...');
+        const repo = await createRepository(projectName, projectDescription);
+        console.log('Created repository:', repo.html_url);
 
-    if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
-      console.error('Invalid generated files structure:', generatedFiles);
-      throw new Error('Invalid code generation response format');
-    }
+        console.log('Committing files...');
+        await commitCode(projectName, generatedFiles.files);
+        console.log('Committed files to repository');
 
-    console.log('Generated files:', generatedFiles.files.length);
+        return {
+          idea: projectIdea,
+          repositoryUrl: repo.html_url,
+          files: generatedFiles.files
+        };
+      })(),
+      requestTimeout
+    ]);
 
-    // Create GitHub repository
-    console.log('Creating GitHub repository...');
-    const repo = await createRepository(projectName, projectDescription);
-    console.log('Created repository:', repo.html_url);
-
-    // Commit files to repository
-    console.log('Committing files...');
-    await commitCode(projectName, generatedFiles.files);
-    console.log('Committed files to repository');
-
-    res.status(200).json({
-      idea: projectIdea,
-      repositoryUrl: repo.html_url,
-      files: generatedFiles.files
-    });
+    res.status(200).json(result);
   } catch (error) {
     console.error('Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     const errorDetails = error instanceof Error && error.stack ? error.stack : undefined;
     
-    res.status(500).json({ 
-      error: 'Failed to create project', 
-      message: errorMessage,
-      details: errorDetails,
-      timestamp: new Date().toISOString()
-    });
+    if (errorMessage === 'Request timeout') {
+      res.status(504).json({
+        error: 'Gateway Timeout',
+        message: 'Request took too long to process',
+        timestamp: new Date().toISOString()
+      });
+    } else {
+      res.status(500).json({ 
+        error: 'Failed to create project', 
+        message: errorMessage,
+        details: errorDetails,
+        timestamp: new Date().toISOString()
+      });
+    }
   }
 } 
