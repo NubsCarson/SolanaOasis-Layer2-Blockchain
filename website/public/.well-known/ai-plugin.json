@@ -5,7 +5,7 @@
   "description_for_human": "Automatically generate coding projects, create GitHub repositories, and implement complete solutions.",
   "description_for_model": "This plugin helps you create complete coding projects by generating ideas, creating GitHub repositories, and implementing the code. You can specify project types and requirements, and the plugin will handle everything from idea generation to code implementation.",
   "auth": {
-    "type": "service_http",
+    "type": "user_http",
     "authorization_type": "header",
     "verification_tokens": {
       "openai": "gpt_ai_project_generator_123"
