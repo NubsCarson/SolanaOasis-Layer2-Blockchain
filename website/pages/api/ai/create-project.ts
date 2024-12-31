@@ -2,13 +2,29 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
 import { Octokit } from '@octokit/rest';
 
+// Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Initialize GitHub client
 const octokit = new Octokit({
   auth: process.env.GITHUB_ACCESS_TOKEN
 });
+
+// Validate environment variables
+if (!process.env.OPENAI_API_KEY) {
+  console.error('OPENAI_API_KEY is not set');
+}
+if (!process.env.GITHUB_ACCESS_TOKEN) {
+  console.error('GITHUB_ACCESS_TOKEN is not set');
+}
+if (!process.env.GITHUB_USERNAME) {
+  console.error('GITHUB_USERNAME is not set');
+}
+if (!process.env.OPENAI_VERIFICATION_TOKEN) {
+  console.error('OPENAI_VERIFICATION_TOKEN is not set');
+}
 
 async function createRepository(name: string, description: string) {
   try {
@@ -95,6 +111,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log('Received request:', {
+    method: req.method,
+    headers: {
+      'x-api-key': req.headers['x-api-key'] ? 'present' : 'missing',
+      'content-type': req.headers['content-type']
+    },
+    body: req.body
+  });
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -116,9 +141,10 @@ export default async function handler(
       return res.status(400).json({ error: 'Missing required parameters' });
     }
 
-    console.log('Received request:', { prompt, projectType });
+    console.log('Processing request:', { prompt, projectType });
 
     // Generate project idea
+    console.log('Generating project idea...');
     const ideaCompletion = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
@@ -135,22 +161,43 @@ export default async function handler(
       max_tokens: 150
     });
 
-    const projectIdea = ideaCompletion.choices[0]?.message?.content || "No idea generated";
-    const projectName = projectIdea.toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
+    const projectIdea = ideaCompletion.choices[0]?.message?.content;
+    if (!projectIdea) {
+      throw new Error('Failed to generate project idea');
+    }
 
-    console.log('Generated project idea:', projectIdea);
-    console.log('Project name:', projectName);
+    // Extract the first line or first 50 characters for the name
+    const projectName = projectIdea
+      .split('\n')[0]
+      .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '') // Remove non-alphanumeric chars from start/end
+      .replace(/[^a-zA-Z0-9-]+/g, '-') // Replace non-alphanumeric chars with hyphens
+      .toLowerCase()
+      .slice(0, 50); // Limit to 50 chars
+
+    // Extract a clean description (first 300 characters, no control chars)
+    const projectDescription = projectIdea
+      .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
+      .slice(0, 300); // Limit to 300 chars
+
+    console.log('Generated:', { projectIdea, projectName, projectDescription });
 
     // Generate project code
+    console.log('Generating project code...');
     const codeCompletion = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-4-turbo-preview",
       messages: [
         {
           role: "system",
           content: `You are an expert developer that generates high-quality, production-ready code. Generate a complete project structure and code files for the following ${projectType} project idea. 
-          Return the response as a JSON object with a 'files' array, where each file has a 'path' and 'content' property.
+          You must respond with ONLY a JSON object in the following format:
+          {
+            "files": [
+              {
+                "path": "path/to/file",
+                "content": "file content"
+              }
+            ]
+          }
           Include:
           - README.md with setup instructions
           - package.json or relevant dependency file
@@ -167,14 +214,33 @@ export default async function handler(
       response_format: { type: "json_object" }
     });
 
-    const generatedFiles = JSON.parse(codeCompletion.choices[0]?.message?.content || "{ \"files\": [] }");
+    const codeContent = codeCompletion.choices[0]?.message?.content;
+    if (!codeContent) {
+      throw new Error('Failed to generate project code');
+    }
+
+    let generatedFiles;
+    try {
+      generatedFiles = JSON.parse(codeContent);
+    } catch (error) {
+      console.error('Failed to parse generated code as JSON:', codeContent);
+      throw new Error('Invalid code generation response format');
+    }
+
+    if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
+      console.error('Invalid generated files structure:', generatedFiles);
+      throw new Error('Invalid code generation response format');
+    }
+
     console.log('Generated files:', generatedFiles.files.length);
 
     // Create GitHub repository
-    const repo = await createRepository(projectName, projectIdea);
+    console.log('Creating GitHub repository...');
+    const repo = await createRepository(projectName, projectDescription);
     console.log('Created repository:', repo.html_url);
 
     // Commit files to repository
+    console.log('Committing files...');
     await commitCode(projectName, generatedFiles.files);
     console.log('Committed files to repository');
 
@@ -185,6 +251,14 @@ export default async function handler(
     });
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ error: 'Failed to create project', details: error.message });
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorDetails = error instanceof Error && error.stack ? error.stack : undefined;
+    
+    res.status(500).json({ 
+      error: 'Failed to create project', 
+      message: errorMessage,
+      details: errorDetails,
+      timestamp: new Date().toISOString()
+    });
   }
 } 
