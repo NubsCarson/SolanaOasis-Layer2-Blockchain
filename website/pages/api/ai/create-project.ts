@@ -210,15 +210,40 @@ export default async function handler(
       messages: [
         {
           role: "system",
-          content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${projectType} project with only essential files (max 3 files).`
+          content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${projectType} project.
+Your response must be a valid JSON object with this exact structure:
+{
+  "files": [
+    {
+      "path": "index.html",
+      "content": "... HTML content ..."
+    },
+    {
+      "path": "style.css",
+      "content": "... CSS content ..."
+    },
+    {
+      "path": "script.js",
+      "content": "... JavaScript content ..."
+    }
+  ]
+}
+Include all necessary HTML, CSS, and JavaScript code. Keep the code minimal but functional.`
         },
         {
           role: "user",
-          content: `Create basic files for: ${projectIdea}\nProject name: ${projectName}`
+          content: `Create a web app with this description: ${projectIdea}
+
+Requirements:
+1. index.html should include proper HTML5 structure and necessary elements
+2. style.css should include basic styling for a clean look
+3. script.js should include core functionality
+4. All files must work together without external dependencies
+5. Keep the code simple and focused on core features`
         }
       ],
-      temperature: 0.7,
-      max_tokens: 1000,
+      temperature: 0.5,
+      max_tokens: 2000,
       response_format: { type: "json_object" }
     });
 
@@ -228,26 +253,27 @@ export default async function handler(
     }
 
     console.log('Raw code content:', codeContent);
-    const generatedFiles = JSON.parse(codeContent);
-    console.log('Parsed files:', JSON.stringify(generatedFiles, null, 2));
-
-    if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
-      throw new Error('Invalid code generation response format');
-    }
-
-    // Validate and limit number of files
-    if (generatedFiles.files.length > 3) {
-      generatedFiles.files = generatedFiles.files.slice(0, 3);
-    }
-
-    generatedFiles.files.forEach((file, index) => {
-      if (!file.path || !file.content) {
-        console.error(`Invalid file at index ${index}:`, file);
-        throw new Error(`Invalid file at index ${index}: missing path or content`);
+    let generatedFiles;
+    try {
+      generatedFiles = JSON.parse(codeContent);
+      if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
+        throw new Error('Invalid response format: missing files array');
       }
-      // Limit file content size
-      file.content = file.content.slice(0, 3000);
-    });
+      if (generatedFiles.files.length === 0) {
+        throw new Error('No files generated');
+      }
+      generatedFiles.files.forEach((file, index) => {
+        if (!file.path || typeof file.path !== 'string') {
+          throw new Error(`Invalid file at index ${index}: missing or invalid path`);
+        }
+        if (!file.content || typeof file.content !== 'string') {
+          throw new Error(`Invalid file at index ${index}: missing or invalid content`);
+        }
+      });
+    } catch (error) {
+      console.error('Failed to parse or validate generated code:', error);
+      throw new Error('Failed to generate valid project files');
+    }
 
     console.log('Generated files:', generatedFiles.files.length);
 
