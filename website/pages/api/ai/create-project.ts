@@ -123,6 +123,7 @@ export const config = {
     },
     responseLimit: false,
   },
+  maxDuration: 300, // Set maximum duration to 300 seconds (5 minutes)
 };
 
 export default async function handler(
@@ -131,7 +132,7 @@ export default async function handler(
 ) {
   // Set response timeout
   res.setHeader('Connection', 'keep-alive');
-  res.setHeader('Keep-Alive', 'timeout=60');
+  res.setHeader('Keep-Alive', 'timeout=300');
 
   console.log('Received request:', {
     method: req.method,
@@ -145,10 +146,6 @@ export default async function handler(
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-
-  const requestTimeout = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('Request timeout')), 50000)
-  );
 
   try {
     // Check for API key
@@ -165,54 +162,56 @@ export default async function handler(
 
     console.log('Processing request:', { prompt, projectType });
 
-    // Use Promise.race to implement timeout
-    const result = await Promise.race([
-      (async () => {
-        // Generate project idea with shorter context
-        console.log('Generating project idea...');
-        const ideaCompletion = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo", // Using faster model for initial idea
-          messages: [
-            {
-              role: "system",
-              content: `Generate a concise ${projectType} project idea. Keep it under 100 words.`
-            },
-            {
-              role: "user",
-              content: prompt
-            }
-          ],
-          temperature: 0.7,
-          max_tokens: 100
-        });
-
-        const projectIdea = ideaCompletion.choices[0]?.message?.content;
-        if (!projectIdea) {
-          throw new Error('Failed to generate project idea');
+    // Generate project idea with shorter context and timeout
+    console.log('Generating project idea...');
+    const ideaPromise = openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: `Generate a concise ${projectType} project idea in 50 words or less.`
+        },
+        {
+          role: "user",
+          content: prompt
         }
+      ],
+      temperature: 0.7,
+      max_tokens: 75
+    });
 
-        // Extract name and description
-        const projectName = projectIdea
-          .split('\n')[0]
-          .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '')
-          .replace(/[^a-zA-Z0-9-]+/g, '-')
-          .toLowerCase()
-          .slice(0, 50);
+    const ideaCompletion = await Promise.race([
+      ideaPromise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Idea generation timeout')), 15000))
+    ]) as OpenAI.Chat.ChatCompletion;
 
-        const projectDescription = projectIdea
-          .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
-          .slice(0, 300);
+    const projectIdea = ideaCompletion.choices[0]?.message?.content;
+    if (!projectIdea) {
+      throw new Error('Failed to generate project idea');
+    }
 
-        console.log('Generated:', { projectIdea, projectName, projectDescription });
+    // Extract name and description with shorter limits
+    const projectName = projectIdea
+      .split('\n')[0]
+      .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '')
+      .replace(/[^a-zA-Z0-9-]+/g, '-')
+      .toLowerCase()
+      .slice(0, 40); // Shorter name limit
 
-        // Generate project code with optimized parameters
-        console.log('Generating project code...');
-        const codeCompletion = await openai.chat.completions.create({
-          model: "gpt-4-turbo-preview",
-          messages: [
-            {
-              role: "system",
-              content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${projectType} project. 
+    const projectDescription = projectIdea
+      .replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
+      .slice(0, 200); // Shorter description limit
+
+    console.log('Generated:', { projectIdea, projectName, projectDescription });
+
+    // Generate project code with optimized parameters and timeout
+    console.log('Generating project code...');
+    const codePromise = openai.chat.completions.create({
+      model: "gpt-4-turbo-preview",
+      messages: [
+        {
+          role: "system",
+          content: `You are a code generator that outputs JSON. Generate a minimal viable project structure for a ${projectType} project with only essential files. 
 Your response must be a valid JSON object with this exact structure:
 {
   "files": [
@@ -221,69 +220,85 @@ Your response must be a valid JSON object with this exact structure:
       "content": "string (required, file content)"
     }
   ]
-}`
-            },
-            {
-              role: "user",
-              content: `Create basic files for: ${projectIdea}\nProject name: ${projectName}\n\nRespond with a JSON object containing the files array. Each file must have a path and content.`
-            }
-          ],
-          temperature: 0.7,
-          max_tokens: 2000,
-          response_format: { type: "json_object" }
-        });
-
-        const codeContent = codeCompletion.choices[0]?.message?.content;
-        if (!codeContent) {
-          throw new Error('Failed to generate project code');
+}
+Keep file contents minimal and focused on core functionality.`
+        },
+        {
+          role: "user",
+          content: `Create basic files for: ${projectIdea}\nProject name: ${projectName}\n\nRespond with a JSON object containing only essential files (max 5 files).`
         }
+      ],
+      temperature: 0.7,
+      max_tokens: 1500,
+      response_format: { type: "json_object" }
+    });
 
-        console.log('Raw code content:', codeContent);
-        const generatedFiles = JSON.parse(codeContent);
-        console.log('Parsed files:', JSON.stringify(generatedFiles, null, 2));
+    const codeCompletion = await Promise.race([
+      codePromise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Code generation timeout')), 25000))
+    ]) as OpenAI.Chat.ChatCompletion;
 
-        if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
-          throw new Error('Invalid code generation response format');
-        }
+    const codeContent = codeCompletion.choices[0]?.message?.content;
+    if (!codeContent) {
+      throw new Error('Failed to generate project code');
+    }
 
-        // Validate file contents
-        generatedFiles.files.forEach((file, index) => {
-          if (!file.path || !file.content) {
-            console.error(`Invalid file at index ${index}:`, file);
-            throw new Error(`Invalid file at index ${index}: missing path or content`);
-          }
-        });
+    console.log('Raw code content:', codeContent);
+    const generatedFiles = JSON.parse(codeContent);
+    console.log('Parsed files:', JSON.stringify(generatedFiles, null, 2));
 
-        console.log('Generated files:', generatedFiles.files.length);
+    if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
+      throw new Error('Invalid code generation response format');
+    }
 
-        // Create and populate repository
-        console.log('Creating GitHub repository...');
-        const repo = await createRepository(projectName, projectDescription);
-        console.log('Created repository:', repo.html_url);
+    // Validate and limit number of files
+    if (generatedFiles.files.length > 5) {
+      generatedFiles.files = generatedFiles.files.slice(0, 5); // Keep only first 5 files
+    }
 
-        console.log('Committing files...');
-        await commitCode(projectName, generatedFiles.files);
-        console.log('Committed files to repository');
+    generatedFiles.files.forEach((file, index) => {
+      if (!file.path || !file.content) {
+        console.error(`Invalid file at index ${index}:`, file);
+        throw new Error(`Invalid file at index ${index}: missing path or content`);
+      }
+      // Limit file content size
+      file.content = file.content.slice(0, 5000); // Limit each file to 5KB
+    });
 
-        return {
-          idea: projectIdea,
-          repositoryUrl: repo.html_url,
-          files: generatedFiles.files
-        };
-      })(),
-      requestTimeout
+    console.log('Generated files:', generatedFiles.files.length);
+
+    // Create and populate repository with timeout
+    console.log('Creating GitHub repository...');
+    const repoPromise = createRepository(projectName, projectDescription);
+    const repoCreation = (await Promise.race([
+      repoPromise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Repository creation timeout')), 15000))
+    ])) as { html_url: string };
+
+    console.log('Created repository:', repoCreation.html_url);
+
+    console.log('Committing files...');
+    await Promise.race([
+      commitCode(projectName, generatedFiles.files),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Code commit timeout')), 20000))
     ]);
+    console.log('Committed files to repository');
 
-    res.status(200).json(result);
+    return res.status(200).json({
+      idea: projectIdea,
+      repositoryUrl: repoCreation.html_url,
+      files: generatedFiles.files
+    });
   } catch (error) {
     console.error('Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     const errorDetails = error instanceof Error && error.stack ? error.stack : undefined;
     
-    if (errorMessage === 'Request timeout') {
+    if (errorMessage.includes('timeout')) {
       res.status(504).json({
         error: 'Gateway Timeout',
-        message: 'Request took too long to process',
+        message: 'Request took too long to process. Please try again.',
+        details: errorMessage,
         timestamp: new Date().toISOString()
       });
     } else {
