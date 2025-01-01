@@ -6,15 +6,15 @@ import { Octokit } from '@octokit/rest';
 // Initialize OpenAI client with timeout
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-  timeout: 120000,
-  maxRetries: 3,
+  timeout: 50000,
+  maxRetries: 2,
 });
 
 // Initialize GitHub client
 const octokit = new Octokit({
   auth: process.env.GITHUB_ACCESS_TOKEN,
   request: {
-    timeout: 60000
+    timeout: 50000
   }
 });
 
@@ -25,7 +25,7 @@ export const config = {
     },
     responseLimit: false,
   },
-  maxDuration: 300,
+  maxDuration: 60,
 };
 
 async function createRepository(name: string, description: string) {
