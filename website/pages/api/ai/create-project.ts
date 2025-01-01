@@ -1,35 +1,43 @@
 /// <reference types="next" />
-import type { NextApiRequest, NextApiResponse } from 'next';
-import type OpenAI from 'openai';
-import type { Octokit } from '@octokit/rest';
-import { createOpenAI, createOctokit } from '../../../utils/api-clients';
+import { NextApiRequest, NextApiResponse } from 'next';
+import OpenAI from 'openai';
+import { Octokit } from '@octokit/rest';
 
-// Initialize clients
-const openai = createOpenAI();
-const octokit = createOctokit();
+// Initialize OpenAI client with timeout
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  timeout: 120000,
+  maxRetries: 3,
+});
 
-// Validate environment variables
-const requiredEnvVars = {
-  OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-  GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
-  GITHUB_USERNAME: process.env.GITHUB_USERNAME,
-  OPENAI_VERIFICATION_TOKEN: process.env.OPENAI_VERIFICATION_TOKEN
-};
-
-Object.entries(requiredEnvVars).forEach(([key, value]) => {
-  if (!value) {
-    console.error(`${key} is not set`);
+// Initialize GitHub client
+const octokit = new Octokit({
+  auth: process.env.GITHUB_ACCESS_TOKEN,
+  request: {
+    timeout: 60000
   }
 });
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+    responseLimit: false,
+  },
+  maxDuration: 300,
+};
+
 async function createRepository(name: string, description: string) {
   try {
+    console.log('Creating repository:', name);
     const response = await octokit.repos.createForAuthenticatedUser({
       name,
       description,
       auto_init: true,
       private: false
     });
+    console.log('Repository created:', response.data.html_url);
     return response.data;
   } catch (error: any) {
     console.error('Error creating repository:', error);
@@ -39,14 +47,14 @@ async function createRepository(name: string, description: string) {
 
 async function commitCode(repo: string, files: Array<{ path: string, content: string }>) {
   try {
-    // Get the default branch
+    console.log('Getting repository info...');
     const { data: repository } = await octokit.repos.get({
       owner: process.env.GITHUB_USERNAME!,
       repo,
     });
     const defaultBranch = repository.default_branch;
 
-    // Get the latest commit SHA
+    console.log('Getting latest commit...');
     const { data: ref } = await octokit.git.getRef({
       owner: process.env.GITHUB_USERNAME!,
       repo,
@@ -54,23 +62,20 @@ async function commitCode(repo: string, files: Array<{ path: string, content: st
     });
     const latestCommitSha = ref.object.sha;
 
-    // Create blobs for each file
+    console.log('Creating blobs...');
     const fileBlobs = await Promise.all(
       files.map(async file => {
-        if (!file.content) {
-          throw new Error(`Missing content for file: ${file.path}`);
-        }
-        const blob = await octokit.git.createBlob({
+        console.log('Creating blob for:', file.path);
+        return octokit.git.createBlob({
           owner: process.env.GITHUB_USERNAME!,
           repo,
           content: Buffer.from(file.content).toString('base64'),
           encoding: 'base64',
         });
-        return blob;
       })
     );
 
-    // Create tree
+    console.log('Creating tree...');
     const { data: tree } = await octokit.git.createTree({
       owner: process.env.GITHUB_USERNAME!,
       repo,
@@ -83,7 +88,7 @@ async function commitCode(repo: string, files: Array<{ path: string, content: st
       })),
     });
 
-    // Create commit
+    console.log('Creating commit...');
     const { data: commit } = await octokit.git.createCommit({
       owner: process.env.GITHUB_USERNAME!,
       repo,
@@ -92,7 +97,7 @@ async function commitCode(repo: string, files: Array<{ path: string, content: st
       parents: [latestCommitSha],
     });
 
-    // Update reference
+    console.log('Updating reference...');
     await octokit.git.updateRef({
       owner: process.env.GITHUB_USERNAME!,
       repo,
@@ -100,22 +105,13 @@ async function commitCode(repo: string, files: Array<{ path: string, content: st
       sha: commit.sha,
     });
 
+    console.log('Code committed successfully');
     return commit;
   } catch (error: any) {
     console.error('Error committing code:', error);
     throw new Error(`Failed to commit code: ${error.message}`);
   }
 }
-
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-    responseLimit: false,
-  },
-  maxDuration: 60,
-};
 
 function generateProjectName(idea: string): string {
   const words = idea.toLowerCase()
@@ -140,40 +136,39 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('Keep-Alive', 'timeout=60');
-
-  console.log('Received request:', {
-    method: req.method,
-    headers: {
-      'x-api-key': req.headers['x-api-key'] ? 'present' : 'missing',
-      'content-type': req.headers['content-type']
-    },
-    body: req.body
+  console.log('API Handler started');
+  console.log('Environment variables present:', {
+    OPENAI_API_KEY: !!process.env.OPENAI_API_KEY,
+    GITHUB_ACCESS_TOKEN: !!process.env.GITHUB_ACCESS_TOKEN,
+    GITHUB_USERNAME: !!process.env.GITHUB_USERNAME,
+    OPENAI_VERIFICATION_TOKEN: !!process.env.OPENAI_VERIFICATION_TOKEN
   });
 
   if (req.method !== 'POST') {
+    console.log('Method not allowed:', req.method);
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
     // Validate environment variables
-    const missingVars = Object.entries(requiredEnvVars)
-      .filter(([, value]) => !value)
-      .map(([key]) => key);
+    const missingVars = ['OPENAI_API_KEY', 'GITHUB_ACCESS_TOKEN', 'GITHUB_USERNAME', 'OPENAI_VERIFICATION_TOKEN']
+      .filter(key => !process.env[key]);
     
     if (missingVars.length > 0) {
+      console.error('Missing environment variables:', missingVars);
       throw new Error(`Missing required environment variables: ${missingVars.join(', ')}`);
     }
 
     // Check for API key
     const apiKey = req.headers['x-api-key'];
     if (!apiKey || apiKey !== process.env.OPENAI_VERIFICATION_TOKEN) {
+      console.error('Invalid API key');
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
     const { prompt, projectType = 'web' } = req.body;
     if (!prompt) {
+      console.error('Missing prompt in request body');
       return res.status(400).json({ error: 'Missing required field: prompt' });
     }
 
@@ -203,9 +198,11 @@ DO NOT mention technologies unless specifically requested.`
 
     const projectIdea = ideaCompletion.choices[0]?.message?.content;
     if (!projectIdea) {
+      console.error('Failed to generate project idea');
       throw new Error('Failed to generate project idea');
     }
 
+    console.log('Generated project idea:', projectIdea);
     const projectName = generateProjectName(projectIdea);
     const projectDescription = generateDescription(projectIdea);
 
@@ -250,15 +247,20 @@ Make sure the application:
       response_format: { type: "json_object" }
     });
 
+    console.log('Code generation completed');
     const generatedFiles = JSON.parse(codeCompletion.choices[0]?.message?.content || '{}');
     if (!generatedFiles.files || !Array.isArray(generatedFiles.files)) {
+      console.error('Invalid code generation response:', generatedFiles);
       throw new Error('Invalid code generation response format');
     }
+
+    console.log('Generated files count:', generatedFiles.files.length);
 
     // Create repository and commit code
     const repo = await createRepository(projectName, projectDescription);
     await commitCode(repo.name, generatedFiles.files);
 
+    console.log('Project created successfully:', repo.html_url);
     return res.status(200).json({
       success: true,
       repository: {
@@ -272,7 +274,8 @@ Make sure the application:
     console.error('Error handling request:', error);
     return res.status(500).json({
       error: 'An error occurred while processing your request',
-      details: error.message
+      details: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 } 

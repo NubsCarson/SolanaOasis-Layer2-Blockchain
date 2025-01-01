@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "OPENAI_API_KEY": "@openai-api-key",
+    "GITHUB_ACCESS_TOKEN": "@github-access-token",
+    "GITHUB_USERNAME": "@github-username",
+    "OPENAI_VERIFICATION_TOKEN": "@openai-verification-token"
+  }
+} 
