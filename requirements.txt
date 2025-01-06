@@ -13,7 +13,7 @@ onnx>=1.14.0
 onnxruntime-gpu>=1.15.0
 
 # Web3 & Blockchain
-solana==0.30.0
+solana==0.36.2
 anchorpy>=0.15.0
 web3>=6.0.0
 
