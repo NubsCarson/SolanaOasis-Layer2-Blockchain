@@ -12,7 +12,7 @@ categories = ["cryptography::cryptocurrencies", "science", "web-programming"]
 
 [dependencies]
 solana-sdk = "=1.14.16"
-solana-client = "=1.14.16"
+solana-client = "=2.1.7"
 tokio = { version = "1.0", features = ["full"] }
 libp2p = { version = "0.45.1", features = ["tcp-tokio", "mdns", "gossipsub", "noise", "mplex", "yamux"] }
 anyhow = "1.0"
