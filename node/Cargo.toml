@@ -27,7 +27,7 @@ rand = "0.8"
 sha2 = "0.10"
 hex = "0.4"
 rocksdb = "0.21"
-tch = { version = "0.10.1", optional = true }
+tch = { version = "0.18.1", optional = true }
 pyo3 = { version = "0.18", features = ["auto-initialize"] }
 tempfile = "3.14"
 chrono = "0.4"
