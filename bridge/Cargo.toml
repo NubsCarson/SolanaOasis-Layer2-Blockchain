@@ -19,7 +19,7 @@ solana-program-test = "=1.14.16"
 solana-sdk = "=1.14.16"
 tokio = { version = "1.0", features = ["full"] }
 tokio-test = "0.4"
-mockall = "0.11"
+mockall = "0.13"
 
 [lib]
 crate-type = ["cdylib", "lib"] 
