@@ -11,7 +11,7 @@ keywords = ["solana", "layer2", "blockchain", "ai", "neural-networks"]
 categories = ["cryptography::cryptocurrencies", "science", "web-programming"]
 
 [dependencies]
-solana-sdk = "=1.14.16"
+solana-sdk = "=2.1.11"
 solana-client = "=1.14.16"
 tokio = { version = "1.0", features = ["full"] }
 libp2p = { version = "0.45.1", features = ["tcp-tokio", "mdns", "gossipsub", "noise", "mplex", "yamux"] }
